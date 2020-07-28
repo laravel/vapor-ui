@@ -27,15 +27,17 @@ class LogsRepository
      * Search for the logs.
      *
      * @param  string $group
+     * @param  array $arguments
      * 
      * @return array
      */
-    public function search($group)
+    public function search($group, $arguments = [])
     {
-        return $this->client->filterLogEvents([
+        return $this->client->filterLogEvents(array_filter([
             'logGroupName' => $this->logGroupName($group),
-            'limit' => 20
-        ])->get('events');
+            'limit' => $arguments['limit'] ?? 20,
+            'nextToken' => $arguments['nextToken'] ?? null,
+        ]))->toArray();
     }
 
     /**
@@ -48,10 +50,10 @@ class LogsRepository
     protected function logGroupName($group)
     {
         return sprintf(
-            '/aws/lambda/vapor-%s-%s-%s',
+            '/aws/lambda/vapor-%s-%s%s',
             config('vapor-ui.project-name'),
             config('vapor-ui.project-env'),
-            $group
+            in_array($group, ['cli', 'queue']) ? "-$group" : ''
         );
     }
 }
