@@ -26,6 +26,8 @@ class VaporUiServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__.'/../config/vapor-ui.php', 'vapor-ui');
+
         $this->app->singleton(LogsRepository::class, function () {
             $client = new CloudWatchLogsClient([
                 'region' => config('vapor-ui.region'),
