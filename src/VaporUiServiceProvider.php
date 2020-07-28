@@ -39,16 +39,4 @@ class VaporUiServiceProvider extends ServiceProvider
             return new LogsRepository($client);
         });
     }
-
-    /**
-     * Configure publishing for the package.
-     *
-     * @return void
-     */
-    protected function configurePublishing()
-    {
-        $this->publishes([
-            __DIR__.'/../config/vapor-ui.php' => config_path('vapor-ui.php'),
-        ], 'vapor-ui-config');
-    }
 }

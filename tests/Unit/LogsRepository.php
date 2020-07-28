@@ -11,5 +11,10 @@ it('has search', function () {
 
     $response = $logs->search('cli');
 
+    $expectedKeys = ['logStreamName', 'timestamp', 'message', 'ingestionTime', 'eventId'];
+    foreach ($expectedKeys as $key) {
+        expect($response[0])->toHaveKey($key);
+    }
+
     expect($response)->toBeIterable();
 });

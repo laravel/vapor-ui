@@ -35,7 +35,7 @@ class EnsureLambdaRuntime
             : 'Unauthorized.';
 
         collect($this->configs)->each(function ($name) use ($message) {
-            return abort_if(empty(config("vapor-ui.$name")), 403, $message);
+            return abort_if(empty(config("vapor-ui.$name")), 401, $message);
         });
 
         return $next($request);

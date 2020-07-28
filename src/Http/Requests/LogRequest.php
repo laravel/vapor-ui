@@ -16,7 +16,7 @@ class LogRequest extends FormRequest
     public function rules()
     {
         return [
-            'group' => ['required', Rule::in(['http', 'cli', 'queue'])],
+            'group' => ['nullable', Rule::in(['http', 'cli', 'queue'])],
         ];
     }
 }

@@ -14,7 +14,7 @@ class LogController
      */
     public function __invoke(LogsRepository $repository, LogRequest $request)
     {
-        $group = $request->input('group');
+        $group = $request->input('group', 'cli');
 
         return $repository->search($group);
     }

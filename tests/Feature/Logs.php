@@ -1,3 +1,13 @@
 <?php
 
-it('is ok')->call('GET', '/vapor-ui', ['group' => 'cli'])->assertOk();
+use Illuminate\Validation\ValidationException;
+
+it('requires a lambda runtime', function () {
+    config()->set('vapor-ui.region', null);
+
+    $this->get('/vapor-ui')->assertUnauthorized();
+});
+
+it('does not require any argument by default')->call('GET', '/vapor-ui')->assertOk();
+
+it('requires a valid group')->call('GET', '/vapor-ui', ['group' => 'foo'])->assertSessionHasErrors();
