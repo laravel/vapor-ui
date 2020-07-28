@@ -34,9 +34,13 @@ class LogsRepository
     public function search($group, $arguments = [])
     {
         return $this->client->filterLogEvents(array_filter([
-            'logGroupName' => $this->logGroupName($group),
             'limit' => $arguments['limit'] ?? 20,
+            'logGroupName' => $this->logGroupName($group),
             'nextToken' => $arguments['nextToken'] ?? null,
+            'startTime' => $arguments['startTime'] ?? null,
+            'endDate' => $arguments['endDate'] ?? null,
+            // 'logStreamNames' => ! empty($arguments['streams']) ? $arguments['streams'] : null,
+            // 'filterPattern' => $arguments['filterPattern'] ?? null,
         ]))->toArray();
     }
 
