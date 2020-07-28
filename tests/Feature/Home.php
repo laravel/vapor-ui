@@ -1,16 +1,18 @@
 <?php
 
-it('requires a lambda runtime', function () {
+it('requires lambda runtime', function () {
     config()->set('vapor-ui.region', null);
 
     $this->get('/vapor-ui')->assertForbidden();
 });
 
+// @todo
+it('requires vanity url');
+
 it('has title', function () {    
-    $projectName = config('vapor-ui.project-name');
-    $projectEnv = config('vapor-ui.project-env');
+    $project = config('vapor-ui.project');
 
     $this->get('/vapor-ui')->assertSee(
-        "Vapor Ui - $projectName - $projectEnv"
+        "Vapor Ui - $project"
     );
 });
