@@ -54,9 +54,8 @@ class LogsRepository
     protected function logGroupName($group)
     {
         return sprintf(
-            '/aws/lambda/vapor-%s-%s%s',
-            config('vapor-ui.project-name'),
-            config('vapor-ui.project-env'),
+            '/aws/lambda/vapor-%s%s',
+            config('vapor-ui.project'),
             in_array($group, ['cli', 'queue']) ? "-$group" : ''
         );
     }

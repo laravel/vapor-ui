@@ -13,8 +13,7 @@ class EnsureLambdaRuntime
      * @var array
      */
     protected $configs = [
-        'project-env',
-        'project-name',
+        'project',
         'region',
         'credentials.key',
         'credentials.secret'
