@@ -2,6 +2,9 @@
 
 namespace Laravel\VaporUi\Http\Controllers;
 
+use Laravel\VaporUi\Http\Requests\LogRequest;
+use Laravel\VaporUi\Repositories\LogsRepository;
+
 class LogController
 {
     /**
@@ -9,8 +12,10 @@ class LogController
      * 
      * @return array
      */
-    public function __invoke()
+    public function __invoke(LogsRepository $repository, LogRequest $request)
     {
-        return [];
+        $group = $request->input('group');
+
+        return $repository->search($group);
     }
 }

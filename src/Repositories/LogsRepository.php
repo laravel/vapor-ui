@@ -25,13 +25,33 @@ class LogsRepository
 
     /**
      * Search for the logs.
+     *
+     * @param  string $group
      * 
      * @return array
      */
-    public function search()
+    public function search($group)
     {
         return $this->client->filterLogEvents([
+            'logGroupName' => $this->logGroupName($group),
             'limit' => 20
-        ])->getIterator();
+        ])->get('events');
+    }
+
+    /**
+     * Returns the log group name from the given $group.
+     * 
+     * @param  string $group
+     *
+     * @return string
+     */
+    protected function logGroupName($group)
+    {
+        return sprintf(
+            '/aws/lambda/vapor-%s-%s-%s',
+            config('vapor-ui.project-name'),
+            $_ENV['APP_ENV'],
+            $group
+        );
     }
 }

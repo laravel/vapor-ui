@@ -9,7 +9,7 @@ it('can be instanciated', function () {
 it('has search', function () {
     $logs = resolve(LogsRepository::class);
 
-    $response = []; // $logs->search();
+    $response = $logs->search('cli');
 
     expect($response)->toBeIterable();
 });
