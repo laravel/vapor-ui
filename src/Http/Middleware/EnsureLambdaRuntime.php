@@ -21,7 +21,8 @@ class EnsureLambdaRuntime
     ];
 
     /**
-     * Handle an incoming request.
+     * Ensures requests are made using an environment
+     * that looks like Lambda Runtime.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
