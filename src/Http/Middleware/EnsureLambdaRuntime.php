@@ -32,7 +32,7 @@ class EnsureLambdaRuntime
     {
         $message = app()->isLocal()
             ? "Vapor UI it's only available through the vanity URL."
-            : 'Forbidden.';
+            : 'You are not authorized to perform this action.xs';
 
         collect($this->configs)->each(function ($name) use ($message) {
             return abort_if(empty(config("vapor-ui.$name")), 403, $message);
