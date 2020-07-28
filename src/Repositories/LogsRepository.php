@@ -50,7 +50,7 @@ class LogsRepository
         return sprintf(
             '/aws/lambda/vapor-%s-%s-%s',
             config('vapor-ui.project-name'),
-            $_ENV['APP_ENV'],
+            config('vapor-ui.project-env'),
             $group
         );
     }

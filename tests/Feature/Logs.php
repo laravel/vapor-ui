@@ -1,3 +1,3 @@
 <?php
 
-it('is ok')->call('GET', '/vapor-ui/logs', ['group' => 'cli'])->assertOk();
+it('is ok')->call('GET', '/vapor-ui', ['group' => 'cli'])->assertOk();

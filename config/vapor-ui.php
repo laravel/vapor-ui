@@ -12,7 +12,20 @@ return [
     |
     */
 
-    'project-name' => env('VAPOR_PROJECT_NAME', 'laravel'), // @todo Change default to catch from env
+    'project-env' => env('VAPOR_PROJECT_ENV', env('APP_ENV', '')),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Lorem ipsum dolor
+    |--------------------------------------------------------------------------
+    |
+    | Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+    | et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exerci
+    | tation ullamco laboris nisi ut aliquip ex ea commodo consequat du
+    |
+    */
+
+    'project-name' => env('VAPOR_PROJECT_NAME', env('VAPOR_SSM_PATH', '')),
 
     /*
     |--------------------------------------------------------------------------
