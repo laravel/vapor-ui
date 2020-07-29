@@ -5,32 +5,68 @@ use Laravel\VaporUi\Repositories\LogsRepository;
 it('has pagination', function () {
     $logs = resolve(LogsRepository::class);
 
-    $response = $logs->search('http');
-    $eventId1 = $response['events'][0]['eventId'];
-    $nextToken = $response['nextToken'];
-    expect($response['nextToken'])->not->toBeEmpty();
+    $result = $logs->search('http');
+    $eventId1 = $result->entries[0]->content['eventId'];
+    $cursor = $result->cursor;
+    expect($result->cursor)->not->toBeEmpty();
 
-    $response = $logs->search('http', [
-        'nextToken' => $nextToken
+    $result = $logs->search('http', [
+        'nextToken' => $cursor
     ]);
 
-    $eventId21 = $response['events'][0]['eventId'];
+    $eventId21 = $result->entries[0]->content['eventId'];
     expect($eventId1)->not->toBe($eventId21);
+});
+
+it('resolves entries', function () {
+    $logs = resolve(LogsRepository::class);
+
+    $result = $logs->search('http');
+
+    expect($result->entries)->toBeIterable();
+});
+
+it('has limit', function () {
+    $result = resolve(LogsRepository::class)->search('cli', [
+        'limit' => 50,
+    ]);
+
+    expect($result->entries)->toHaveCount(50);
+
+    $result = resolve(LogsRepository::class)->search('cli', [
+        'limit' => 10,
+    ]);
+
+    expect($result->entries)->toHaveCount(10);
 });
 
 it('has filter by group', function () {
     $logs = resolve(LogsRepository::class);
 
     foreach (['cli', 'http', 'queue'] as $group) {
-        $response = $logs->search($group);
+        $result = $logs->search($group);
 
-        expect($events = $response['events'])->toBeIterable();
+        expect($events = $result->entries)->toBeIterable();
 
         $expectedKeys = ['logStreamName', 'timestamp', 'message', 'ingestionTime', 'eventId'];
         foreach ($expectedKeys as $key) {
-            expect($events[0])->toHaveKey($key);
+            expect($events[0]->content)->toHaveKey($key);
         }
     }
+});
+
+it('has filter by query', function () {
+    $logs = resolve(LogsRepository::class);
+
+    $result = $logs->search('cli', [
+        'query' => 'No scheduled commands',
+    ]);
+
+    expect($result->entries)->toHaveCount(20);
+
+    $result->entries->each(function ($entry) {
+        expect($entry->content['message'])->toContain('No scheduled commands are ready to run.');
+    });
 });
 
 it('has filter by start date', function () {
@@ -38,11 +74,11 @@ it('has filter by start date', function () {
 
     $startTime = now()->subDays(1)->timestamp * 1000;
 
-    $response = $logs->search('cli', [
+    $result = $logs->search('cli', [
         'startTime' => $startTime
     ]);
 
-    $eventTimestamp = $response['events'][0]['timestamp'];
+    $eventTimestamp = $result->entries[0]->content['timestamp'];
 
     expect($eventTimestamp)->toBeGreaterThan($startTime);
 });
@@ -52,11 +88,11 @@ it('has filter by end date', function () {
 
     $endTime = now()->subDays(1)->timestamp * 1000;
 
-    $response = $logs->search('cli', [
+    $result = $logs->search('cli', [
         'endTime' => $endTime 
     ]);
 
-    $eventTimestamp = $response['events'][0]['timestamp'];
+    $eventTimestamp = $result->entries[0]->content['timestamp'];
 
     expect($eventTimestamp)->toBeLessThan($endTime);
 });

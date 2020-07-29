@@ -14,8 +14,13 @@ class LogController
      */
     public function __invoke(LogsRepository $repository, LogRequest $request)
     {
-        $group = $request->input('group', 'cli');
+        $group = $request->input('group', 'http');
+        $query = $request->input('query');
+        $limit = $request->input('limit');
 
-        return $repository->search($group);
+        return $repository->search($group, [
+            'query' => $query,
+            'limit' => $limit
+        ]);
     }
 }

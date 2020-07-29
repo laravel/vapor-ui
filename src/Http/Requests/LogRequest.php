@@ -17,6 +17,8 @@ class LogRequest extends FormRequest
     {
         return [
             'group' => ['nullable', Rule::in(['http', 'cli', 'queue'])],
+            'query' => ['nullable', 'string'],
+            'limit' => ['nullable', 'integer', 'min:0', 'max:100']
         ];
     }
 }

@@ -11,6 +11,10 @@ class HomeController
      */
     public function __invoke()
     {
-        return view('vapor-ui::layout');
+        return view('vapor-ui::layout', [
+            'appVars' => [
+                'timezone' => config('app.timezone'),
+            ],
+        ]);
     }
 }

@@ -17,10 +17,13 @@ class VaporUiServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'vapor-ui');
 
-        $this->loadViewsFrom(
-            __DIR__.'/../resources/views', 'vapor-ui'
-        );
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../public' => public_path('vendor/vapor-ui'),
+            ], 'vapor-ui-assets');
+        }
     }
 
     /**
