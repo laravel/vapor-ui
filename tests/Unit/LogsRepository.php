@@ -43,7 +43,7 @@ it('has limit', function () {
 it('has filter by group', function () {
     $logs = resolve(LogsRepository::class);
 
-    foreach (['cli', 'http', 'queue'] as $group) {
+    foreach (['cli', 'http'] as $group) {
         $result = $logs->search($group);
 
         expect($events = $result->entries)->toBeIterable();
@@ -62,7 +62,7 @@ it('has filter by query', function () {
         'query' => 'No scheduled commands',
     ]);
 
-    expect($result->entries)->toHaveCount(20);
+    expect($result->entries)->toHaveCount(10);
 
     $result->entries->each(function ($entry) {
         expect($entry->content['message'])->toContain('No scheduled commands are ready to run.');

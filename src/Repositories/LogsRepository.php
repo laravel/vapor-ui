@@ -43,7 +43,7 @@ class LogsRepository
             'startTime' => $this->startTime($arguments),
             'endTime' => $this->endTime($arguments),
             'filterPattern' =>  $this->filterPattern($arguments),
-            // 'logStreamNames' 
+            // 'logStreamNames' => $arguments['logStreamNames']
         ]))->toArray();
 
         $entries = (new Collection($response['events']))
@@ -51,7 +51,7 @@ class LogsRepository
                 return new Entry($event['eventId'], Entry::TYPE_LOG, $event);
             });
 
-        return new SearchResult($entries, $response['nextToken']);
+        return new SearchResult($entries, $response['nextToken'] ?? null);
     }
 
     /**
@@ -117,7 +117,7 @@ class LogsRepository
      */
     protected function filterPattern($arguments)
     {
-        $include = '"message" ';
+        $include = '';
         $query = $arguments['query'] ?? '';
         $exclude = '- "REPORT RequestId" - "START RequestId" - "END RequestId" - "Executing warming requests"';
 
