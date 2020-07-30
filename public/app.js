@@ -1926,7 +1926,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       entries: [],
-      searching: false,
+      searching: true,
       limit: 10,
       query: ''
     };
@@ -1937,6 +1937,8 @@ __webpack_require__.r(__webpack_exports__);
    */
   mounted: function mounted() {
     document.title = this.title + " - Vapor Ui";
+    this.query = this.$route.query.query || '';
+    this.limit = this.$route.query.limit || 10;
     this.loadEntries();
     this.focusOnSearch();
   },
@@ -1964,7 +1966,7 @@ __webpack_require__.r(__webpack_exports__);
         var data = _ref.data;
         _this.entries = data.entries;
         _this.cursor = data.cursor;
-        _this.searching = true;
+        _this.searching = false;
       });
     },
 
@@ -1975,8 +1977,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.debouncer(function () {
+        _this2.searching = true;
+
         _this2.$router.push({
-          query: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.assign({}, _this2.$route.query)
+          query: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.assign({}, _this2.$route.query, {
+            query: _this2.query,
+            limit: _this2.limit
+          })
         });
 
         _this2.loadEntries();
@@ -44026,6 +44033,7 @@ var render = function() {
                 expression: "limit"
               }
             ],
+            staticClass: "form-control w-25",
             on: {
               input: function($event) {
                 if (
@@ -44068,43 +44076,37 @@ var render = function() {
           ]
         ),
         _vm._v(" "),
-        _vm.query || _vm.entries.length > 0 || _vm.searching
-          ? _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.query,
-                  expression: "query"
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.query,
+              expression: "query"
+            }
+          ],
+          staticClass: "form-control w-25",
+          attrs: { type: "text", id: "search-input", placeholder: "Search..." },
+          domProps: { value: _vm.query },
+          on: {
+            input: [
+              function($event) {
+                if ($event.target.composing) {
+                  return
                 }
-              ],
-              staticClass: "form-control w-25",
-              attrs: {
-                type: "text",
-                id: "search-input",
-                placeholder: "Search..."
+                _vm.query = $event.target.value
               },
-              domProps: { value: _vm.query },
-              on: {
-                input: [
-                  function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.query = $event.target.value
-                  },
-                  function($event) {
-                    $event.stopPropagation()
-                    return _vm.search($event)
-                  }
-                ]
+              function($event) {
+                $event.stopPropagation()
+                return _vm.search($event)
               }
-            })
-          : _vm._e()
+            ]
+          }
+        })
       ]
     ),
     _vm._v(" "),
-    !_vm.searching
+    _vm.searching
       ? _c(
           "div",
           {
@@ -44136,7 +44138,7 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
-    _vm.searching && _vm.entries.length == 0
+    !_vm.searching && _vm.entries.length == 0
       ? _c(
           "div",
           {
@@ -44170,7 +44172,7 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
-    _vm.searching && _vm.entries.length > 0
+    !_vm.searching && _vm.entries.length > 0
       ? _c(
           "table",
           {
