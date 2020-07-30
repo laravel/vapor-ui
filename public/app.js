@@ -1912,6 +1912,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1927,8 +1939,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       entries: [],
       searching: true,
-      limit: 10,
-      query: ''
+      filters: {}
     };
   },
 
@@ -1936,9 +1947,18 @@ __webpack_require__.r(__webpack_exports__);
    * Prepare the component.
    */
   mounted: function mounted() {
-    document.title = this.title + " - Vapor Ui";
-    this.query = this.$route.query.query || '';
-    this.limit = this.$route.query.limit || 10;
+    document.title = "Laravel Vapor Ui - " + this.title;
+
+    for (var _i = 0, _Object$entries = Object.entries(this.$route.query); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          filter = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      if (this.$route.query[filter]) {
+        this.filters[filter] = this.$route.query[filter];
+      }
+    }
+
     this.loadEntries();
     this.focusOnSearch();
   },
@@ -1958,10 +1978,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/vapor-ui/api/".concat(this.resource), {
-        params: {
-          query: this.query,
-          limit: this.limit
-        }
+        params: this.filters
       }).then(function (_ref) {
         var data = _ref.data;
         _this.entries = data.entries;
@@ -1980,10 +1997,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.searching = true;
 
         _this2.$router.push({
-          query: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.assign({}, _this2.$route.query, {
-            query: _this2.query,
-            limit: _this2.limit
-          })
+          query: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.assign({}, _this2.$route.query, _this2.filters)
         });
 
         _this2.loadEntries();
@@ -2004,6 +2018,81 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/screens/logs/index.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/screens/logs/index.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  /**
+   * Prepare the component.
+   */
+  mounted: function mounted() {// ..
+  },
+
+  /**
+   * The component's methods.
+   */
+  methods: {// ..
   }
 });
 
@@ -44029,8 +44118,8 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.limit,
-                expression: "limit"
+                value: _vm.filters.limit,
+                expression: "filters.limit"
               }
             ],
             staticClass: "form-control w-25",
@@ -44059,14 +44148,23 @@ var render = function() {
                     var val = "_value" in o ? o._value : o.value
                     return val
                   })
-                _vm.limit = $event.target.multiple
-                  ? $$selectedVal
-                  : $$selectedVal[0]
+                _vm.$set(
+                  _vm.filters,
+                  "limit",
+                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                )
               }
             }
           },
           [
-            _c("option", [_vm._v("10")]),
+            _c(
+              "option",
+              {
+                attrs: { selected: "selected" },
+                domProps: { value: undefined }
+              },
+              [_vm._v("10")]
+            ),
             _vm._v(" "),
             _c("option", [_vm._v("20")]),
             _vm._v(" "),
@@ -44081,20 +44179,20 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.query,
-              expression: "query"
+              value: _vm.filters.query,
+              expression: "filters.query"
             }
           ],
           staticClass: "form-control w-25",
           attrs: { type: "text", id: "search-input", placeholder: "Search..." },
-          domProps: { value: _vm.query },
+          domProps: { value: _vm.filters.query },
           on: {
             input: [
               function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.query = $event.target.value
+                _vm.$set(_vm.filters, "query", $event.target.value)
               },
               function($event) {
                 $event.stopPropagation()
@@ -44104,6 +44202,16 @@ var render = function() {
           }
         })
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass:
+          "card-header d-flex align-items-center justify-content-between"
+      },
+      [_vm._t("filters", null, { filters: _vm.filters, search: _vm.search })],
+      2
     ),
     _vm._v(" "),
     _vm.searching
@@ -44181,8 +44289,6 @@ var render = function() {
             attrs: { id: "indexScreen" }
           },
           [
-            _c("thead", [_vm._t("table-header")], 2),
-            _vm._v(" "),
             _c(
               "transition-group",
               { attrs: { tag: "tbody", name: "list" } },
@@ -44228,11 +44334,177 @@ var render = function() {
     attrs: { title: "Logs", resource: "logs" },
     scopedSlots: _vm._u([
       {
+        key: "filters",
+        fn: function(ref) {
+          var filters = ref.filters
+          var search = ref.search
+          return [
+            _vm._v("\n        // Specific filters of this tab:\n\n        "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: filters.group,
+                    expression: "filters.group"
+                  }
+                ],
+                staticClass: "form-control w-25",
+                on: {
+                  input: function($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k(
+                        $event.keyCode,
+                        "change",
+                        undefined,
+                        $event.key,
+                        undefined
+                      )
+                    ) {
+                      return null
+                    }
+                    return search($event)
+                  },
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      filters,
+                      "group",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              [
+                _c(
+                  "option",
+                  {
+                    attrs: { selected: "selected" },
+                    domProps: { value: undefined }
+                  },
+                  [_vm._v("http")]
+                ),
+                _vm._v(" "),
+                _c("option", [_vm._v("cli")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("queue")])
+              ]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: filters.startTime,
+                  expression: "filters.startTime"
+                }
+              ],
+              staticClass: "form-control w-25",
+              attrs: { type: "datetime-local", id: "start-time" },
+              domProps: { value: filters.startTime },
+              on: {
+                input: [
+                  function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(filters, "startTime", $event.target.value)
+                  },
+                  function($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k(
+                        $event.keyCode,
+                        "change",
+                        undefined,
+                        $event.key,
+                        undefined
+                      )
+                    ) {
+                      return null
+                    }
+                    return search($event)
+                  }
+                ]
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: filters.endTime,
+                  expression: "filters.endTime"
+                }
+              ],
+              staticClass: "form-control w-25",
+              attrs: { type: "datetime-local", id: "end-time" },
+              domProps: { value: filters.endTime },
+              on: {
+                input: [
+                  function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(filters, "endTime", $event.target.value)
+                  },
+                  function($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k(
+                        $event.keyCode,
+                        "change",
+                        undefined,
+                        $event.key,
+                        undefined
+                      )
+                    ) {
+                      return null
+                    }
+                    return search($event)
+                  }
+                ]
+              }
+            })
+          ]
+        }
+      },
+      {
         key: "row",
         fn: function(ref) {
           var entry = ref.entry
           return [
-            _c("td", [_vm._v("\n            " + _vm._s(entry) + "\n        ")]),
+            _c("td", [
+              _vm._v(
+                "\n            " + _vm._s(entry.content.message) + "\n        "
+              )
+            ]),
+            _vm._v(" "),
+            _c("td", [
+              _vm._v(
+                "\n            " +
+                  _vm._s(
+                    _vm
+                      .moment()
+                      .utc(entry.content.timestamp, "x")
+                      .local()
+                      .format("YYYY-MM-DD LTS")
+                  ) +
+                  "\n        "
+              )
+            ]),
             _vm._v(" "),
             _c(
               "td",
@@ -59540,6 +59812,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     /**
+     * Returns an moment instance.
+     */
+    moment: function moment() {
+      moment_timezone__WEBPACK_IMPORTED_MODULE_1___default.a.updateLocale('en');
+
+      return moment_timezone__WEBPACK_IMPORTED_MODULE_1___default.a;
+    },
+
+    /**
      * Creates a debounced function that delays invoking a callback.
      */
     debouncer: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (callback) {
@@ -59643,21 +59924,24 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************************!*\
   !*** ./resources/js/screens/logs/index.vue ***!
   \*********************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _index_vue_vue_type_template_id_1b49d810___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.vue?vue&type=template&id=1b49d810& */ "./resources/js/screens/logs/index.vue?vue&type=template&id=1b49d810&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.vue?vue&type=script&lang=js& */ "./resources/js/screens/logs/index.vue?vue&type=script&lang=js&");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  script,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _index_vue_vue_type_template_id_1b49d810___WEBPACK_IMPORTED_MODULE_0__["render"],
   _index_vue_vue_type_template_id_1b49d810___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -59671,6 +59955,20 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/screens/logs/index.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/screens/logs/index.vue?vue&type=script&lang=js&":
+/*!**********************************************************************!*\
+  !*** ./resources/js/screens/logs/index.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/screens/logs/index.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 

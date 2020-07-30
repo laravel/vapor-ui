@@ -18,6 +18,8 @@ class LogController
         $query = $request->input('query');
         $limit = $request->input('limit');
 
+        // $startTime = $request->input('startTime', );
+
         return $repository->search($group, [
             'query' => $query,
             'limit' => $limit

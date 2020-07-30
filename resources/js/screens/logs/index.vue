@@ -1,9 +1,40 @@
 <template>
     <index-screen title="Logs" resource="logs">
+
+        <template slot="filters" slot-scope="{ filters, search }">
+            // Specific filters of this tab:
+
+            <select v-model="filters.group" 
+                    class="form-control w-25"
+                    @input.change="search">
+                <option selected="selected" :value="undefined">http</option>
+                <option>cli</option>
+                <option>queue</option>
+            </select>
+
+            <input type="datetime-local"
+                v-model="filters.startTime"
+                class="form-control w-25"
+                id="start-time"
+                @input.change="search">
+            </input>
+
+            <input type="datetime-local"
+                v-model="filters.endTime"
+                class="form-control w-25"
+                id="end-time"
+                @input.change="search">
+            </input>
+        </template>
+
         <template slot="row" slot-scope="{ entry }">
 
             <td >
-                {{ entry }}
+                {{ entry.content.message }}
+            </td>
+
+            <td >
+                {{  moment().utc(entry.content.timestamp, 'x').local().format('YYYY-MM-DD LTS') }}
             </td>
 
             <td class="table-fit">
@@ -16,3 +47,21 @@
         </template>
     </index-screen>
 </template>
+
+<script>
+    export default {
+        /**
+         * Prepare the component.
+         */
+        mounted() {
+            // ..
+        },
+
+        /**
+         * The component's methods.
+         */
+        methods: {
+            // ..
+        }
+    }
+</script>

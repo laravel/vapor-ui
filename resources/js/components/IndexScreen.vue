@@ -18,8 +18,7 @@
             return {
                 entries: [],
                 searching: true,
-                limit: 10,
-                query: '',
+                filters: {}
             };
         },
 
@@ -28,10 +27,13 @@
          * Prepare the component.
          */
         mounted() {
-            document.title = this.title + " - Vapor Ui";
+            document.title =  "Laravel Vapor Ui - " + this.title;
 
-            this.query = this.$route.query.query || '';
-            this.limit = this.$route.query.limit || 10;
+            for (const [filter, value] of Object.entries(this.$route.query)) {
+                if (this.$route.query[filter]) {
+                    this.filters[filter] = this.$route.query[filter];
+                }
+            }
 
             this.loadEntries();
             this.focusOnSearch();
@@ -50,12 +52,8 @@
          */
         methods: {
             loadEntries(){
-
                 axios.get(`/vapor-ui/api/${this.resource}`, {
-                    params: {
-                        query: this.query,
-                        limit: this.limit
-                    }
+                    params: this.filters
                 }).then(({ data }) => {
                     this.entries = data.entries;
                     this.cursor = data.cursor; 
@@ -69,12 +67,7 @@
             search(){
                 this.debouncer(() => {
                     this.searching = true;
-
-                    this.$router.push({query: _.assign({}, this.$route.query, {
-                        query: this.query,
-                        limit: this.limit
-                    })});
-
+                    this.$router.push({query: _.assign({}, this.$route.query, this.filters)});
                     this.loadEntries();
                 });
             },
@@ -103,9 +96,10 @@
         <div class="card-header d-flex align-items-center justify-content-between">
             <h5>{{this.title}}</h5>
 
-            <select v-model="limit" class="form-control w-25"
-                    @input.change="search">
-                <option>10</option>
+            <select v-model="filters.limit" class="form-control w-25"
+                    @input.change="search"
+                    >
+                <option selected="selected" :value="undefined">10</option>
                 <option>20</option>
                 <option>50</option>
                 <option>100</option>
@@ -113,7 +107,11 @@
 
             <input type="text" class="form-control w-25"
                    id="search-input"
-                   placeholder="Search..." v-model="query" @input.stop="search">
+                   placeholder="Search..." v-model="filters.query" @input.stop="search">
+        </div>
+
+        <div class="card-header d-flex align-items-center justify-content-between">
+            <slot name="filters" :filters="filters" :search="search"></slot>
         </div>
 
         <div v-if="searching" class="d-flex align-items-center justify-content-center card-bg-secondary p-5 bottom-radius">
@@ -133,10 +131,6 @@
         </div>
 
         <table id="indexScreen" class="table table-hover table-sm mb-0 penultimate-column-right" v-if="! searching && entries.length > 0">
-            <thead>
-                <slot name="table-header"></slot>
-            </thead>
-
             <transition-group tag="tbody" name="list">
                 <tr v-for="entry in entries" :key="entry.id">
                     <slot name="row" :entry="entry"></slot>
