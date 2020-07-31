@@ -2,10 +2,12 @@
 
 namespace Laravel\VaporUi\Repositories;
 
+use Aws\CloudWatchLogs\CloudWatchLogsClient;
+use Aws\CloudWatchLogs\Exception\CloudWatchLogsException;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Laravel\VaporUi\Support\SearchResult;
 use Laravel\VaporUi\ValueObjects\Entry;
-use Aws\CloudWatchLogs\CloudWatchLogsClient;
 
 class LogsRepository
 {
@@ -35,15 +37,28 @@ class LogsRepository
      */
     public function search($filters = [])
     {
-        $response = $this->client->filterLogEvents(array_filter([
-            'logGroupName' => $this->logGroupName($filters),
-            'limit' => $this->limit($filters),
-            'nextToken' => $this->nextToken($filters),
-            'startTime' => $this->startTime($filters),
-            'endTime' => $this->endTime($filters),
-            'filterPattern' =>  $this->filterPattern($filters),
-            // 'logStreamNames' => $filters['logStreamNames']
-        ]))->toArray();
+        try {
+            $response = $this->client->filterLogEvents(array_filter([
+                'logGroupName' => $this->logGroupName($filters),
+                'limit' => $this->limit($filters),
+                'nextToken' => $this->nextToken($filters),
+                'startTime' => $this->startTime($filters),
+                'endTime' => $this->endTime($filters),
+                'filterPattern' =>  $this->filterPattern($filters),
+                // 'logStreamNames' => $filters['logStreamNames']
+            ]))->toArray();
+        } catch (CloudWatchLogsException $e) {
+            $resourceNotFoundException = '"__type":"ResourceNotFoundException"';
+
+            if (! Str::contains($e->getMessage(), $resourceNotFoundException)) {
+                throw $e;
+            }
+
+            $response = [
+                'events' => [],
+            ];
+        }
+
 
         $entries = (new Collection($response['events']))
             ->map(function ($event) {

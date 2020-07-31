@@ -34,6 +34,8 @@ class SearchResult implements JsonSerializable
     {
         $this->entries = $entries;
         $this->filters = $filters;
+
+        unset($filters['cursor']);
         $this->cursor = $cursor ?: null;
     }
 
