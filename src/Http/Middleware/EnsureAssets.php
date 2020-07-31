@@ -22,11 +22,11 @@ class EnsureAssets
             $publishedPath = public_path('vendor/vapor-ui/mix-manifest.json');
 
             if (! File::exists($publishedPath)) {
-                throw new RuntimeException('The vapor-ui assets are not published. Please run: `php artisan vendor:publish --provider "Laravel\VaporUi\VaporUiServiceProvider"`.');
+                throw new RuntimeException('The vapor-ui assets are not published. Please run: `php artisan vendor:publish --tag "vapor-ui-assets" --force`.');
             }
 
             if (File::get($publishedPath) !== File::get(__DIR__.'/../../../public/mix-manifest.json')) {
-                throw new RuntimeException('The published Vapor Ui assets are not up-to-date with the installed version.  Please run: `php artisan vendor:publish --provider "Laravel\VaporUi\VaporUiServiceProvider"`.');
+                throw new RuntimeException('The published Vapor Ui assets are not up-to-date with the installed version.  Please run: `php artisan vendor:publish --tag "vapor-ui-assets" --force`.');
             }
         }
 
