@@ -29,40 +29,42 @@ class LogsRepository
     /**
      * Search for the logs.
      *
-     * @param  string $group
-     * @param  array $arguments
+     * @param  array $filters
      * 
-     * @return CursorCollection
+     * @return SearchResult
      */
-    public function search($group, $arguments = [])
+    public function search($filters = [])
     {
         $response = $this->client->filterLogEvents(array_filter([
-            'logGroupName' => $this->logGroupName($group),
-            'limit' => $this->limit($arguments),
-            'nextToken' => $this->nextToken($arguments),
-            'startTime' => $this->startTime($arguments),
-            'endTime' => $this->endTime($arguments),
-            'filterPattern' =>  $this->filterPattern($arguments),
-            // 'logStreamNames' => $arguments['logStreamNames']
+            'logGroupName' => $this->logGroupName($filters),
+            'limit' => $this->limit($filters),
+            'nextToken' => $this->nextToken($filters),
+            'startTime' => $this->startTime($filters),
+            'endTime' => $this->endTime($filters),
+            'filterPattern' =>  $this->filterPattern($filters),
+            // 'logStreamNames' => $filters['logStreamNames']
         ]))->toArray();
 
         $entries = (new Collection($response['events']))
             ->map(function ($event) {
                 return new Entry($event['eventId'], Entry::TYPE_LOG, $event);
-            });
+            })
+            ->all();
 
-        return new SearchResult($entries, $response['nextToken'] ?? null);
+        return new SearchResult($entries, array_filter($filters), $response['nextToken'] ?? null);
     }
 
     /**
      * Returns the log group name from the given $group.
      * 
-     * @param  string $group
+     * @param  array $filters
      *
      * @return string
      */
-    protected function logGroupName($group)
+    protected function logGroupName($filters)
     {
+        $group = isset($filters['group']) ? (string) $filters['group'] : '';
+
         return sprintf(
             '/aws/lambda/vapor-%s%s',
             config('vapor-ui.project'),
@@ -71,54 +73,54 @@ class LogsRepository
     }
 
     /**
-     * Gets the limit from the given $arguments.
+     * Gets the limit from the given $filters.
      * 
      * @return int
      */
-    protected function limit($arguments)
+    protected function limit($filters)
     {
-        return isset($arguments['limit']) ? (int) $arguments['limit'] : 10;
+        return isset($filters['limit']) ? (int) $filters['limit'] : 10;
     }
 
     /**
-     * Gets the next token from the given $arguments.
+     * Gets the next token from the given $filters.
      * 
      * @return string|null
      */
-    protected function nextToken($arguments)
+    protected function nextToken($filters)
     {
-        return isset($arguments['nextToken']) ? (string) $arguments['nextToken'] : null;
+        return isset($filters['cursor']) ? (string) $filters['cursor'] : null;
     }
 
     /**
-     * Gets the start time from the given $arguments.
+     * Gets the start time from the given $filters.
      * 
      * @return int|null
      */
-    protected function startTime($arguments)
+    protected function startTime($filters)
     {
-        return isset($arguments['startTime']) ? (int) $arguments['startTime'] : null;
+        return isset($filters['startTime']) ? (int) $filters['startTime'] : null;
     }
 
     /**
-     * Gets the end time from the given $arguments.
+     * Gets the end time from the given $filters.
      * 
      * @return int|null
      */
-    protected function endTime($arguments)
+    protected function endTime($filters)
     {
-        return isset($arguments['endTime']) ? (int) $arguments['endTime'] : null;
+        return isset($filters['endTime']) ? (int) $filters['endTime'] : null;
     }
 
     /**
-     * Gets the end time from the given $arguments.
+     * Gets the end time from the given $filters.
      * 
      * @return string|null
      */
-    protected function filterPattern($arguments)
+    protected function filterPattern($filters)
     {
         $include = '';
-        $query = $arguments['query'] ?? '';
+        $query = $filters['query'] ?? '';
         $exclude = '- "REPORT RequestId" - "START RequestId" - "END RequestId" - "Executing warming requests"';
 
         $filterPattern = empty($query)

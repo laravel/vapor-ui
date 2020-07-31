@@ -13,17 +13,15 @@
             </select>
 
             <input type="datetime-local"
-                v-model="filters.startTime"
                 class="form-control w-25"
                 id="start-time"
-                @input.change="search">
+                @input.change="searchWithTimestamp('start-time', filters, 'startTime', search)">
             </input>
 
             <input type="datetime-local"
-                v-model="filters.endTime"
                 class="form-control w-25"
                 id="end-time"
-                @input.change="search">
+                @input.change="searchWithTimestamp('end-time', filters, 'endTime', search)">
             </input>
         </template>
 
@@ -49,19 +47,56 @@
 </template>
 
 <script>
+    import $ from 'jquery';
+
     export default {
         /**
          * Prepare the component.
          */
-        mounted() {
-            // ..
+        mounted() {   
+            this.inputWithTimestamp('start-time', 'startTime');
+            this.inputWithTimestamp('end-time', 'endTime');
+        },
+
+        /**
+         * Watch for filters changes.
+         */
+        watch:{
+            $route (to, from){
+                this.inputWithTimestamp('start-time', 'startTime');
+                this.inputWithTimestamp('end-time', 'endTime');
+            }
         },
 
         /**
          * The component's methods.
          */
         methods: {
-            // ..
+            /**
+             * Converts the given change to timestamp and executes the given callback.
+             */
+            searchWithTimestamp(elementId, filters, property, callback) {
+                filters[property] = new Date(
+                    document.getElementById(elementId).value
+                ).getTime();
+
+                return callback();
+            },
+
+
+            /**
+             * Converts the given change to timestamp and executes the given callback.
+             */
+            inputWithTimestamp(elementId, property, defaultTime) {
+                const time = this.$route.query[property];
+                const timeOffset = (new Date()).getTimezoneOffset() * 60 * 1000
+                const $element = $('#' + elementId)[0];
+                if (time) {
+                    $element.valueAsNumber = parseInt(time) - timeOffset;
+                } else if (defaultTime) {
+                    $element.valueAsNumber = parseInt(defaultTime) - timeOffset;
+                }
+            },
         }
     }
 </script>

@@ -1912,6 +1912,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -1939,6 +1953,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     return {
       entries: [],
       searching: true,
+      cursor: null,
       filters: {}
     };
   },
@@ -1977,30 +1992,62 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     loadEntries: function loadEntries() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/vapor-ui/api/".concat(this.resource), {
-        params: this.filters
-      }).then(function (_ref) {
+      this.searching = true;
+      this.request().then(function (_ref) {
         var data = _ref.data;
+        delete data.filters.cursor;
+
+        _this.$router.push({
+          query: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.assign({}, _this.$route.query, data.filters)
+        })["catch"](function () {});
+
         _this.entries = data.entries;
-        _this.cursor = data.cursor;
         _this.searching = false;
+        _this.cursor = data.cursor;
       });
     },
 
     /**
-     * Search the entries of this type.
+     * Performs a GET request on the current resource.
+     */
+    request: function request(data) {
+      return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/vapor-ui/api/".concat(this.resource), {
+        params: _objectSpread(_objectSpread({}, this.filters), data)
+      });
+    },
+
+    /**
+     * Creates a new debouncer when a the search input changes.
      */
     search: function search() {
       var _this2 = this;
 
       this.debouncer(function () {
-        _this2.searching = true;
-
         _this2.$router.push({
           query: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.assign({}, _this2.$route.query, _this2.filters)
         });
 
         _this2.loadEntries();
+      });
+    },
+
+    /**
+     * Using the current cursor, performs a request 
+     * and attach the receive new entries. 
+     */
+    loadMore: function loadMore() {
+      var _this3 = this;
+
+      this.request({
+        cursor: this.cursor
+      }).then(function (_ref2) {
+        var _this3$entries;
+
+        var data = _ref2.data;
+
+        (_this3$entries = _this3.entries).push.apply(_this3$entries, _toConsumableArray(data.entries));
+
+        _this3.cursor = data.cursor;
       });
     },
 
@@ -2032,6 +2079,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2080,19 +2129,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   /**
    * Prepare the component.
    */
-  mounted: function mounted() {// ..
+  mounted: function mounted() {
+    this.inputWithTimestamp('start-time', 'startTime');
+    this.inputWithTimestamp('end-time', 'endTime');
+  },
+
+  /**
+   * Watch for filters changes.
+   */
+  watch: {
+    $route: function $route(to, from) {
+      this.inputWithTimestamp('start-time', 'startTime');
+      this.inputWithTimestamp('end-time', 'endTime');
+    }
   },
 
   /**
    * The component's methods.
    */
-  methods: {// ..
+  methods: {
+    /**
+     * Converts the given change to timestamp and executes the given callback.
+     */
+    searchWithTimestamp: function searchWithTimestamp(elementId, filters, property, callback) {
+      filters[property] = new Date(document.getElementById(elementId).value).getTime();
+      return callback();
+    },
+
+    /**
+     * Converts the given change to timestamp and executes the given callback.
+     */
+    inputWithTimestamp: function inputWithTimestamp(elementId, property, defaultTime) {
+      var time = this.$route.query[property];
+      var timeOffset = new Date().getTimezoneOffset() * 60 * 1000;
+      var $element = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#' + elementId)[0];
+
+      if (time) {
+        $element.valueAsNumber = parseInt(time) - timeOffset;
+      } else if (defaultTime) {
+        $element.valueAsNumber = parseInt(defaultTime) - timeOffset;
+      }
+    }
   }
 });
 
@@ -44305,6 +44387,23 @@ var render = function() {
           ],
           1
         )
+      : _vm._e(),
+    _vm._v(" "),
+    !_vm.searching && _vm.cursor
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "d-flex flex-column align-items-center justify-content-center card-bg-secondary p-5 bottom-radius"
+          },
+          [
+            _c(
+              "button",
+              { staticClass: "btn btn-primary", on: { click: _vm.loadMore } },
+              [_vm._v("Load more")]
+            )
+          ]
+        )
       : _vm._e()
   ])
 }
@@ -44402,80 +44501,56 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: filters.startTime,
-                  expression: "filters.startTime"
-                }
-              ],
               staticClass: "form-control w-25",
               attrs: { type: "datetime-local", id: "start-time" },
-              domProps: { value: filters.startTime },
               on: {
-                input: [
-                  function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(filters, "startTime", $event.target.value)
-                  },
-                  function($event) {
-                    if (
-                      !$event.type.indexOf("key") &&
-                      _vm._k(
-                        $event.keyCode,
-                        "change",
-                        undefined,
-                        $event.key,
-                        undefined
-                      )
-                    ) {
-                      return null
-                    }
-                    return search($event)
+                input: function($event) {
+                  if (
+                    !$event.type.indexOf("key") &&
+                    _vm._k(
+                      $event.keyCode,
+                      "change",
+                      undefined,
+                      $event.key,
+                      undefined
+                    )
+                  ) {
+                    return null
                   }
-                ]
+                  return _vm.searchWithTimestamp(
+                    "start-time",
+                    filters,
+                    "startTime",
+                    search
+                  )
+                }
               }
             }),
             _vm._v(" "),
             _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: filters.endTime,
-                  expression: "filters.endTime"
-                }
-              ],
               staticClass: "form-control w-25",
               attrs: { type: "datetime-local", id: "end-time" },
-              domProps: { value: filters.endTime },
               on: {
-                input: [
-                  function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(filters, "endTime", $event.target.value)
-                  },
-                  function($event) {
-                    if (
-                      !$event.type.indexOf("key") &&
-                      _vm._k(
-                        $event.keyCode,
-                        "change",
-                        undefined,
-                        $event.key,
-                        undefined
-                      )
-                    ) {
-                      return null
-                    }
-                    return search($event)
+                input: function($event) {
+                  if (
+                    !$event.type.indexOf("key") &&
+                    _vm._k(
+                      $event.keyCode,
+                      "change",
+                      undefined,
+                      $event.key,
+                      undefined
+                    )
+                  ) {
+                    return null
                   }
-                ]
+                  return _vm.searchWithTimestamp(
+                    "end-time",
+                    filters,
+                    "endTime",
+                    search
+                  )
+                }
               }
             })
           ]

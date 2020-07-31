@@ -18,6 +18,7 @@
             return {
                 entries: [],
                 searching: true,
+                cursor: null,
                 filters: {}
             };
         },
@@ -52,23 +53,48 @@
          */
         methods: {
             loadEntries(){
-                axios.get(`/vapor-ui/api/${this.resource}`, {
-                    params: this.filters
-                }).then(({ data }) => {
+                this.searching = true;
+
+                this.request().then(({ data }) => {
+                    delete data.filters.cursor;
+
+                    this.$router.push({query: _.assign({}, this.$route.query, data.filters)}).catch(()=>{});
+
                     this.entries = data.entries;
-                    this.cursor = data.cursor; 
                     this.searching = false;
+                    this.cursor = data.cursor;
                 })
             },
 
             /**
-             * Search the entries of this type.
+             * Performs a GET request on the current resource.
+             */
+            request(data){
+                return axios.get(`/vapor-ui/api/${this.resource}`, {
+                    params: { ...this.filters, ...data }
+                });
+            },
+
+            /**
+             * Creates a new debouncer when a the search input changes.
              */
             search(){
                 this.debouncer(() => {
-                    this.searching = true;
                     this.$router.push({query: _.assign({}, this.$route.query, this.filters)});
+
                     this.loadEntries();
+                });
+            },
+
+
+            /**
+             * Using the current cursor, performs a request 
+             * and attach the receive new entries. 
+             */
+            loadMore(){
+                this.request({ cursor: this.cursor }).then(({ data }) => {
+                    this.entries.push(...data.entries);
+                    this.cursor = data.cursor;
                 });
             },
 
@@ -86,7 +112,7 @@
                         }
                     }
                 };
-            }
+            },
         }
     }
 </script>
@@ -135,9 +161,12 @@
                 <tr v-for="entry in entries" :key="entry.id">
                     <slot name="row" :entry="entry"></slot>
                 </tr>
-
+ 
             </transition-group>
         </table>
 
+        <div v-if="! searching && cursor" class="d-flex flex-column align-items-center justify-content-center card-bg-secondary p-5 bottom-radius">
+            <button @click="loadMore" class="btn btn-primary">Load more</button>
+        </div>
     </div>
 </template>
