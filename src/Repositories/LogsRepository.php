@@ -13,7 +13,7 @@ class LogsRepository
 {
     /**
      * The cloud watch logs client.
-     * 
+     *
      * @var CloudWatchLogsClient
      */
     protected $client;
@@ -31,19 +31,19 @@ class LogsRepository
     /**
      * Search for the logs.
      *
+     * @param  string $group
      * @param  array $filters
-     * 
+     *
      * @return SearchResult
      */
-    public function search($filters = [])
+    public function search($group, $filters = [])
     {
         try {
             $response = $this->client->filterLogEvents(array_filter([
-                'logGroupName' => $this->logGroupName($filters),
+                'logGroupName' => $this->logGroupName($group),
                 'limit' => $this->limit($filters),
                 'nextToken' => $this->nextToken($filters),
                 'startTime' => $this->startTime($filters),
-                'endTime' => $this->endTime($filters),
                 'filterPattern' =>  $this->filterPattern($filters),
                 // 'logStreamNames' => $filters['logStreamNames']
             ]))->toArray();
@@ -59,27 +59,30 @@ class LogsRepository
             ];
         }
 
-
         $entries = (new Collection($response['events']))
             ->map(function ($event) {
+                if (array_key_exists('message', $event)) {
+                    if ($message = json_decode($event['message'])) {
+                        $event['message'] = $message;
+                    }
+                }
+
                 return new Entry($event['eventId'], Entry::TYPE_LOG, $event);
-            })
-            ->all();
+            });
 
         return new SearchResult($entries, array_filter($filters), $response['nextToken'] ?? null);
     }
 
     /**
      * Returns the log group name from the given $group.
-     * 
+     *
+     * @param  string $group
      * @param  array $filters
      *
      * @return string
      */
-    protected function logGroupName($filters)
+    protected function logGroupName($group)
     {
-        $group = isset($filters['group']) ? (string) $filters['group'] : '';
-
         return sprintf(
             '/aws/lambda/vapor-%s%s',
             config('vapor-ui.project'),
@@ -89,7 +92,7 @@ class LogsRepository
 
     /**
      * Gets the limit from the given $filters.
-     * 
+     *
      * @return int
      */
     protected function limit($filters)
@@ -99,7 +102,7 @@ class LogsRepository
 
     /**
      * Gets the next token from the given $filters.
-     * 
+     *
      * @return string|null
      */
     protected function nextToken($filters)
@@ -109,32 +112,22 @@ class LogsRepository
 
     /**
      * Gets the start time from the given $filters.
-     * 
+     *
      * @return int|null
      */
     protected function startTime($filters)
     {
-        return isset($filters['startTime']) ? (int) $filters['startTime'] : null;
+        return isset($filters['startTime']) ? (int) $filters['startTime'] * 1000 : null;
     }
 
     /**
-     * Gets the end time from the given $filters.
-     * 
-     * @return int|null
-     */
-    protected function endTime($filters)
-    {
-        return isset($filters['endTime']) ? (int) $filters['endTime'] : null;
-    }
-
-    /**
-     * Gets the end time from the given $filters.
-     * 
-     * @return string|null
+     * Gets the filter pattern from the given $filters.
+     *
+     * @return string
      */
     protected function filterPattern($filters)
     {
-        $include = '';
+        $include = '"message" ';
         $query = $filters['query'] ?? '';
         $exclude = '- "REPORT RequestId" - "START RequestId" - "END RequestId" - "Executing warming requests"';
 

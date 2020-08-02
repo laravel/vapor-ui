@@ -9,7 +9,7 @@ it('requires lambda runtime', function () {
 // @todo
 it('requires vanity url');
 
-it('has title', function () {    
+it('has title', function () {
     $project = config('vapor-ui.project');
 
     $this->get('/vapor-ui')->assertSee(

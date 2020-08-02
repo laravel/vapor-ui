@@ -2,19 +2,18 @@
 
 namespace Laravel\VaporUi\Http\Controllers;
 
-use Illuminate\Support\Carbon;
 use Laravel\VaporUi\Http\Requests\LogRequest;
 use Laravel\VaporUi\Repositories\LogsRepository;
 
-class LogController
+class JobsController
 {
     /**
-     * Gets the log results.
-     * 
+     * Gets the logs results in the queue lambda.
+     *
      * @return \Laravel\VaporUi\Support\SearchResult
      */
     public function __invoke(LogsRepository $repository, LogRequest $request)
     {
-        return $repository->search($request->validated());
+        return $repository->search('queue', $request->validated());
     }
 }

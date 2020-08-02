@@ -9,14 +9,14 @@ class EnsureLambdaRuntime
     /**
      * The configs that need to exist so we can ensure
      * that we have an environment that looks like Lambda Runtime.
-     * 
+     *
      * @var array
      */
     protected $configs = [
         'project',
         'region',
         'credentials.key',
-        'credentials.secret'
+        'credentials.secret',
     ];
 
     /**

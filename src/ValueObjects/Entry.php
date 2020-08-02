@@ -29,7 +29,7 @@ class Entry
 
     /**
      * Creates a new entry.
-     * 
+     *
      * @param  string $id
      * @param  string $type
      * @param  array $content

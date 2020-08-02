@@ -1,6 +1,8 @@
 <script>
     import _ from 'lodash';
+    import $ from 'jquery';
     import axios from 'axios';
+    import moment from 'moment';
 
     export default {
         /**
@@ -9,7 +11,6 @@
         props: [
             'resource', 'title'
         ],
-
 
         /**
          * The component's data.
@@ -36,6 +37,14 @@
                 }
             }
 
+            const startTime = this.filters.startTime
+                ? moment.unix(this.filters.startTime)
+                : moment().subtract(1, 'h');
+
+            startTime.subtract((new Date()).getTimezoneOffset(), 'm');
+
+            this.filters.startTime = startTime.format('LLL');
+
             this.loadEntries();
             this.focusOnSearch();
         },
@@ -56,23 +65,27 @@
                 this.searching = true;
 
                 this.request().then(({ data }) => {
-                    delete data.filters.cursor;
-
-                    this.$router.push({query: _.assign({}, this.$route.query, data.filters)}).catch(()=>{});
-
                     this.entries = data.entries;
-                    this.searching = false;
                     this.cursor = data.cursor;
+                    this.searching = false;
                 })
             },
 
             /**
              * Performs a GET request on the current resource.
              */
-            request(data){
-                return axios.get(`/vapor-ui/api/${this.resource}`, {
-                    params: { ...this.filters, ...data }
-                });
+            request(cursor = null){
+                let params = { ...this.filters };
+
+                if (this.filters.startTime) {
+                    params.startTime = moment(this.filters.startTime).format('X');
+                }
+
+                this.$router.push({query: _.assign({}, this.$route.query, params )}).catch(() => {});
+
+                params.cursor = cursor;
+
+                return axios.get(`/vapor-ui/api/${this.resource}`, { params });
             },
 
             /**
@@ -80,8 +93,6 @@
              */
             search(){
                 this.debouncer(() => {
-                    this.$router.push({query: _.assign({}, this.$route.query, this.filters)});
-
                     this.loadEntries();
                 });
             },
@@ -89,10 +100,10 @@
 
             /**
              * Using the current cursor, performs a request 
-             * and attach the receive new entries. 
+             * and attach the receive new entries.
              */
             loadMore(){
-                this.request({ cursor: this.cursor }).then(({ data }) => {
+                this.request(this.cursor).then(({ data }) => {
                     this.entries.push(...data.entries);
                     this.cursor = data.cursor;
                 });
@@ -123,7 +134,7 @@
             <h5>{{this.title}}</h5>
 
             <select v-model="filters.limit" class="form-control w-25"
-                    @input.change="search"
+                    v-on:change="loadEntries"
                     >
                 <option selected="selected" :value="undefined">10</option>
                 <option>20</option>
@@ -131,13 +142,18 @@
                 <option>100</option>
             </select>
 
-            <input type="text" class="form-control w-25"
+            <input type="text"
+                   class="form-control w-25"
                    id="search-input"
-                   placeholder="Search..." v-model="filters.query" @input.stop="search">
+                   placeholder="Search..."
+                   v-model="filters.query"
+                   v-on:change="search"></input>
         </div>
 
         <div class="card-header d-flex align-items-center justify-content-between">
-            <slot name="filters" :filters="filters" :search="search"></slot>
+            <input type="text" class="form-control w-25"
+                   v-model.lazy="filters.startTime"
+                   v-on:change="loadEntries">
         </div>
 
         <div v-if="searching" class="d-flex align-items-center justify-content-center card-bg-secondary p-5 bottom-radius">
@@ -165,7 +181,7 @@
             </transition-group>
         </table>
 
-        <div v-if="! searching && cursor" class="d-flex flex-column align-items-center justify-content-center card-bg-secondary p-5 bottom-radius">
+        <div v-if="! searching && entries.length > 0 && cursor" class="d-flex flex-column align-items-center justify-content-center card-bg-secondary p-5 bottom-radius">
             <button @click="loadMore" class="btn btn-primary">Load more</button>
         </div>
     </div>

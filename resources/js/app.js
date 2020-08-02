@@ -29,5 +29,5 @@ Vue.mixin(Base);
 
 new Vue({
     el: '#vapor-ui',
-    router
+    router,
 });

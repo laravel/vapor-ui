@@ -3,7 +3,6 @@
 namespace Laravel\VaporUi;
 
 use Aws\CloudWatchLogs\CloudWatchLogsClient;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Laravel\VaporUi\Repositories\LogsRepository;
 
@@ -41,7 +40,7 @@ class VaporUiServiceProvider extends ServiceProvider
                 'version' => 'latest',
                 'credentials' => [
                     'key' => config('vapor-ui.credentials.key'),
-                    'secret' => config('vapor-ui.credentials.secret')
+                    'secret' => config('vapor-ui.credentials.secret'),
                 ],
             ]);
 

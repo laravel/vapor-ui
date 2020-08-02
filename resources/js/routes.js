@@ -1,9 +1,21 @@
 export default [
-    { path: '/', redirect: '/logs' },
+    { path: '/', redirect: '/requests' },
 
     {
-        path: '/logs',
-        name: 'logs',
-        component: require('./screens/logs/index').default,
+        path: '/requests',
+        name: 'requests',
+        component: require('./screens/requests/index').default,
+    },
+
+    {
+        path: '/commands',
+        name: 'commands',
+        component: require('./screens/commands/index').default,
+    },
+
+    {
+        path: '/jobs',
+        name: 'jobs',
+        component: require('./screens/jobs/index').default,
     },
 ];

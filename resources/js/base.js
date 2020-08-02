@@ -12,7 +12,6 @@ export default {
             return moment;
         },
 
-        
         /**
          * Creates a debounced function that delays invoking a callback.
          */

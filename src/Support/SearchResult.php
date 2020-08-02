@@ -2,8 +2,8 @@
 
 namespace Laravel\VaporUi\Support;
 
-use JsonSerializable;
 use Illuminate\Support\Collection;
+use JsonSerializable;
 
 class SearchResult implements JsonSerializable
 {
@@ -16,7 +16,7 @@ class SearchResult implements JsonSerializable
 
     /**
      * The collection of entries.
-     * 
+     *
      * @var array
      */
     public $entries;

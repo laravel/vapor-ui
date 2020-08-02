@@ -2,9 +2,9 @@
 
 namespace Tests;
 
+use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Laravel\VaporUi\VaporUiServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
-use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 
 abstract class TestCase extends OrchestraTestCase
 {
@@ -32,7 +32,7 @@ abstract class TestCase extends OrchestraTestCase
         $app->useEnvironmentPath(__DIR__.'/..');
         $app->bootstrapWith([LoadEnvironmentVariables::class]);
 
-        $app['config']->set('vapor-ui', require __DIR__ . './../config/vapor-ui.php');
+        $app['config']->set('vapor-ui', require __DIR__.'./../config/vapor-ui.php');
 
         parent::getEnvironmentSetUp($app);
     }

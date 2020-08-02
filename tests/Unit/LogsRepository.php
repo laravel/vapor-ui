@@ -11,7 +11,7 @@ it('has pagination', function () {
     expect($result->cursor)->not->toBeEmpty();
 
     $result = $logs->search('http', [
-        'nextToken' => $cursor
+        'nextToken' => $cursor,
     ]);
 
     $eventId21 = $result->entries[0]->content['eventId'];
@@ -75,7 +75,7 @@ it('has filter by start date', function () {
     $startTime = now()->subDays(1)->timestamp * 1000;
 
     $result = $logs->search('cli', [
-        'startTime' => $startTime
+        'startTime' => $startTime,
     ]);
 
     $eventTimestamp = $result->entries[0]->content['timestamp'];
@@ -89,11 +89,10 @@ it('has filter by end date', function () {
     $endTime = now()->subDays(1)->timestamp * 1000;
 
     $result = $logs->search('cli', [
-        'endTime' => $endTime 
+        'endTime' => $endTime,
     ]);
 
     $eventTimestamp = $result->entries[0]->content['timestamp'];
 
     expect($eventTimestamp)->toBeLessThan($endTime);
 });
-
