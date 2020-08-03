@@ -18,6 +18,8 @@
         data() {
             return {
                 entries: [],
+                errors: [],
+                loadingMore: false,
                 searching: true,
                 cursor: null,
                 filters: {}
@@ -62,11 +64,20 @@
          */
         methods: {
             loadEntries(){
+                if (! this.validate()) {
+                    return;
+                }
+
                 this.searching = true;
 
                 this.request().then(({ data }) => {
                     this.entries = data.entries;
                     this.cursor = data.cursor;
+
+                    if (this.entries.length < 100 && this.cursor) {
+                        this.loadMore();
+                    }
+
                     this.searching = false;
                 })
             },
@@ -75,6 +86,8 @@
              * Performs a GET request on the current resource.
              */
             request(cursor = null){
+                const filters = { ...this.filters };
+
                 let params = { ...this.filters };
 
                 if (this.filters.startTime) {
@@ -85,7 +98,13 @@
 
                 params.cursor = cursor;
 
-                return axios.get(`/vapor-ui/api/${this.resource}`, { params });
+                return axios.get(`/vapor-ui/api/${this.resource}`, { params }).then(data => {
+                    if (! _.isEqual(filters, this.filters)) {
+                        throw 'The filters have been changed.';
+                    }
+
+                    return data;
+                });
             },
 
             /**
@@ -103,10 +122,32 @@
              * and attach the receive new entries.
              */
             loadMore(){
+                this.loadingMore = true;
+
                 this.request(this.cursor).then(({ data }) => {
                     this.entries.push(...data.entries);
                     this.cursor = data.cursor;
+
+                    this.loadingMore = false;
+
+                    if (this.entries.length < 100 && this.cursor) {
+                        this.loadMore();
+                    }
                 });
+            },
+
+            /**
+             * Validates the current filters.
+             * @return {[type]} [description]
+             */
+            validate(){
+                this.errors = [];
+
+                if (! moment(this.filters.startTime).isValid()) {
+                    this.errors.push("Input any valid date. Ex: 'August 2, 2020 10:55 AM'");
+                }
+
+                return ! this.errors.length;
             },
 
 
@@ -132,31 +173,30 @@
     <div class="card">
         <div class="card-header d-flex align-items-center justify-content-between">
             <h5>{{this.title}}</h5>
+        </div>
 
-            <select v-model="filters.limit" class="form-control w-25"
-                    v-on:change="loadEntries"
-                    >
-                <option selected="selected" :value="undefined">10</option>
-                <option>20</option>
-                <option>50</option>
-                <option>100</option>
-            </select>
 
+
+        <div class="card-header d-flex align-items-center justify-content-between">
             <input type="text"
-                   class="form-control w-25"
+                   class="form-control w-75"
                    id="search-input"
                    placeholder="Search..."
                    v-model="filters.query"
-                   v-on:change="search"></input>
-        </div>
+                   @input.stop="search"></input>
 
-        <div class="card-header d-flex align-items-center justify-content-between">
             <input type="text" class="form-control w-25"
                    v-model.lazy="filters.startTime"
                    v-on:change="loadEntries">
+
+            <ul v-if="errors.length">
+              <li v-for="error in errors" >
+                {{ error }}
+              </li>
+            </ul>
         </div>
 
-        <div v-if="searching" class="d-flex align-items-center justify-content-center card-bg-secondary p-5 bottom-radius">
+        <div v-if="searching && ! loadingMore" class="d-flex align-items-center justify-content-center card-bg-secondary p-5 bottom-radius">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="icon spin mr-2 fill-text-color">
                 <path d="M12 10a2 2 0 0 1-3.41 1.41A2 2 0 0 1 10 8V0a9.97 9.97 0 0 1 10 10h-8zm7.9 1.41A10 10 0 1 1 8.59.1v2.03a8 8 0 1 0 9.29 9.29h2.02zm-4.07 0a6 6 0 1 1-7.25-7.25v2.1a3.99 3.99 0 0 0-1.4 6.57 4 4 0 0 0 6.56-1.42h2.1z"></path>
             </svg>
@@ -164,7 +204,7 @@
             <span>Searching for entries...</span>
         </div>
 
-        <div v-if="! searching && entries.length == 0" class="d-flex flex-column align-items-center justify-content-center card-bg-secondary p-5 bottom-radius">
+        <div v-if="! searching && ! loadingMore && entries.length == 0" class="d-flex flex-column align-items-center justify-content-center card-bg-secondary p-5 bottom-radius">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" class="fill-text-color" style="width: 200px;">
                 <path fill-rule="evenodd" d="M7 10h41a11 11 0 0 1 0 22h-8a3 3 0 0 0 0 6h6a6 6 0 1 1 0 12H10a4 4 0 1 1 0-8h2a2 2 0 1 0 0-4H7a5 5 0 0 1 0-10h3a3 3 0 0 0 0-6H7a6 6 0 1 1 0-12zm14 19a1 1 0 0 1-1-1 1 1 0 0 0-2 0 1 1 0 0 1-1 1 1 1 0 0 0 0 2 1 1 0 0 1 1 1 1 1 0 0 0 2 0 1 1 0 0 1 1-1 1 1 0 0 0 0-2zm-5.5-11a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm24 10a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm1 18a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm-14-3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm22-23a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM33 18a1 1 0 0 1-1-1v-1a1 1 0 0 0-2 0v1a1 1 0 0 1-1 1h-1a1 1 0 0 0 0 2h1a1 1 0 0 1 1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 0-2h-1z"></path>
             </svg>
@@ -181,7 +221,16 @@
             </transition-group>
         </table>
 
-        <div v-if="! searching && entries.length > 0 && cursor" class="d-flex flex-column align-items-center justify-content-center card-bg-secondary p-5 bottom-radius">
+        <div v-if="! searching && loadingMore" class="d-flex align-items-center justify-content-center card-bg-secondary p-5 bottom-radius">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="icon spin mr-2 fill-text-color">
+                <path d="M12 10a2 2 0 0 1-3.41 1.41A2 2 0 0 1 10 8V0a9.97 9.97 0 0 1 10 10h-8zm7.9 1.41A10 10 0 1 1 8.59.1v2.03a8 8 0 1 0 9.29 9.29h2.02zm-4.07 0a6 6 0 1 1-7.25-7.25v2.1a3.99 3.99 0 0 0-1.4 6.57 4 4 0 0 0 6.56-1.42h2.1z"></path>
+            </svg>
+
+            <span v-if="entries.length > 0">Searching for newer entries...</span>
+            <span v-else>No entries have being found yet, still searching for entries...</span>
+        </div>
+
+        <div v-if="! searching && ! loadingMore && cursor" class="d-flex flex-column align-items-center justify-content-center card-bg-secondary p-5 bottom-radius">
             <button @click="loadMore" class="btn btn-primary">Load more</button>
         </div>
     </div>

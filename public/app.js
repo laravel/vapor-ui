@@ -1958,6 +1958,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   data: function data() {
     return {
       entries: [],
+      errors: [],
+      loadingMore: false,
       searching: true,
       cursor: null,
       filters: {}
@@ -2001,11 +2003,20 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     loadEntries: function loadEntries() {
       var _this = this;
 
+      if (!this.validate()) {
+        return;
+      }
+
       this.searching = true;
       this.request().then(function (_ref) {
         var data = _ref.data;
         _this.entries = data.entries;
         _this.cursor = data.cursor;
+
+        if (_this.entries.length < 100 && _this.cursor) {
+          _this.loadMore();
+        }
+
         _this.searching = false;
       });
     },
@@ -2014,7 +2025,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
      * Performs a GET request on the current resource.
      */
     request: function request() {
+      var _this2 = this;
+
       var cursor = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+      var filters = _objectSpread({}, this.filters);
 
       var params = _objectSpread({}, this.filters);
 
@@ -2028,6 +2043,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       params.cursor = cursor;
       return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/vapor-ui/api/".concat(this.resource), {
         params: params
+      }).then(function (data) {
+        if (!lodash__WEBPACK_IMPORTED_MODULE_0___default.a.isEqual(filters, _this2.filters)) {
+          throw 'The filters have been changed.';
+        }
+
+        return data;
       });
     },
 
@@ -2035,10 +2056,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
      * Creates a new debouncer when a the search input changes.
      */
     search: function search() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.debouncer(function () {
-        _this2.loadEntries();
+        _this3.loadEntries();
       });
     },
 
@@ -2047,17 +2068,37 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
      * and attach the receive new entries.
      */
     loadMore: function loadMore() {
-      var _this3 = this;
+      var _this4 = this;
 
+      this.loadingMore = true;
       this.request(this.cursor).then(function (_ref2) {
-        var _this3$entries;
+        var _this4$entries;
 
         var data = _ref2.data;
 
-        (_this3$entries = _this3.entries).push.apply(_this3$entries, _toConsumableArray(data.entries));
+        (_this4$entries = _this4.entries).push.apply(_this4$entries, _toConsumableArray(data.entries));
 
-        _this3.cursor = data.cursor;
+        _this4.cursor = data.cursor;
+        _this4.loadingMore = false;
+
+        if (_this4.entries.length < 100 && _this4.cursor) {
+          _this4.loadMore();
+        }
       });
+    },
+
+    /**
+     * Validates the current filters.
+     * @return {[type]} [description]
+     */
+    validate: function validate() {
+      this.errors = [];
+
+      if (!moment__WEBPACK_IMPORTED_MODULE_3___default()(this.filters.startTime).isValid()) {
+        this.errors.push("Input any valid date. Ex: 'August 2, 2020 10:55 AM'");
+      }
+
+      return !this.errors.length;
     },
 
     /**
@@ -44089,83 +44130,7 @@ var render = function() {
         staticClass:
           "card-header d-flex align-items-center justify-content-between"
       },
-      [
-        _c("h5", [_vm._v(_vm._s(this.title))]),
-        _vm._v(" "),
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.filters.limit,
-                expression: "filters.limit"
-              }
-            ],
-            staticClass: "form-control w-25",
-            on: {
-              change: [
-                function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.$set(
-                    _vm.filters,
-                    "limit",
-                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                  )
-                },
-                _vm.loadEntries
-              ]
-            }
-          },
-          [
-            _c(
-              "option",
-              {
-                attrs: { selected: "selected" },
-                domProps: { value: undefined }
-              },
-              [_vm._v("10")]
-            ),
-            _vm._v(" "),
-            _c("option", [_vm._v("20")]),
-            _vm._v(" "),
-            _c("option", [_vm._v("50")]),
-            _vm._v(" "),
-            _c("option", [_vm._v("100")])
-          ]
-        ),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.filters.query,
-              expression: "filters.query"
-            }
-          ],
-          staticClass: "form-control w-25",
-          attrs: { type: "text", id: "search-input", placeholder: "Search..." },
-          domProps: { value: _vm.filters.query },
-          on: {
-            change: _vm.search,
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.filters, "query", $event.target.value)
-            }
-          }
-        })
-      ]
+      [_c("h5", [_vm._v(_vm._s(this.title))])]
     ),
     _vm._v(" "),
     _c(
@@ -44175,6 +44140,34 @@ var render = function() {
           "card-header d-flex align-items-center justify-content-between"
       },
       [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.filters.query,
+              expression: "filters.query"
+            }
+          ],
+          staticClass: "form-control w-75",
+          attrs: { type: "text", id: "search-input", placeholder: "Search..." },
+          domProps: { value: _vm.filters.query },
+          on: {
+            input: [
+              function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.filters, "query", $event.target.value)
+              },
+              function($event) {
+                $event.stopPropagation()
+                return _vm.search($event)
+              }
+            ]
+          }
+        }),
+        _vm._v(" "),
         _c("input", {
           directives: [
             {
@@ -44196,11 +44189,23 @@ var render = function() {
               _vm.loadEntries
             ]
           }
-        })
+        }),
+        _vm._v(" "),
+        _vm.errors.length
+          ? _c(
+              "ul",
+              _vm._l(_vm.errors, function(error) {
+                return _c("li", [
+                  _vm._v("\n            " + _vm._s(error) + "\n          ")
+                ])
+              }),
+              0
+            )
+          : _vm._e()
       ]
     ),
     _vm._v(" "),
-    _vm.searching
+    _vm.searching && !_vm.loadingMore
       ? _c(
           "div",
           {
@@ -44232,7 +44237,7 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
-    !_vm.searching && _vm.entries.length == 0
+    !_vm.searching && !_vm.loadingMore && _vm.entries.length == 0
       ? _c(
           "div",
           {
@@ -44293,7 +44298,45 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
-    !_vm.searching && _vm.entries.length > 0 && _vm.cursor
+    !_vm.searching && _vm.loadingMore
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "d-flex align-items-center justify-content-center card-bg-secondary p-5 bottom-radius"
+          },
+          [
+            _c(
+              "svg",
+              {
+                staticClass: "icon spin mr-2 fill-text-color",
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  viewBox: "0 0 20 20"
+                }
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    d:
+                      "M12 10a2 2 0 0 1-3.41 1.41A2 2 0 0 1 10 8V0a9.97 9.97 0 0 1 10 10h-8zm7.9 1.41A10 10 0 1 1 8.59.1v2.03a8 8 0 1 0 9.29 9.29h2.02zm-4.07 0a6 6 0 1 1-7.25-7.25v2.1a3.99 3.99 0 0 0-1.4 6.57 4 4 0 0 0 6.56-1.42h2.1z"
+                  }
+                })
+              ]
+            ),
+            _vm._v(" "),
+            _vm.entries.length > 0
+              ? _c("span", [_vm._v("Searching for newer entries...")])
+              : _c("span", [
+                  _vm._v(
+                    "No entries have being found yet, still searching for entries..."
+                  )
+                ])
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    !_vm.searching && !_vm.loadingMore && _vm.cursor
       ? _c(
           "div",
           {

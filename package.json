@@ -17,6 +17,7 @@
         "lodash": "^4.17.19",
         "jquery": "^3.5.1",
         "moment": "^2.27.0",
+        "moment-timezone": "^0.5.31"
         "resolve-url-loader": "^3.1.0",
         "popper.js": "^1.16.1",
         "sass": "^1.15.2",

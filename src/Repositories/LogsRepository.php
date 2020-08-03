@@ -97,7 +97,7 @@ class LogsRepository
      */
     protected function limit($filters)
     {
-        return isset($filters['limit']) ? (int) $filters['limit'] : 10;
+        return isset($filters['limit']) ? (int) $filters['limit'] : 100;
     }
 
     /**
