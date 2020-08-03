@@ -138,7 +138,6 @@
 
             /**
              * Validates the current filters.
-             * @return {[type]} [description]
              */
             validate(){
                 this.errors = [];
