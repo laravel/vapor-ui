@@ -1,21 +1,39 @@
 export default [
-    { path: '/', redirect: '/requests' },
+    { path: '/', redirect: '/logs/http' },
 
     {
-        path: '/requests',
-        name: 'requests',
-        component: require('./screens/requests/index').default,
+        path: '/logs/http',
+        name: 'logs-http-list',
+        component: require('./screens/logs/http/list').default,
     },
 
     {
-        path: '/commands',
-        name: 'commands',
-        component: require('./screens/commands/index').default,
+        path: '/logs/http/:id',
+        name: 'logs-http-preview',
+        component: require('./screens/logs/http/preview').default,
     },
 
     {
-        path: '/jobs',
-        name: 'jobs',
-        component: require('./screens/jobs/index').default,
+        path: '/logs/cli',
+        name: 'logs-cli-list',
+        component: require('./screens/logs/cli/list').default,
+    },
+
+    {
+        path: '/logs/cli/:id',
+        name: 'logs-cli-preview',
+        component: require('./screens/logs/cli/preview').default,
+    },
+
+    {
+        path: '/logs/queue',
+        name: 'logs-queue-list',
+        component: require('./screens/logs/queue/list').default,
+    },
+
+    {
+        path: '/logs/queue/:id',
+        name: 'logs-queue-preview',
+        component: require('./screens/logs/queue/preview').default,
     },
 ];

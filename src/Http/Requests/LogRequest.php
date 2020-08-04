@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class LogRequest extends FormRequest
 {
     /**
-     * Get the validation rules that apply to the request.
+     * Get the validation rules that apply to the log request.
      *
      * @return array
      */
@@ -15,9 +15,9 @@ class LogRequest extends FormRequest
     {
         return [
             'query' => ['nullable', 'string'],
-            'limit' => ['nullable', 'integer', 'min:0', 'max:100'],
             'startTime' => ['required', 'integer'],
             'cursor' => ['nullable', 'string'],
+            'raw' => ['nullable', 'integer'],
         ];
     }
 }

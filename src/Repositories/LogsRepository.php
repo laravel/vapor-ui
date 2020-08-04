@@ -6,6 +6,7 @@ use Aws\CloudWatchLogs\CloudWatchLogsClient;
 use Aws\CloudWatchLogs\Exception\CloudWatchLogsException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Laravel\VaporUi\Exceptions\EntryNotFound;
 use Laravel\VaporUi\Support\SearchResult;
 use Laravel\VaporUi\ValueObjects\Entry;
 
@@ -29,6 +30,33 @@ class LogsRepository
     }
 
     /**
+     * Gets the given log by its eventId.
+     *
+     * @param  string $eventId
+     * @param  string $group
+     * @param  array $filters
+     *
+     * @return Entry
+     */
+    public function get($id, $group, $filters = [])
+    {
+        $entry = null;
+
+        $result = $this->search($group, $filters);
+
+        foreach ($result->entries as $entry) {
+            if ($entry->id === $id) {
+                return $entry;
+            }
+        }
+
+        throw new EntryNotFound(sprintf(
+            'Entry [%s] not found.',
+            $id
+        ));
+    }
+
+    /**
      * Search for the logs.
      *
      * @param  string $group
@@ -45,7 +73,6 @@ class LogsRepository
                 'nextToken' => $this->nextToken($filters),
                 'startTime' => $this->startTime($filters),
                 'filterPattern' =>  $this->filterPattern($filters),
-                // 'logStreamNames' => $filters['logStreamNames']
             ]))->toArray();
         } catch (CloudWatchLogsException $e) {
             $resourceNotFoundException = '"__type":"ResourceNotFoundException"';
@@ -60,17 +87,20 @@ class LogsRepository
         }
 
         $entries = (new Collection($response['events']))
-            ->map(function ($event) {
+            ->filter(function ($event) use ($filters) {
+                return ($filters['raw'] ?? false) || @json_decode($event['message']);
+            })->map(function ($event) use ($group, $filters) {
                 if (array_key_exists('message', $event)) {
-                    if ($message = json_decode($event['message'])) {
+                    if ($message = json_decode($event['message'], true)) {
                         $event['message'] = $message;
                     }
                 }
 
-                return new Entry($event['eventId'], Entry::TYPE_LOG, $event);
-            });
+                return new Entry($event['eventId'], $group, $filters, $event);
+            })->values()
+            ->all();
 
-        return new SearchResult($entries, array_filter($filters), $response['nextToken'] ?? null);
+        return new SearchResult($entries, $response['nextToken'] ?? null);
     }
 
     /**
@@ -127,7 +157,8 @@ class LogsRepository
      */
     protected function filterPattern($filters)
     {
-        $include = '"message" ';
+        $include = ($filters['raw'] ?? false) ? '' : '"message" ';
+
         $query = $filters['query'] ?? '';
         $exclude = '- "REPORT RequestId" - "START RequestId" - "END RequestId" - "Executing warming requests"';
 

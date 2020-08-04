@@ -77,3 +77,17 @@ it('has filter by start date', function () {
 
     expect($result->entries)->toHaveCount(0);
 });
+
+it('can get events by id', function () {
+    $logs = resolve(LogsRepository::class);
+    $arguments = ['cli', ['limit' => 1]];
+
+    $result = $logs->search(...$arguments);
+
+    $id = $result->entries[0]->id;
+    $cursor = null;
+
+    $entry = $logs->get($id, ...$arguments);
+
+    expect($entry->id)->toBe($id);
+});

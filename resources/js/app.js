@@ -3,6 +3,7 @@ import Base from './base';
 import moment from 'moment-timezone';
 import Routes from './routes';
 import Vue from 'vue';
+import VueJsonPretty from 'vue-json-pretty';
 import VueRouter from 'vue-router';
 
 require('bootstrap');
@@ -23,7 +24,9 @@ const router = new VueRouter({
     base: '/vapor-ui',
 });
 
-Vue.component('index-screen', require('./components/IndexScreen.vue').default);
+Vue.component('vue-json-pretty', VueJsonPretty);
+Vue.component('log-list-screen', require('./components/LogListScreen.vue').default);
+Vue.component('log-preview-screen', require('./components/LogPreviewScreen.vue').default);
 
 Vue.mixin(Base);
 

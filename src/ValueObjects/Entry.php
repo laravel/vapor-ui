@@ -2,10 +2,10 @@
 
 namespace Laravel\VaporUi\ValueObjects;
 
-class Entry
-{
-    const TYPE_LOG = 'log';
+use JsonSerializable;
 
+class Entry implements JsonSerializable
+{
     /**
      * The entry's primary key.
      *
@@ -14,32 +14,64 @@ class Entry
     public $id;
 
     /**
-     * The entry's type.
+     * The entry's filters.
+     *
+     * @var array
+     */
+    public $filters;
+
+    /**
+     * The entry's group.
      *
      * @var string
      */
-    public $type;
+    public $group;
 
     /**
      * The entry's content.
      *
-     * @var array
+     * @var array|string
      */
     public $content;
+
+    /**
+     * The entry's request id.
+     *
+     * @var string|null
+     */
+    public $requestId;
 
     /**
      * Creates a new entry.
      *
      * @param  string $id
-     * @param  string $type
+     * @param  string $group
      * @param  array $content
      *
      * @return void
      */
-    public function __construct($id, $type, $content)
+    public function __construct($id, $group, $filters, $content)
     {
         $this->id = $id;
-        $this->type = $type;
+        $this->group = $group;
+        $this->filters = $filters;
+
+        // Grabs the Aws Request Id
+        if (! is_string($content['message'])) {
+            $this->requestId = $content['message']['context']['aws_request_id'] ?? '';
+            unset($content['message']['context']['aws_request_id']);
+        }
+
         $this->content = $content;
+    }
+
+    /**
+     * Get the array representation of the entry.
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return (array) $this;
     }
 }

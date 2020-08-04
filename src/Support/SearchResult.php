@@ -25,31 +25,23 @@ class SearchResult implements JsonSerializable
      * Creates a new search result.
      *
      * @param  Collection $entries
-     * @param  array $filters
      * @param  string|null $cursor
      *
      * @return void
      */
-    public function __construct($entries, $filters, $cursor)
+    public function __construct($entries, $cursor)
     {
         $this->entries = $entries;
-        $this->filters = $filters;
-
-        unset($filters['cursor']);
-        $this->cursor = $cursor ?: null;
+        $this->cursor = $cursor;
     }
 
     /**
-     * Get the array representation of the entry.
+     * Get the array representation of the search result.
      *
      * @return array
      */
     public function jsonSerialize()
     {
-        return [
-            'cursor' => $this->cursor,
-            'filters' => $this->filters,
-            'entries' => $this->entries,
-        ];
+        return (array) $this;
     }
 }
