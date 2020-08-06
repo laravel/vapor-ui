@@ -360,7 +360,7 @@ export default {
                 this.entries = data.entries;
                 this.cursor = data.cursor;
                 this.searching = false;
-                if (this.entries.length < 100 && this.cursor) {
+                if (this.entries.length < 50 && this.cursor) {
                     this.loadMore();
                 }
             });

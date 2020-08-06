@@ -2355,6 +2355,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
 
 
 
@@ -2430,7 +2432,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }
       /**
        * Next, we update some state like the minutes ago selector, and
-       * the `searching` that will display the loader. 
+       * the `searching` that will display the loader.
        */
 
 
@@ -2447,7 +2449,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         _this.cursor = data.cursor;
         _this.searching = false;
 
-        if (_this.entries.length < 100 && _this.cursor) {
+        if (_this.entries.length < 50 && _this.cursor) {
           _this.loadMore();
         }
       });
