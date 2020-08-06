@@ -1,10 +1,289 @@
+<template>
+    <div class="flex-1 relative pb-8 z-0 overflow-y-auto">
+        <div class="relative z-10 flex-shrink-0 flex h-16 bg-white border-b border-gray-200 lg:border-none">
+            <div class="flex-1 px-4 flex justify-between sm:px-6 lg:max-w-6xl lg:mx-auto lg:px-8">
+                <div class="flex-1 flex">
+                    <div class="w-full flex md:ml-0">
+                        <label for="search-input" class="sr-only">Search</label>
+                        <div class="relative w-full text-gray-400 focus-within:text-gray-600">
+                            <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none">
+                                <icon-search size="5" />
+                            </div>
+                            <input
+                                id="search-input"
+                                v-model="filters.query"
+                                @input.stop="search"
+                                class="block w-full h-full pl-8 pr-3 py-2 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 sm:text-sm"
+                                placeholder="Search"
+                                type="search"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="ml-4 flex items-center md:ml-6">
+                    <button
+                        class="p-1 text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:shadow-outline focus:text-gray-500"
+                        aria-label="Refresh"
+                        v-on:click="loadEntries"
+                    >
+                        <icon-refresh size="6" />
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-1 relative pb-8 z-0 overflow-y-auto">
+            <div class="bg-white shadow">
+                <div class="px-4 sm:px-6 lg:max-w-6xl lg:mx-auto lg:px-8">
+                    <div class="py-6 md:flex md:items-center md:justify-between lg:border-t lg:border-cool-gray-200">
+                        <div class="flex-1 min-w-0">
+                            <div>
+                                <label for="start-time-input" class="block text-sm font-medium leading-5 text-gray-700"
+                                    >Starting from</label
+                                >
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <icon-calendar class="text-gray-400" size="5" />
+                                    </div>
+                                    <input
+                                        v-model.lazy="filters.startTime"
+                                        v-on:change="loadEntries"
+                                        id="start-time-input"
+                                        class="form-input block w-full pl-10 sm:text-sm sm:leading-5"
+                                        placeholder="0.00"
+                                    />
+                                    <div class="absolute inset-y-0 right-0 flex items-center">
+                                        <select
+                                            v-model="minutesAgo"
+                                            v-on:change="onTimeAgoChange()"
+                                            aria-label="Currency"
+                                            class="form-select h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm sm:leading-5"
+                                        >
+                                            <option
+                                                v-for="[option, label] in getMinutesAgoOptions()"
+                                                :key="`minutes-ago-${option}`"
+                                                :value="option"
+                                            >
+                                                {{ label }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <p if="errors.length" v-for="error in errors" class="mt-2 text-sm text-red-600">
+                                    {{ error }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-6 flex space-x-3 md:mt-0 md:ml-4">
+                            <div class="flex items-start pt-5">
+                                <div class="flex items-center h-5">
+                                    <input
+                                        v-model="filters.raw"
+                                        v-on:change="loadEntries"
+                                        :true-value="1"
+                                        :false-value="null"
+                                        id="raw"
+                                        type="checkbox"
+                                        class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+                                    />
+                                </div>
+                                <div class="ml-3 text-sm leading-5">
+                                    <p class="text-gray-500">Display raw logs from AWS.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col mt-2">
+                <div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
+                    <!-- Loader -->
+                    <loader v-if="searching || (loadingMore && entries.length == 0)">
+                        <template v-if="loadingMore && entries.length === 0">
+                            No logs have being found yet, still searching...
+                        </template>
+                    </loader>
+
+                    <!-- No Search Results -->
+                    <empty-search-results v-if="!searching && !loadingMore && entries.length == 0">
+                        No logs were found for the given search criteria.
+                    </empty-search-results>
+
+                    <table class="min-w-full divide-y divide-gray-200" v-if="!searching && entries.length > 0">
+                        <thead>
+                            <tr>
+                                <th
+                                    class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                    {{ this.title }}
+                                </th>
+
+                                <th
+                                    v-for="n in 4"
+                                    class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+                                ></th>
+                            </tr>
+                        </thead>
+                        <transition-group tag="tbody" name="list" class="bg-white divide-y divide-gray-200">
+                            <tr v-for="entry in entries" :key="entry.id">
+                                <td
+                                    class="max-w-0 w-full px-6 py-4 whitespace-no-wrap text-sm leading-5 text-cool-gray-900"
+                                >
+                                    <div class="ml-4">
+                                        <div class="text-sm leading-5 font-medium text-gray-900 truncate">
+                                            <p class="truncate">
+                                                {{
+                                                    entry.content.message.message
+                                                        ? entry.content.message.message
+                                                        : entry.content.message
+                                                }}
+                                            </p>
+                                        </div>
+                                        <div
+                                            v-if="
+                                                entry.content.message.context &&
+                                                entry.content.message.context.exception &&
+                                                entry.content.message.context.exception.class
+                                            "
+                                            class="text-sm leading-5 text-gray-500"
+                                        >
+                                            {{ entry.content.message.context.exception.class }}
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                    <div class="text-sm leading-5 text-gray-500">
+                                        {{
+                                            entry.content.message.level_name ? entry.content.message.level_name : 'RAW'
+                                        }}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                    <span
+                                        v-if="entry.content.message.level"
+                                        :class="`px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-${messageLevelColor(
+                                            entry.content.message.level
+                                        )}-100 text-${messageLevelColor(entry.content.message.level)}-800`"
+                                        class=""
+                                    >
+                                        {{ entry.content.message.level }}
+                                    </span>
+                                </td>
+                                <td
+                                    class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
+                                >
+                                    {{ moment().utc(entry.content.timestamp, 'x').local().format('YYYY-MM-DD LTS') }}
+                                </td>
+                                <td
+                                    class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"
+                                >
+                                    <div class="relative flex justify-end items-center">
+                                        <button
+                                            v-on:click="
+                                                entryOptionsOpen = entryOptionsOpen == entry.id ? null : entry.id
+                                            "
+                                            :id="'entry-options' + entry.id"
+                                            aria-has-popup="true"
+                                            type="button"
+                                            class="w-8 h-8 inline-flex items-center justify-center text-gray-400 rounded-full bg-transparent hover:text-gray-500 focus:outline-none focus:text-gray-500 focus:bg-gray-100 transition ease-in-out duration-150"
+                                        >
+                                            <icon-dots-vertical size="5" />
+                                        </button>
+                                        <div
+                                            v-bind:class="{ hidden: entryOptionsOpen !== entry.id }"
+                                            class="mx-3 origin-top-right absolute right-7 top-0 w-48 mt-1 rounded-md shadow-lg"
+                                        >
+                                            <div
+                                                class="z-10 rounded-md bg-white shadow-xs"
+                                                role="menu"
+                                                aria-orientation="vertical"
+                                                :aria-labelledby="'entry-options' + entry.id"
+                                            >
+                                                <div class="py-1">
+                                                    <router-link
+                                                        :id="'entry-options-link-' + entry.id"
+                                                        :to="{
+                                                            name: `logs-${group}-preview`,
+                                                            params: { id: entry.id, group: entry.group },
+                                                            query: entry.filters,
+                                                        }"
+                                                        href="#"
+                                                        class="group flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+                                                        role="menuitem"
+                                                    >
+                                                        <icon-eye
+                                                            size="5"
+                                                            class="mr-3 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500"
+                                                        />
+                                                        View
+                                                    </router-link>
+                                                    <a
+                                                        v-on:click="
+                                                            copyToClipboard(entry);
+                                                            entryOptionsOpen = null;
+                                                        "
+                                                        href="#"
+                                                        class="group flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+                                                        role="menuitem"
+                                                    >
+                                                        <icon-clipboard-copy
+                                                            size="5"
+                                                            class="mr-3 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500"
+                                                        />
+                                                        Link
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </transition-group>
+                    </table>
+                    <!-- Pagination -->
+                    <nav
+                        v-if="(!searching && loadingMore) || (!searching && !loadingMore && cursor)"
+                        class="bg-white px-4 py-3 flex items-center justify-between border-t border-cool-gray-200 sm:px-6"
+                    >
+                        <div class="hidden sm:block" v-if="!searching && loadingMore">
+                            <p class="text-sm ml-4 leading-5 text-cool-gray-700">
+                                Searching for newer entries..
+                            </p>
+                        </div>
+                        <div class="flex-1 flex justify-between sm:justify-end">
+                            <a
+                                v-if="!searching && !loadingMore && cursor"
+                                href="#"
+                                v-on:click="loadMore"
+                                class="ml-3 relative inline-flex items-center px-4 py-2 border border-cool-gray-300 text-sm leading-5 font-medium rounded-md text-cool-gray-700 bg-white hover:text-cool-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-cool-gray-100 active:text-cool-gray-700 transition ease-in-out duration-150"
+                            >
+                                Load more
+                            </a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
 <script>
 import _ from 'lodash';
-import $ from 'jquery';
 import axios from 'axios';
 import moment from 'moment';
 
+import StylesMixin from './../mixins/entriesStyles';
+
 export default {
+    /**
+     * The component's mixins.
+     */
+    mixins: [StylesMixin],
+
     /**
      * The component's props.
      */
@@ -17,7 +296,9 @@ export default {
         return {
             entries: [],
             errors: [],
+            entryOptionsOpen: null,
             loadingMore: false,
+            minutesAgo: null,
             searching: true,
             cursor: null,
             filters: {},
@@ -36,9 +317,11 @@ export default {
             }
         }
 
-        const startTime = this.filters.startTime ? moment.unix(this.filters.startTime) : moment().subtract(1, 'h');
+        const startTime = this.filters.startTime
+            ? moment.unix(this.filters.startTime)
+            : moment().subtract(10, 'minutes');
 
-        this.updateStartTime(startTime);
+        this.filters.startTime = startTime.local().format('YYYY-MM-DD LTS');
         this.loadEntries();
         this.focusOnSearch();
     },
@@ -55,12 +338,24 @@ export default {
      */
     methods: {
         loadEntries() {
+            /**
+             * First, we validate the filters inputs.
+             */
             if (!this.validate()) {
                 return;
             }
 
+            /**
+             * Next, we update some state like the minutes ago selector, and
+             * the `searching` that will display the loader.
+             */
+            const startTime = moment(this.filters.startTime, 'YYYY-MM-DD LTS').add(new Date().getTimezoneOffset(), 'm');
+            this.minutesAgo = parseInt(moment.duration(moment().diff(startTime)).asMinutes());
             this.searching = true;
 
+            /**
+             * Finally, we perform the request.
+             */
             this.request().then(({ data }) => {
                 this.entries = data.entries;
                 this.cursor = data.cursor;
@@ -80,15 +375,17 @@ export default {
             let params = { ...this.filters };
 
             if (this.filters.startTime) {
-                params.startTime = moment(this.filters.startTime).format('X');
+                params.startTime = moment(this.filters.startTime, 'YYYY-MM-DD LTS')
+                    .add(new Date().getTimezoneOffset(), 'm')
+                    .format('X');
             }
 
-            this.$router.push({ query: _.assign({}, this.$route.query, params) }).catch(() => {});
+            this.$router.push({ query: Object.assign({}, this.$route.query, params) }).catch(() => {});
 
             params.cursor = cursor;
 
             return axios.get(`/vapor-ui/api/logs/${this.group}`, { params }).then((data) => {
-                if (!_.isEqual(filters, this.filters)) {
+                if (JSON.stringify(filters) !== JSON.stringify(this.filters)) {
                     throw 'The filters have been changed.';
                 }
 
@@ -130,25 +427,67 @@ export default {
         validate() {
             this.errors = [];
 
-            if (!moment(this.filters.startTime).isValid()) {
-                this.errors.push("Input any valid date. Ex: 'August 2, 2020 10:55 AM'");
+            if (!moment(this.filters.startTime, 'YYYY-MM-DD LTS').isValid()) {
+                this.errors.push("Input any valid date. Ex: '2020-05-09 2:32:43 PM'");
             }
 
             return !this.errors.length;
         },
 
-        startTimeAgo(amount, unit) {
-            const startTime = moment().subtract(amount, unit);
-
-            this.updateStartTime(startTime);
+        /**
+         * Updates the start time, and re-load entries.
+         */
+        onTimeAgoChange() {
+            this.filters.startTime = moment().subtract(this.minutesAgo, 'minutes').local().format('YYYY-MM-DD LTS');
 
             this.loadEntries();
         },
 
-        updateStartTime(startTime) {
-            startTime.subtract(new Date().getTimezoneOffset(), 'm');
+        /**
+         * [updateMinutesAgoInput description]
+         */
+        updateMinutesAgoInput() {
+            const startTime = moment(this.filters.startTime, 'YYYY-MM-DD LTS').add(new Date().getTimezoneOffset(), 'm');
 
-            this.filters.startTime = startTime.format('LLL');
+            const duration = moment.duration(moment().diff(startTime));
+            const minutes = parseInt(duration.asMinutes());
+            this.minutesAgo = minutes;
+        },
+
+        /**
+         * Gets the minutes ago options.
+         */
+        getMinutesAgoOptions() {
+            const minutes = Array.from(new Set([1, 5, 10, 30, this.minutesAgo].sort((a, b) => a - b)));
+            const options = [];
+
+            minutes.forEach((value) => {
+                options.push([value, moment().subtract(value, 'minutes').fromNow()]);
+            });
+
+            return options;
+        },
+
+        /**
+         * Copies the given log entry link to the clipboard.
+         */
+        copyToClipboard(entry) {
+            const props = this.$router.resolve({
+                name: `logs-${entry.group}-preview`,
+                params: { id: entry.id, group: entry.group },
+                query: entry.filters,
+            });
+
+            const el = document.createElement('textarea');
+            const base = window.location;
+            el.value = base.protocol + '//' + base.host + props.href;
+            el.setAttribute('readonly', '');
+            el.style.position = 'absolute';
+            el.style.left = '-9999px';
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
         },
 
         /**
@@ -168,145 +507,3 @@ export default {
     },
 };
 </script>
-
-<template>
-    <div class="card">
-        <div class="card-header d-flex align-items-center justify-content-between">
-            <h5>{{ this.title }}</h5>
-        </div>
-
-        <div class="card-header d-flex align-items-center justify-content-between">
-            <input
-                type="text"
-                class="form-control w-70"
-                id="search-input"
-                placeholder="Search..."
-                v-model="filters.query"
-                @input.stop="search"
-            />
-
-            <input type="text" class="form-control w-20" v-model.lazy="filters.startTime" v-on:change="loadEntries" />
-            <input
-                type="checkbox"
-                v-model="filters.raw"
-                v-on:change="loadEntries"
-                :true-value="1"
-                :false-value="null"
-            />
-        </div>
-
-        <div class="card-header d-flex align-items-center justify-content-between">
-            <button class="pull-right btn btn-primary" v-on:click="loadEntries()">
-                Refresh
-            </button>
-            <button class="pull-right btn btn-primary" v-on:click="startTimeAgo(1, 'minutes')">
-                1m
-            </button>
-
-            <button class="pull-right btn btn-primary" v-on:click="startTimeAgo(30, 'minutes')">
-                30m
-            </button>
-
-            <button class="pull-right btn btn-primary" v-on:click="startTimeAgo(1, 'hours')">
-                1h
-            </button>
-
-            <ul v-if="errors.length">
-                <li v-for="error in errors">
-                    {{ error }}
-                </li>
-            </ul>
-        </div>
-
-        <div
-            v-if="searching && !loadingMore"
-            class="d-flex align-items-center justify-content-center card-bg-secondary p-5 bottom-radius"
-        >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="icon spin mr-2 fill-text-color">
-                <path
-                    d="M12 10a2 2 0 0 1-3.41 1.41A2 2 0 0 1 10 8V0a9.97 9.97 0 0 1 10 10h-8zm7.9 1.41A10 10 0 1 1 8.59.1v2.03a8 8 0 1 0 9.29 9.29h2.02zm-4.07 0a6 6 0 1 1-7.25-7.25v2.1a3.99 3.99 0 0 0-1.4 6.57 4 4 0 0 0 6.56-1.42h2.1z"
-                ></path>
-            </svg>
-
-            <span>Searching for entries...</span>
-        </div>
-
-        <div
-            v-if="!searching && !loadingMore && entries.length == 0"
-            class="d-flex flex-column align-items-center justify-content-center card-bg-secondary p-5 bottom-radius"
-        >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" class="fill-text-color" style="width: 200px;">
-                <path
-                    fill-rule="evenodd"
-                    d="M7 10h41a11 11 0 0 1 0 22h-8a3 3 0 0 0 0 6h6a6 6 0 1 1 0 12H10a4 4 0 1 1 0-8h2a2 2 0 1 0 0-4H7a5 5 0 0 1 0-10h3a3 3 0 0 0 0-6H7a6 6 0 1 1 0-12zm14 19a1 1 0 0 1-1-1 1 1 0 0 0-2 0 1 1 0 0 1-1 1 1 1 0 0 0 0 2 1 1 0 0 1 1 1 1 1 0 0 0 2 0 1 1 0 0 1 1-1 1 1 0 0 0 0-2zm-5.5-11a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm24 10a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm1 18a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm-14-3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm22-23a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM33 18a1 1 0 0 1-1-1v-1a1 1 0 0 0-2 0v1a1 1 0 0 1-1 1h-1a1 1 0 0 0 0 2h1a1 1 0 0 1 1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 0-2h-1z"
-                ></path>
-            </svg>
-
-            <span>We didn't find anything - just empty space.</span>
-        </div>
-
-        <table class="table table-hover table-sm mb-0 penultimate-column-right" v-if="!searching && entries.length > 0">
-            <transition-group tag="tbody" name="list">
-                <tr v-for="entry in entries" :key="entry.id">
-                    <td>
-                        {{ entry.content.message.level }}
-                    </td>
-
-                    <td>
-                        {{ entry.content.message.level_name }}
-                    </td>
-
-                    <td v-if="entry.content.message.message">
-                        {{ entry.content.message.message }}
-                    </td>
-
-                    <td v-else>
-                        {{ entry.content.message }}
-                    </td>
-
-                    <td>
-                        {{ moment().utc(entry.content.timestamp, 'x').local().format('YYYY-MM-DD LTS') }}
-                    </td>
-
-                    <td class="table-fit">
-                        <router-link
-                            :to="{
-                                name: `logs-${group}-preview`,
-                                params: { id: entry.id, group: entry.group },
-                                query: entry.filters,
-                            }"
-                            class="control-action"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 16">
-                                <path
-                                    d="M16.56 13.66a8 8 0 0 1-11.32 0L.3 8.7a1 1 0 0 1 0-1.42l4.95-4.95a8 8 0 0 1 11.32 0l4.95 4.95a1 1 0 0 1 0 1.42l-4.95 4.95-.01.01zm-9.9-1.42a6 6 0 0 0 8.48 0L19.38 8l-4.24-4.24a6 6 0 0 0-8.48 0L2.4 8l4.25 4.24h.01zM10.9 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
-                                ></path>
-                            </svg>
-                        </router-link>
-                    </td>
-                </tr>
-            </transition-group>
-        </table>
-
-        <div
-            v-if="!searching && loadingMore"
-            class="d-flex align-items-center justify-content-center card-bg-secondary p-5 bottom-radius"
-        >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="icon spin mr-2 fill-text-color">
-                <path
-                    d="M12 10a2 2 0 0 1-3.41 1.41A2 2 0 0 1 10 8V0a9.97 9.97 0 0 1 10 10h-8zm7.9 1.41A10 10 0 1 1 8.59.1v2.03a8 8 0 1 0 9.29 9.29h2.02zm-4.07 0a6 6 0 1 1-7.25-7.25v2.1a3.99 3.99 0 0 0-1.4 6.57 4 4 0 0 0 6.56-1.42h2.1z"
-                ></path>
-            </svg>
-
-            <span v-if="entries.length > 0">Searching for newer entries...</span>
-            <span v-else>No entries have being found yet, still searching for entries...</span>
-        </div>
-
-        <div
-            v-if="!searching && !loadingMore && cursor"
-            class="d-flex flex-column align-items-center justify-content-center card-bg-secondary p-5 bottom-radius"
-        >
-            <button @click="loadMore" class="btn btn-primary">Load more</button>
-        </div>
-    </div>
-</template>

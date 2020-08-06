@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const tailwindcss = require('tailwindcss');
 const webpack = require('webpack');
 
 /*
@@ -21,9 +22,12 @@ mix.options({
         },
     },
 })
+    .postCss('resources/css/vapor-ui.css', 'public/app.css')
+    .options({
+        postCss: [tailwindcss('./tailwind.config.js')],
+    })
     .setPublicPath('public')
     .js('resources/js/app.js', 'public')
-    .sass('resources/sass/app.scss', 'public')
     .version()
     .webpackConfig({
         resolve: {

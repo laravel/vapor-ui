@@ -62,7 +62,25 @@ class Entry implements JsonSerializable
             unset($content['message']['context']['aws_request_id']);
         }
 
-        $this->content = $content;
+        $this->content = $this->sanitized($content);
+    }
+
+    /**
+     * Returns the sanitized content.
+     *
+     * @param  array $content
+     *
+     * @return array
+     */
+    public function sanitized($content)
+    {
+        if (is_string($content['message'])) {
+            $content['message'] = trim($content['message']);
+        } elseif (array_key_exists('message', $content['message'])) {
+            $content['message']['message'] = trim($content['message']['message']);
+        }
+
+        return $content;
     }
 
     /**

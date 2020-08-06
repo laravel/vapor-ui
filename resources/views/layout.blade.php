@@ -2,73 +2,82 @@
 <html lang="en">
     <head>
         <!-- Meta Information -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
+        <meta name="robots" content="noindex, nofollow" />
 
-        <meta name="robots" content="noindex, nofollow">
-
+        <!-- Title -->
         <title>Vapor Ui - {{ config('vapor-ui.project') }}</title>
 
-    <!-- Style sheets-->
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link href="{{ asset(mix('app.css', 'vendor/vapor-ui')) }}" rel="stylesheet" type="text/css">
+        <!-- Style sheets-->
+        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" />
+        <link href="{{ asset(mix('app.css', 'vendor/vapor-ui')) }}" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <div id="vapor-ui" v-cloak>
+        <div id="vapor-ui" class="h-screen flex overflow-hidden bg-gray-100" v-cloak>
+            <div class="flex flex-shrink-0">
+                <div class="flex flex-col w-64">
+                    <div class="flex flex-col h-0 flex-1">
+                        <div class="flex items-center h-16 flex-shrink-0 px-4 bg-gray-900">
+                            <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-logo-on-dark.svg" alt="Workflow" />
+                        </div>
+                        <div class="flex-1 flex flex-col overflow-y-auto bg-gray-800">
 
-            <div class="container mb-5">
-                <div class="d-flex align-items-center py-4 header">
-                    <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
-                        <!== <path class="fill-primary" d="M0 40a39.87 39.87 0 0 1 11.72-28.28A40 40 0 1 1 0 40zm34 10a4 4 0 0 1-4-4v-2a2 2 0 1 0-4 0v2a4 4 0 0 1-4 4h-2a2 2 0 1 0 0 4h2a4 4 0 0 1 4 4v2a2 2 0 1 0 4 0v-2a4 4 0 0 1 4-4h2a2 2 0 1 0 0-4h-2zm24-24a6 6 0 0 1-6-6v-3a3 3 0 0 0-6 0v3a6 6 0 0 1-6 6h-3a3 3 0 0 0 0 6h3a6 6 0 0 1 6 6v3a3 3 0 0 0 6 0v-3a6 6 0 0 1 6-6h3a3 3 0 0 0 0-6h-3zm-4 36a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM21 28a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path> --> 
-                    </svg>
+                            <h3 class="px-3 mt-8 text-xs leading-4 font-semibold text-gray-500 uppercase tracking-wider" id="teams-headline">
+                                Logs
+                            </h3>
 
-                    <h4 class="mb-0 ml-3"><strong>Laravel</strong> Vapor Ui - {{ config('vapor-ui.project') }}</h4>
-                </div>
+                            <nav class="flex-1 px-2 py-4 bg-gray-800">
 
-                <div class="row mt-4">
-                    <div class="col-2 sidebar">
-                        <ul class="nav flex-column">
-                            Logs
-
-                            <li class="nav-item">
-                                <router-link active-class="active" to="/logs/http" class="nav-link d-flex align-items-center pt-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path d="M0 3c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3zm2 2v12h16V5H2zm8 3l4 5H6l4-5z"></path>
+                                <router-link
+                                    to="/logs/http"
+                                    href="#"
+                                    active-class="text-white bg-gray-900 focus:outline-none focus:bg-gray-700 transition ease-in-out duration-150"
+                                    class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150"
+                                >
+                                    <svg class="mr-3 h-6 w-6 text-gray-300 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                                        />
                                     </svg>
-                                    <span>HTTP</span>
+                                    HTTP
                                 </router-link>
-                            </li>
-
-                            <li class="nav-item">
-                                <router-link active-class="active" to="/logs/cli" class="nav-link d-flex align-items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path d="M7 17H2a2 2 0 0 1-2-2V2C0 .9.9 0 2 0h16a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2h-5l4 2v1H3v-1l4-2zM2 2v11h16V2H2z"></path>
+                                <router-link
+                                    to="/logs/cli"
+                                    href="#"
+                                    active-class="text-white bg-gray-900 focus:outline-none focus:bg-gray-700 transition ease-in-out duration-150"
+                                    class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150"
+                                >
+                                    <svg class="mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                                     </svg>
-                                    <span>CLI</span>
+                                    CLI
                                 </router-link>
-                            </li>
-
-                            <li class="nav-item">
-                                <router-link active-class="active" to="/logs/queue" class="nav-link d-flex align-items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path d="M0 2h20v4H0V2zm0 8h20v2H0v-2zm0 6h20v2H0v-2z"></path>
+                                <router-link
+                                    to="/logs/queue"
+                                    href="#"
+                                    active-class="text-white bg-gray-900 focus:outline-none focus:bg-gray-700 transition ease-in-out duration-150"
+                                    class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150"
+                                >
+                                    <svg class="mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
                                     </svg>
-                                    <span>Queue</span>
+                                    Queue
                                 </router-link>
-                            </li>
-
-                        </ul>
-                    </div>
-
-                    <div class="col-10">
-                        <router-view></router-view>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <router-view></router-view>
         </div>
 
-        <!-- Global Vapor Ui Object -->
+        <!-- Global App Object -->
         <script>
             window.App = @json($appVars);
         </script>

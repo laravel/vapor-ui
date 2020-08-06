@@ -7,7 +7,7 @@ export default {
          * Returns an moment instance.
          */
         moment() {
-            moment.updateLocale('en');
+            // moment.updateLocale('en');
 
             return moment;
         },
