@@ -15,7 +15,7 @@
         <link href="{{ asset(mix('app.css', 'vendor/vapor-ui')) }}" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <div id="vapor-ui" class="h-screen flex overflow-hidden bg-gray-100" v-cloak>
+        <div id="vapor-ui" class="font-sans antialiased h-screen flex overflow-hidden bg-gray-100" v-cloak>
             <div class="flex flex-shrink-0">
                 <div class="flex flex-col w-64">
                     <div class="flex flex-col h-0 flex-1">

@@ -2618,13 +2618,191 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mixins_entriesStyles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../mixins/entriesStyles */ "./resources/js/mixins/entriesStyles.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  /**
+   * The component's mixins.
+   */
+  mixins: [_mixins_entriesStyles__WEBPACK_IMPORTED_MODULE_1__["default"]],
+
   /**
    * The component's props.
    */
@@ -2635,6 +2813,7 @@ __webpack_require__.r(__webpack_exports__);
    */
   data: function data() {
     return {
+      id: null,
       entry: null,
       filters: null,
       ready: false,
@@ -2648,16 +2827,16 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    var id = this.$route.params.id;
+    this.id = this.$route.params.id;
     this.filters = this.$route.query;
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/vapor-ui/api/logs/".concat(this.group, "/").concat(id), {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/vapor-ui/api/logs/".concat(this.group, "/").concat(this.id), {
       params: this.filters
     }).then(function (_ref) {
       var data = _ref.data;
       _this.entry = data;
       _this.ready = true;
     });
-    document.title = "Vapor Ui - ".concat(this.title);
+    document.title = "Vapor Ui - ".concat(this.title, " - Details");
   }
 });
 
@@ -27930,251 +28109,522 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "flex-1 relative pb-8 z-0 overflow-y-auto" },
     [
       _c(
-        "router-link",
+        "div",
         {
-          staticClass: "control-action",
-          attrs: {
-            to: { name: "logs-" + this.group + "-list", query: this.filters }
-          }
+          staticClass:
+            "relative z-10 flex-shrink-0 flex h-16 bg-white border-b border-gray-200 lg:border-none"
         },
         [
-          _c("button", { staticClass: "btn btn-primary margin-botton-10" }, [
-            _vm._v("Back")
-          ])
+          _c(
+            "div",
+            {
+              staticClass:
+                "flex-1 px-4 flex justify-between sm:px-6 lg:max-w-6xl lg:mx-auto lg:px-8"
+            },
+            [
+              _c("div", { staticClass: "mt-5" }, [
+                _c("div", [
+                  _c(
+                    "nav",
+                    { staticClass: "sm:hidden" },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass:
+                            "flex items-center text-sm leading-5 font-medium text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out",
+                          attrs: {
+                            to: {
+                              name: "logs-" + _vm.group + "-list",
+                              query: _vm.filters
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "svg",
+                            {
+                              staticClass:
+                                "flex-shrink-0 -ml-1 mr-1 h-5 w-5 text-gray-400",
+                              attrs: {
+                                viewBox: "0 0 20 20",
+                                fill: "currentColor"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  "fill-rule": "evenodd",
+                                  d:
+                                    "M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z",
+                                  "clip-rule": "evenodd"
+                                }
+                              })
+                            ]
+                          ),
+                          _vm._v(
+                            "\n                            Back\n                        "
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "nav",
+                    {
+                      staticClass:
+                        "hidden sm:flex items-center text-sm leading-5 font-medium"
+                    },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass:
+                            "text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out",
+                          attrs: {
+                            to: {
+                              name: "logs-" + _vm.group + "-list",
+                              query: _vm.filters
+                            }
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.title))]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "svg",
+                        {
+                          staticClass:
+                            "flex-shrink-0 mx-2 h-5 w-5 text-gray-400",
+                          attrs: { viewBox: "0 0 20 20", fill: "currentColor" }
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              "fill-rule": "evenodd",
+                              d:
+                                "M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z",
+                              "clip-rule": "evenodd"
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass:
+                            "text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out",
+                          attrs: { href: "#" }
+                        },
+                        [_vm._v("Detail")]
+                      )
+                    ],
+                    1
+                  )
+                ])
+              ])
+            ]
+          )
         ]
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "card" }, [
-        _c(
-          "div",
-          {
-            staticClass:
-              "card-header d-flex align-items-center justify-content-between"
-          },
-          [_c("h5", [_vm._v(_vm._s(this.title))])]
-        ),
-        _vm._v(" "),
-        !_vm.ready
-          ? _c(
-              "div",
-              {
-                staticClass:
-                  "d-flex align-items-center justify-content-center card-bg-secondary p-5 bottom-radius"
-              },
-              [
+      _vm.ready
+        ? _c(
+            "div",
+            { staticClass: "max-w-6xl mx-auto px-4 py-12 sm:px-6 lg:px-8" },
+            [
+              _c("div", { staticClass: "max-w-4xl mx-auto" }, [
                 _c(
-                  "svg",
+                  "div",
                   {
-                    staticClass: "icon spin mr-2",
-                    attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      viewBox: "0 0 20 20"
-                    }
+                    staticClass: "bg-white shadow overflow-hidden sm:rounded-lg"
                   },
                   [
-                    _c("path", {
-                      attrs: {
-                        d:
-                          "M12 10a2 2 0 0 1-3.41 1.41A2 2 0 0 1 10 8V0a9.97 9.97 0 0 1 10 10h-8zm7.9 1.41A10 10 0 1 1 8.59.1v2.03a8 8 0 1 0 9.29 9.29h2.02zm-4.07 0a6 6 0 1 1-7.25-7.25v2.1a3.99 3.99 0 0 0-1.4 6.57 4 4 0 0 0 6.56-1.42h2.1z"
-                      }
-                    })
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "px-4 py-5 sm:p-0" }, [
+                      _c("dl", [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5"
+                          },
+                          [
+                            _c(
+                              "dt",
+                              {
+                                staticClass:
+                                  "text-sm leading-5 font-medium text-gray-500"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Time\n                            "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "dd",
+                              {
+                                staticClass:
+                                  "mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(
+                                      _vm
+                                        .moment()
+                                        .utc(_vm.entry.content.timestamp, "x")
+                                        .local()
+                                        .format("YYYY-MM-DD LTS")
+                                    ) +
+                                    "\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
+                          },
+                          [
+                            _c(
+                              "dt",
+                              {
+                                staticClass:
+                                  "text-sm leading-5 font-medium text-gray-500"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Log Stream Name\n                            "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "dd",
+                              {
+                                staticClass:
+                                  "mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(_vm.entry.content.logStreamName) +
+                                    "\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.entry.requestId
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
+                              },
+                              [
+                                _c(
+                                  "dt",
+                                  {
+                                    staticClass:
+                                      "text-sm leading-5 font-medium text-gray-500"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Request ID\n                            "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "dd",
+                                  {
+                                    staticClass:
+                                      "mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(_vm.entry.requestId) +
+                                        "\n                            "
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
+                          },
+                          [
+                            _c(
+                              "dt",
+                              {
+                                staticClass:
+                                  "text-sm leading-5 font-medium text-gray-500"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Level Name\n                            "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "dd",
+                              {
+                                staticClass:
+                                  "mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(
+                                      _vm.entry.content.message.level_name
+                                        ? _vm.entry.content.message.level_name
+                                        : "RAW"
+                                    ) +
+                                    "\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.entry.content.message.level
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
+                              },
+                              [
+                                _c(
+                                  "dt",
+                                  {
+                                    staticClass:
+                                      "text-sm leading-5 font-medium text-gray-500"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Level\n                            "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "dd",
+                                  {
+                                    class:
+                                      "mt-1 text-sm leading-5 text-" +
+                                      _vm.messageLevelColor(
+                                        _vm.entry.content.message.level
+                                      ) +
+                                      "-900 sm:mt-0 sm:col-span-2"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(
+                                          _vm.entry.content.message.level
+                                        ) +
+                                        "\n                            "
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
+                          },
+                          [
+                            _c(
+                              "dt",
+                              {
+                                staticClass:
+                                  "text-sm leading-5 font-medium text-gray-500"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Message\n                            "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "dd",
+                              {
+                                staticClass:
+                                  "mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(
+                                      _vm.entry.content.message.message
+                                        ? _vm.entry.content.message.message
+                                        : _vm.entry.content.message
+                                    ) +
+                                    "\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.entry.content.message.context &&
+                        JSON.stringify(_vm.entry.content.message.context) !==
+                          "[]"
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "mt-8 sm:mt-0  sm:border-t sm:border-gray-200 sm:px-6 sm:py-5 sm:col-span-2"
+                              },
+                              [
+                                _c(
+                                  "dd",
+                                  {
+                                    staticClass:
+                                      "mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2 "
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "border border-gray-200 rounded-md bg-gray-900 text-white overflow-x-auto"
+                                      },
+                                      [
+                                        _c("vue-json-pretty", {
+                                          staticClass: "m-4 3rem",
+                                          attrs: {
+                                            showLine: false,
+                                            deep: 4,
+                                            data:
+                                              _vm.entry.content.message.context
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ])
+                    ])
                   ]
                 ),
                 _vm._v(" "),
-                _c("span", [_vm._v("Searching for entry...")])
-              ]
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.ready && !_vm.entry
-          ? _c(
-              "div",
-              {
-                staticClass:
-                  "d-flex align-items-center justify-content-center card-bg-secondary p-5 bottom-radius"
-              },
-              [_c("span", [_vm._v("No entry found.")])]
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _c("div", { staticClass: "table-responsive" }, [
-          _vm.ready && _vm.entry
-            ? _c(
-                "table",
-                {
-                  staticClass: "table mb-0 card-bg-secondary table-borderless"
-                },
-                [
-                  _c("tbody", [
-                    _c("tr", [
-                      _c("td", { staticClass: "table-fit font-weight-bold" }, [
-                        _vm._v("Time")
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(
-                              _vm
-                                .moment()
-                                .utc(_vm.entry.content.timestamp, "x")
-                                .local()
-                                .format("YYYY-MM-DD LTS")
-                            ) +
-                            "\n                        "
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("td", { staticClass: "table-fit font-weight-bold" }, [
-                        _vm._v("LogStreamName")
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(_vm.entry.content.logStreamName) +
-                            "\n                        "
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _vm.entry.requestId
-                      ? _c("tr", [
+                _c("div", { staticClass: "card" }, [
+                  !_vm.ready
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex align-items-center justify-content-center card-bg-secondary p-5 bottom-radius"
+                        },
+                        [
                           _c(
-                            "td",
-                            { staticClass: "table-fit font-weight-bold" },
-                            [_vm._v("Request Id")]
+                            "svg",
+                            {
+                              staticClass: "icon spin mr-2",
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                viewBox: "0 0 20 20"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  d:
+                                    "M12 10a2 2 0 0 1-3.41 1.41A2 2 0 0 1 10 8V0a9.97 9.97 0 0 1 10 10h-8zm7.9 1.41A10 10 0 1 1 8.59.1v2.03a8 8 0 1 0 9.29 9.29h2.02zm-4.07 0a6 6 0 1 1-7.25-7.25v2.1a3.99 3.99 0 0 0-1.4 6.57 4 4 0 0 0 6.56-1.42h2.1z"
+                                }
+                              })
+                            ]
                           ),
                           _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              "\n                            " +
-                                _vm._s(_vm.entry.requestId) +
-                                "\n                        "
-                            )
-                          ])
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.entry.content.message.level
-                      ? _c("tr", [
-                          _c(
-                            "td",
-                            { staticClass: "table-fit font-weight-bold" },
-                            [_vm._v("Level")]
-                          ),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              "\n                            " +
-                                _vm._s(_vm.entry.content.message.level) +
-                                "\n                        "
-                            )
-                          ])
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.entry.content.message.level_name
-                      ? _c("tr", [
-                          _c(
-                            "td",
-                            { staticClass: "table-fit font-weight-bold" },
-                            [_vm._v("Level Name")]
-                          ),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              "\n                            " +
-                                _vm._s(_vm.entry.content.message.level_name) +
-                                "\n                        "
-                            )
-                          ])
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("td", { staticClass: "table-fit font-weight-bold" }, [
-                        _vm._v("Message")
-                      ]),
-                      _vm._v(" "),
-                      _vm.entry.content.message.message
-                        ? _c("td", [
-                            _vm._v(
-                              "\n                            " +
-                                _vm._s(_vm.entry.content.message.message) +
-                                "\n                        "
-                            )
-                          ])
-                        : _c("td", [
-                            _vm._v(
-                              "\n                            " +
-                                _vm._s(_vm.entry.content.message) +
-                                "\n                        "
-                            )
-                          ])
-                    ])
-                  ])
-                ]
-              )
-            : _vm._e()
-        ])
-      ]),
-      _vm._v(" "),
-      _vm.ready && _vm.entry && _vm.entry.content.message.context
-        ? _c("div", { staticClass: "card mt-5" }, [
-            _c("ul", { staticClass: "nav nav-pills" }, [
-              _c("li", { staticClass: "nav-item" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link",
-                    class: { active: _vm.currentTab == "context" },
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        _vm.currentTab = "context"
-                      }
-                    }
-                  },
-                  [_vm._v("Context")]
-                )
+                          _c("span", [_vm._v("Searching for entry...")])
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.ready && !_vm.entry
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex align-items-center justify-content-center card-bg-secondary p-5 bottom-radius"
+                        },
+                        [_c("span", [_vm._v("No entry found.")])]
+                      )
+                    : _vm._e()
+                ])
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", [
-              _c(
-                "div",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.currentTab == "context",
-                      expression: "currentTab == 'context'"
-                    }
-                  ],
-                  staticClass: "code-bg p-4 mb-0 text-white"
-                },
-                [
-                  _c("vue-json-pretty", {
-                    attrs: { data: _vm.entry.content.message.context }
-                  })
-                ],
-                1
-              )
-            ])
-          ])
+            ]
+          )
         : _vm._e()
-    ],
-    1
+    ]
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "px-4 py-5 border-b border-gray-200 sm:px-6" },
+      [
+        _c(
+          "h3",
+          { staticClass: "text-lg leading-6 font-medium text-gray-900" },
+          [
+            _vm._v(
+              "\n                        Log details\n                    "
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "p",
+          { staticClass: "mt-1 max-w-2xl text-sm leading-5 text-gray-500" },
+          [
+            _vm._v(
+              "\n                        Personal details and application.\n                    "
+            )
+          ]
+        )
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -28516,7 +28966,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("log-preview-screen", {
-    attrs: { title: "CLI Logs Details", group: "cli" },
+    attrs: { title: "CLI Logs", group: "cli" },
     scopedSlots: _vm._u([
       {
         key: "table-parameters",
@@ -28586,7 +29036,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("log-preview-screen", {
-    attrs: { title: "HTTP Logs Details", group: "http" },
+    attrs: { title: "HTTP Logs", group: "http" },
     scopedSlots: _vm._u([
       {
         key: "table-parameters",
@@ -28656,7 +29106,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("log-preview-screen", {
-    attrs: { title: "Queue Logs Details", group: "queue" },
+    attrs: { title: "Queue Logs", group: "queue" },
     scopedSlots: _vm._u([
       {
         key: "table-parameters",

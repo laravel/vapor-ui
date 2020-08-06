@@ -160,7 +160,8 @@ class LogsRepository
         $include = ($filters['raw'] ?? false) ? '' : '"message" ';
 
         $query = $filters['query'] ?? '';
-        $exclude = '- "REPORT RequestId" - "START RequestId" - "END RequestId" - "Executing warming requests"';
+        // $exclude = '- "REPORT RequestId" - "START RequestId" - "END RequestId" - "Executing warming requests"';
+        $exclude = '- "REPORT RequestId" - "START RequestId" - "END RequestId"';
 
         $filterPattern = empty($query)
             ? ''
