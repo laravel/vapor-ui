@@ -68,12 +68,20 @@
             </div>
         </div>
 
-        <div class="max-w-6xl mx-auto px-4 py-12 sm:px-6 lg:px-8" v-if="ready">
-            <div class="max-w-4xl mx-auto">
+        <div class="max-w-6xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+            <!-- Loader -->
+            <loader v-if="!ready"></loader>
+
+            <!-- No entry found -->
+            <empty-search-results v-if="ready && !entry">
+                Log not found.
+            </empty-search-results>
+
+            <div v-if="ready && entry" class="max-w-4xl mx-auto">
                 <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                     <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
                         <h3 class="text-lg leading-6 font-medium text-gray-900">
-                            Details
+                            Detail
                         </h3>
                         <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
                             Lorem ipsum dolor sit amet.
@@ -173,28 +181,6 @@
                         </dl>
                     </div>
                 </div>
-
-                <div class="card">
-                    <div
-                        v-if="!ready"
-                        class="d-flex align-items-center justify-content-center card-bg-secondary p-5 bottom-radius"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="icon spin mr-2">
-                            <path
-                                d="M12 10a2 2 0 0 1-3.41 1.41A2 2 0 0 1 10 8V0a9.97 9.97 0 0 1 10 10h-8zm7.9 1.41A10 10 0 1 1 8.59.1v2.03a8 8 0 1 0 9.29 9.29h2.02zm-4.07 0a6 6 0 1 1-7.25-7.25v2.1a3.99 3.99 0 0 0-1.4 6.57 4 4 0 0 0 6.56-1.42h2.1z"
-                            ></path>
-                        </svg>
-
-                        <span>Searching for entry...</span>
-                    </div>
-
-                    <div
-                        v-if="ready && !entry"
-                        class="d-flex align-items-center justify-content-center card-bg-secondary p-5 bottom-radius"
-                    >
-                        <span>No entry found.</span>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -240,13 +226,16 @@ export default {
         axios
             .get(`/vapor-ui/api/logs/${this.group}/${this.id}`, {
                 params: this.filters,
+                validateStatus: false,
             })
-            .then(({ data }) => {
-                this.entry = data;
+            .then(({ data, status }) => {
                 this.ready = true;
+                if (status === 200) {
+                    this.entry = data;
+                }
             });
 
-        document.title = `Vapor Ui - ${this.title} - Details`;
+        document.title = `Vapor Ui - ${this.title} - Detail`;
     },
 };
 </script>

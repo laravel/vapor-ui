@@ -1,5 +1,5 @@
 <template>
-    <div class="px-6 py-12 bg-white overflow-hidden shadow-md rounded-lg text-gray-600">
+    <div>
         <div class="flex items-center" style="height: 150px;">
             <svg
                 class="mx-auto block text-gray-500"

@@ -99,18 +99,20 @@
 
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col mt-2">
-                <div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
-                    <!-- Loader -->
-                    <loader v-if="searching || (loadingMore && entries.length == 0)">
-                        <template v-if="loadingMore && entries.length === 0">
-                            No logs have being found yet, still searching...
-                        </template>
-                    </loader>
+                <!-- Loader -->
+                <loader v-if="searching || (loadingMore && entries.length == 0)">
+                    <template v-if="loadingMore && entries.length === 0">
+                        No logs have being found yet, still searching...
+                    </template>
+                </loader>
 
-                    <!-- No Search Results -->
-                    <empty-search-results v-if="!searching && !loadingMore && entries.length == 0">
-                        No logs were found for the given search criteria.
-                    </empty-search-results>
+                <!-- No Search Results -->
+                <empty-search-results v-if="!searching && !loadingMore && entries.length == 0" >
+                    No logs were found for the given search criteria.
+                </empty-search-results>
+                
+                <div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
+
 
                     <table class="min-w-full divide-y divide-gray-200" v-if="!searching && entries.length > 0">
                         <thead>
@@ -198,10 +200,10 @@
                     </table>
                     <!-- Pagination -->
                     <nav
-                        v-if="(!searching && loadingMore) || (!searching && !loadingMore && cursor)"
+                        v-if="(!searching && loadingMore && entries.length > 0) || (!searching && !loadingMore && cursor)"
                         class="bg-white px-4 py-3 flex items-center justify-between border-t border-cool-gray-200 sm:px-6"
                     >
-                        <div class="hidden sm:block" v-if="!searching && loadingMore">
+                        <div class="hidden sm:block" v-if="!searching && loadingMore && entries.length > 0">
                             <p class="text-sm ml-4 leading-5 text-cool-gray-700">
                                 Searching for newer entries..
                             </p>

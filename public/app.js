@@ -2307,6 +2307,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -2735,20 +2739,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2785,13 +2775,18 @@ __webpack_require__.r(__webpack_exports__);
     this.id = this.$route.params.id;
     this.filters = this.$route.query;
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/vapor-ui/api/logs/".concat(this.group, "/").concat(this.id), {
-      params: this.filters
+      params: this.filters,
+      validateStatus: false
     }).then(function (_ref) {
-      var data = _ref.data;
-      _this.entry = data;
+      var data = _ref.data,
+          status = _ref.status;
       _this.ready = true;
+
+      if (status === 200) {
+        _this.entry = data;
+      }
     });
-    document.title = "Vapor Ui - ".concat(this.title, " - Details");
+    document.title = "Vapor Ui - ".concat(this.title, " - Detail");
   }
 });
 
@@ -27185,28 +27180,21 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass:
-        "px-6 py-12 bg-white overflow-hidden shadow-md rounded-lg text-gray-600"
-    },
-    [
-      _c(
-        "div",
-        { staticClass: "flex items-center justify-center" },
-        [_c("document-icon", { attrs: { size: "16" } })],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "mt-4 text-center max-w-xl mx-auto" },
-        [_vm._t("default")],
-        2
-      )
-    ]
-  )
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "flex items-center justify-center" },
+      [_c("document-icon", { attrs: { size: "16" } })],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "mt-4 text-center max-w-xl mx-auto" },
+      [_vm._t("default")],
+      2
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -27230,38 +27218,63 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass:
-        "px-6 py-12 bg-white overflow-hidden shadow-md rounded-lg text-gray-600"
-    },
-    [
-      _c(
-        "div",
-        { staticClass: "flex items-center", staticStyle: { height: "150px" } },
-        [
-          _c(
-            "svg",
-            {
-              staticClass: "mx-auto block text-gray-500",
-              style: { width: _vm.width + "px" },
-              attrs: {
-                viewBox: "0 0 120 30",
-                xmlns: "http://www.w3.org/2000/svg",
-                fill: _vm.fillColor
-              }
-            },
-            [
-              _c("circle", { attrs: { cx: "15", cy: "15", r: "15" } }, [
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "flex items-center", staticStyle: { height: "150px" } },
+      [
+        _c(
+          "svg",
+          {
+            staticClass: "mx-auto block text-gray-500",
+            style: { width: _vm.width + "px" },
+            attrs: {
+              viewBox: "0 0 120 30",
+              xmlns: "http://www.w3.org/2000/svg",
+              fill: _vm.fillColor
+            }
+          },
+          [
+            _c("circle", { attrs: { cx: "15", cy: "15", r: "15" } }, [
+              _c("animate", {
+                attrs: {
+                  attributeName: "r",
+                  from: "15",
+                  to: "15",
+                  begin: "0s",
+                  dur: "0.8s",
+                  values: "15;9;15",
+                  calcMode: "linear",
+                  repeatCount: "indefinite"
+                }
+              }),
+              _vm._v(" "),
+              _c("animate", {
+                attrs: {
+                  attributeName: "fill-opacity",
+                  from: "1",
+                  to: "1",
+                  begin: "0s",
+                  dur: "0.8s",
+                  values: "1;.5;1",
+                  calcMode: "linear",
+                  repeatCount: "indefinite"
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "circle",
+              { attrs: { cx: "60", cy: "15", r: "9", "fill-opacity": "0.3" } },
+              [
                 _c("animate", {
                   attrs: {
                     attributeName: "r",
-                    from: "15",
-                    to: "15",
+                    from: "9",
+                    to: "9",
                     begin: "0s",
                     dur: "0.8s",
-                    values: "15;9;15",
+                    values: "9;15;9",
                     calcMode: "linear",
                     repeatCount: "indefinite"
                   }
@@ -27270,91 +27283,57 @@ var render = function() {
                 _c("animate", {
                   attrs: {
                     attributeName: "fill-opacity",
-                    from: "1",
-                    to: "1",
+                    from: "0.5",
+                    to: "0.5",
                     begin: "0s",
                     dur: "0.8s",
-                    values: "1;.5;1",
+                    values: ".5;1;.5",
                     calcMode: "linear",
                     repeatCount: "indefinite"
                   }
                 })
-              ]),
+              ]
+            ),
+            _vm._v(" "),
+            _c("circle", { attrs: { cx: "105", cy: "15", r: "15" } }, [
+              _c("animate", {
+                attrs: {
+                  attributeName: "r",
+                  from: "15",
+                  to: "15",
+                  begin: "0s",
+                  dur: "0.8s",
+                  values: "15;9;15",
+                  calcMode: "linear",
+                  repeatCount: "indefinite"
+                }
+              }),
               _vm._v(" "),
-              _c(
-                "circle",
-                {
-                  attrs: { cx: "60", cy: "15", r: "9", "fill-opacity": "0.3" }
-                },
-                [
-                  _c("animate", {
-                    attrs: {
-                      attributeName: "r",
-                      from: "9",
-                      to: "9",
-                      begin: "0s",
-                      dur: "0.8s",
-                      values: "9;15;9",
-                      calcMode: "linear",
-                      repeatCount: "indefinite"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("animate", {
-                    attrs: {
-                      attributeName: "fill-opacity",
-                      from: "0.5",
-                      to: "0.5",
-                      begin: "0s",
-                      dur: "0.8s",
-                      values: ".5;1;.5",
-                      calcMode: "linear",
-                      repeatCount: "indefinite"
-                    }
-                  })
-                ]
-              ),
-              _vm._v(" "),
-              _c("circle", { attrs: { cx: "105", cy: "15", r: "15" } }, [
-                _c("animate", {
-                  attrs: {
-                    attributeName: "r",
-                    from: "15",
-                    to: "15",
-                    begin: "0s",
-                    dur: "0.8s",
-                    values: "15;9;15",
-                    calcMode: "linear",
-                    repeatCount: "indefinite"
-                  }
-                }),
-                _vm._v(" "),
-                _c("animate", {
-                  attrs: {
-                    attributeName: "fill-opacity",
-                    from: "1",
-                    to: "1",
-                    begin: "0s",
-                    dur: "0.8s",
-                    values: "1;.5;1",
-                    calcMode: "linear",
-                    repeatCount: "indefinite"
-                  }
-                })
-              ])
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "mt-4 text-center max-w-xl mx-auto" },
-        [_vm._t("default")],
-        2
-      )
-    ]
-  )
+              _c("animate", {
+                attrs: {
+                  attributeName: "fill-opacity",
+                  from: "1",
+                  to: "1",
+                  begin: "0s",
+                  dur: "0.8s",
+                  values: "1;.5;1",
+                  calcMode: "linear",
+                  repeatCount: "indefinite"
+                }
+              })
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "mt-4 text-center max-w-xl mx-auto" },
+      [_vm._t("default")],
+      2
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -27730,306 +27709,316 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" }, [
-        _c("div", { staticClass: "flex flex-col mt-2" }, [
-          _c(
-            "div",
-            {
-              staticClass:
-                "align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg"
-            },
-            [
-              _vm.searching || (_vm.loadingMore && _vm.entries.length == 0)
-                ? _c(
-                    "loader",
-                    [
-                      _vm.loadingMore && _vm.entries.length === 0
-                        ? [
-                            _vm._v(
-                              "\n                        No logs have being found yet, still searching...\n                    "
-                            )
-                          ]
-                        : _vm._e()
-                    ],
-                    2
+        _c(
+          "div",
+          { staticClass: "flex flex-col mt-2" },
+          [
+            _vm.searching || (_vm.loadingMore && _vm.entries.length == 0)
+              ? _c(
+                  "loader",
+                  [
+                    _vm.loadingMore && _vm.entries.length === 0
+                      ? [
+                          _vm._v(
+                            "\n                    No logs have being found yet, still searching...\n                "
+                          )
+                        ]
+                      : _vm._e()
+                  ],
+                  2
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.searching && !_vm.loadingMore && _vm.entries.length == 0
+              ? _c("empty-search-results", [
+                  _vm._v(
+                    "\n                No logs were found for the given search criteria.\n            "
                   )
-                : _vm._e(),
-              _vm._v(" "),
-              !_vm.searching && !_vm.loadingMore && _vm.entries.length == 0
-                ? _c("empty-search-results", [
-                    _vm._v(
-                      "\n                    No logs were found for the given search criteria.\n                "
-                    )
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              !_vm.searching && _vm.entries.length > 0
-                ? _c(
-                    "table",
-                    { staticClass: "min-w-full divide-y divide-gray-200" },
-                    [
-                      _c("thead", [
-                        _c(
-                          "tr",
-                          [
-                            _c(
-                              "th",
-                              {
-                                staticClass:
-                                  "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                " +
-                                    _vm._s(this.title) +
-                                    "\n                            "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _vm._l(3, function(n) {
-                              return _c("th", {
-                                staticClass:
-                                  "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg"
+              },
+              [
+                !_vm.searching && _vm.entries.length > 0
+                  ? _c(
+                      "table",
+                      { staticClass: "min-w-full divide-y divide-gray-200" },
+                      [
+                        _c("thead", [
+                          _c(
+                            "tr",
+                            [
+                              _c(
+                                "th",
+                                {
+                                  staticClass:
+                                    "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(this.title) +
+                                      "\n                            "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(3, function(n) {
+                                return _c("th", {
+                                  staticClass:
+                                    "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+                                })
                               })
-                            })
-                          ],
-                          2
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "transition-group",
-                        {
-                          staticClass: "bg-white divide-y divide-gray-200",
-                          attrs: { tag: "tbody", name: "list" }
-                        },
-                        _vm._l(_vm.entries, function(entry) {
-                          return _c("tr", { key: entry.id }, [
-                            _c(
-                              "td",
-                              {
-                                staticClass:
-                                  "max-w-0 w-full px-6 py-4 whitespace-no-wrap text-sm leading-5 text-cool-gray-900"
-                              },
-                              [
-                                _c("div", { staticClass: "ml-4" }, [
+                            ],
+                            2
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "transition-group",
+                          {
+                            staticClass: "bg-white divide-y divide-gray-200",
+                            attrs: { tag: "tbody", name: "list" }
+                          },
+                          _vm._l(_vm.entries, function(entry) {
+                            return _c("tr", { key: entry.id }, [
+                              _c(
+                                "td",
+                                {
+                                  staticClass:
+                                    "max-w-0 w-full px-6 py-4 whitespace-no-wrap text-sm leading-5 text-cool-gray-900"
+                                },
+                                [
+                                  _c("div", { staticClass: "ml-4" }, [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "text-sm leading-5 font-medium text-gray-900 truncate"
+                                      },
+                                      [
+                                        _c("p", { staticClass: "truncate" }, [
+                                          _vm._v(
+                                            "\n                                            " +
+                                              _vm._s(
+                                                entry.content.message.message
+                                                  ? entry.content.message
+                                                      .message
+                                                  : entry.content.message
+                                              ) +
+                                              "\n                                        "
+                                          )
+                                        ])
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    entry.content.message.context &&
+                                    entry.content.message.context.exception &&
+                                    entry.content.message.context.exception
+                                      .class
+                                      ? _c(
+                                          "div",
+                                          {
+                                            staticClass:
+                                              "text-sm leading-5 text-gray-500"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                                        " +
+                                                _vm._s(
+                                                  entry.content.message.context
+                                                    .exception.class
+                                                ) +
+                                                "\n                                    "
+                                            )
+                                          ]
+                                        )
+                                      : _vm._e()
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                {
+                                  staticClass:
+                                    "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                                },
+                                [
+                                  _c(
+                                    "span",
+                                    {
+                                      class:
+                                        "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-" +
+                                        _vm.messageLevelColor(
+                                          entry.content.message.level
+                                        ) +
+                                        "-100 text-" +
+                                        _vm.messageLevelColor(
+                                          entry.content.message.level
+                                        ) +
+                                        "-800"
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                    " +
+                                          _vm._s(
+                                            entry.content.message.level_name
+                                              ? entry.content.message.level_name
+                                              : "RAW"
+                                          ) +
+                                          "\n                                "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                {
+                                  staticClass:
+                                    "px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(
+                                        _vm
+                                          .moment()
+                                          .utc(entry.content.timestamp, "x")
+                                          .local()
+                                          .format("YYYY-MM-DD LTS")
+                                      ) +
+                                      "\n                            "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                {
+                                  staticClass:
+                                    "px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"
+                                },
+                                [
                                   _c(
                                     "div",
                                     {
                                       staticClass:
-                                        "text-sm leading-5 font-medium text-gray-900 truncate"
+                                        "relative flex justify-end items-center"
                                     },
                                     [
-                                      _c("p", { staticClass: "truncate" }, [
-                                        _vm._v(
-                                          "\n                                            " +
-                                            _vm._s(
-                                              entry.content.message.message
-                                                ? entry.content.message.message
-                                                : entry.content.message
-                                            ) +
-                                            "\n                                        "
-                                        )
-                                      ])
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  entry.content.message.context &&
-                                  entry.content.message.context.exception &&
-                                  entry.content.message.context.exception.class
-                                    ? _c(
-                                        "div",
+                                      _c(
+                                        "router-link",
                                         {
                                           staticClass:
-                                            "text-sm leading-5 text-gray-500"
+                                            "w-8 h-8 inline-flex items-center justify-center text-gray-400 rounded-full bg-transparent hover:text-gray-500 focus:outline-none focus:text-gray-500 focus:bg-gray-100 transition ease-in-out duration-150",
+                                          attrs: {
+                                            to: {
+                                              name:
+                                                "logs-" +
+                                                _vm.group +
+                                                "-preview",
+                                              params: {
+                                                id: entry.id,
+                                                group: entry.group
+                                              },
+                                              query: entry.filters
+                                            },
+                                            tag: "button",
+                                            href: "#"
+                                          }
                                         },
                                         [
-                                          _vm._v(
-                                            "\n                                        " +
-                                              _vm._s(
-                                                entry.content.message.context
-                                                  .exception.class
-                                              ) +
-                                              "\n                                    "
-                                          )
-                                        ]
+                                          _c("icon-eye", {
+                                            staticClass:
+                                              "mr-3 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500",
+                                            attrs: { size: "5" }
+                                          })
+                                        ],
+                                        1
                                       )
-                                    : _vm._e()
-                                ])
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              {
-                                staticClass:
-                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                              },
-                              [
-                                _c(
-                                  "span",
-                                  {
-                                    class:
-                                      "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-" +
-                                      _vm.messageLevelColor(
-                                        entry.content.message.level
-                                      ) +
-                                      "-100 text-" +
-                                      _vm.messageLevelColor(
-                                        entry.content.message.level
-                                      ) +
-                                      "-800"
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                    " +
-                                        _vm._s(
-                                          entry.content.message.level_name
-                                            ? entry.content.message.level_name
-                                            : "RAW"
-                                        ) +
-                                        "\n                                "
-                                    )
-                                  ]
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              {
-                                staticClass:
-                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                " +
-                                    _vm._s(
-                                      _vm
-                                        .moment()
-                                        .utc(entry.content.timestamp, "x")
-                                        .local()
-                                        .format("YYYY-MM-DD LTS")
-                                    ) +
-                                    "\n                            "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              {
-                                staticClass:
-                                  "px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "relative flex justify-end items-center"
-                                  },
-                                  [
-                                    _c(
-                                      "router-link",
-                                      {
-                                        staticClass:
-                                          "w-8 h-8 inline-flex items-center justify-center text-gray-400 rounded-full bg-transparent hover:text-gray-500 focus:outline-none focus:text-gray-500 focus:bg-gray-100 transition ease-in-out duration-150",
-                                        attrs: {
-                                          to: {
-                                            name:
-                                              "logs-" + _vm.group + "-preview",
-                                            params: {
-                                              id: entry.id,
-                                              group: entry.group
-                                            },
-                                            query: entry.filters
-                                          },
-                                          tag: "button",
-                                          href: "#"
-                                        }
-                                      },
-                                      [
-                                        _c("icon-eye", {
-                                          staticClass:
-                                            "mr-3 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500",
-                                          attrs: { size: "5" }
-                                        })
-                                      ],
-                                      1
-                                    )
-                                  ],
-                                  1
-                                )
-                              ]
-                            )
-                          ])
-                        }),
-                        0
-                      )
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              (!_vm.searching && _vm.loadingMore) ||
-              (!_vm.searching && !_vm.loadingMore && _vm.cursor)
-                ? _c(
-                    "nav",
-                    {
-                      staticClass:
-                        "bg-white px-4 py-3 flex items-center justify-between border-t border-cool-gray-200 sm:px-6"
-                    },
-                    [
-                      !_vm.searching && _vm.loadingMore
-                        ? _c("div", { staticClass: "hidden sm:block" }, [
-                            _c(
-                              "p",
-                              {
-                                staticClass:
-                                  "text-sm ml-4 leading-5 text-cool-gray-700"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                            Searching for newer entries..\n                        "
-                                )
-                              ]
-                            )
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "flex-1 flex justify-between sm:justify-end"
-                        },
-                        [
-                          !_vm.searching && !_vm.loadingMore && _vm.cursor
-                            ? _c(
-                                "a",
-                                {
-                                  staticClass:
-                                    "ml-3 relative inline-flex items-center px-4 py-2 border border-cool-gray-300 text-sm leading-5 font-medium rounded-md text-cool-gray-700 bg-white hover:text-cool-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-cool-gray-100 active:text-cool-gray-700 transition ease-in-out duration-150",
-                                  attrs: { href: "#" },
-                                  on: { click: _vm.loadMore }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                            Load more\n                        "
+                                    ],
+                                    1
                                   )
                                 ]
                               )
-                            : _vm._e()
-                        ]
-                      )
-                    ]
-                  )
-                : _vm._e()
-            ],
-            1
-          )
-        ])
+                            ])
+                          }),
+                          0
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                (!_vm.searching && _vm.loadingMore && _vm.entries.length > 0) ||
+                (!_vm.searching && !_vm.loadingMore && _vm.cursor)
+                  ? _c(
+                      "nav",
+                      {
+                        staticClass:
+                          "bg-white px-4 py-3 flex items-center justify-between border-t border-cool-gray-200 sm:px-6"
+                      },
+                      [
+                        !_vm.searching &&
+                        _vm.loadingMore &&
+                        _vm.entries.length > 0
+                          ? _c("div", { staticClass: "hidden sm:block" }, [
+                              _c(
+                                "p",
+                                {
+                                  staticClass:
+                                    "text-sm ml-4 leading-5 text-cool-gray-700"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                            Searching for newer entries..\n                        "
+                                  )
+                                ]
+                              )
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "flex-1 flex justify-between sm:justify-end"
+                          },
+                          [
+                            !_vm.searching && !_vm.loadingMore && _vm.cursor
+                              ? _c(
+                                  "a",
+                                  {
+                                    staticClass:
+                                      "ml-3 relative inline-flex items-center px-4 py-2 border border-cool-gray-300 text-sm leading-5 font-medium rounded-md text-cool-gray-700 bg-white hover:text-cool-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-cool-gray-100 active:text-cool-gray-700 transition ease-in-out duration-150",
+                                    attrs: { href: "#" },
+                                    on: { click: _vm.loadMore }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                            Load more\n                        "
+                                    )
+                                  ]
+                                )
+                              : _vm._e()
+                          ]
+                        )
+                      ]
+                    )
+                  : _vm._e()
+              ]
+            )
+          ],
+          1
+        )
       ])
     ]
   )
@@ -28233,12 +28222,20 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _vm.ready
-        ? _c(
-            "div",
-            { staticClass: "max-w-6xl mx-auto px-4 py-12 sm:px-6 lg:px-8" },
-            [
-              _c("div", { staticClass: "max-w-4xl mx-auto" }, [
+      _c(
+        "div",
+        { staticClass: "max-w-6xl mx-auto px-4 py-12 sm:px-6 lg:px-8" },
+        [
+          !_vm.ready ? _c("loader") : _vm._e(),
+          _vm._v(" "),
+          _vm.ready && !_vm.entry
+            ? _c("empty-search-results", [
+                _vm._v("\n            Log not found.\n        ")
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.ready && _vm.entry
+            ? _c("div", { staticClass: "max-w-4xl mx-auto" }, [
                 _c(
                   "div",
                   {
@@ -28539,56 +28536,12 @@ var render = function() {
                       ])
                     ])
                   ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "card" }, [
-                  !_vm.ready
-                    ? _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex align-items-center justify-content-center card-bg-secondary p-5 bottom-radius"
-                        },
-                        [
-                          _c(
-                            "svg",
-                            {
-                              staticClass: "icon spin mr-2",
-                              attrs: {
-                                xmlns: "http://www.w3.org/2000/svg",
-                                viewBox: "0 0 20 20"
-                              }
-                            },
-                            [
-                              _c("path", {
-                                attrs: {
-                                  d:
-                                    "M12 10a2 2 0 0 1-3.41 1.41A2 2 0 0 1 10 8V0a9.97 9.97 0 0 1 10 10h-8zm7.9 1.41A10 10 0 1 1 8.59.1v2.03a8 8 0 1 0 9.29 9.29h2.02zm-4.07 0a6 6 0 1 1-7.25-7.25v2.1a3.99 3.99 0 0 0-1.4 6.57 4 4 0 0 0 6.56-1.42h2.1z"
-                                }
-                              })
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("span", [_vm._v("Searching for entry...")])
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.ready && !_vm.entry
-                    ? _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex align-items-center justify-content-center card-bg-secondary p-5 bottom-radius"
-                        },
-                        [_c("span", [_vm._v("No entry found.")])]
-                      )
-                    : _vm._e()
-                ])
+                )
               ])
-            ]
-          )
-        : _vm._e()
+            : _vm._e()
+        ],
+        1
+      )
     ]
   )
 }
@@ -28604,7 +28557,7 @@ var staticRenderFns = [
         _c(
           "h3",
           { staticClass: "text-lg leading-6 font-medium text-gray-900" },
-          [_vm._v("\n                        Details\n                    ")]
+          [_vm._v("\n                        Detail\n                    ")]
         ),
         _vm._v(" "),
         _c(
