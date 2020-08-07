@@ -4,24 +4,23 @@ namespace Laravel\VaporUi\Http\Middleware;
 
 use Closure;
 
-class EnsureLambdaRuntime
+class EnsureEnvironment
 {
     /**
-     * The configs that need to exist so we can ensure
-     * that we have an environment that looks like Lambda Runtime.
+     * The list of needed environment variables.
      *
      * @var array
      */
     protected $configs = [
         'project',
+        'environment',
         'region',
         'credentials.key',
         'credentials.secret',
     ];
 
     /**
-     * Ensures requests are made using an environment
-     * that looks like Lambda Runtime.
+     * Ensures environment variables are properly configured.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -30,12 +29,10 @@ class EnsureLambdaRuntime
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $message = app()->isLocal()
-            ? "Vapor UI it's only available through the vanity URL."
-            : 'You are not authorized to perform this action.';
+        $message = 'Unable to detect [vapor-ui.%s].';
 
         collect($this->configs)->each(function ($name) use ($message) {
-            return abort_if(empty(config("vapor-ui.$name")), 403, $message);
+            return abort_if(empty(config("vapor-ui.$name")), 500, sprintf($message, $name));
         });
 
         return $next($request);

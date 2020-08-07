@@ -8,7 +8,7 @@
         <meta name="robots" content="noindex, nofollow" />
 
         <!-- Title -->
-        <title>Vapor Ui - {{ config('vapor-ui.project') }}</title>
+        <title>Vapor Ui - {{ config('vapor-ui.project') }} - {{ config('vapor-ui.environment') }}</title>
 
         <!-- Style sheets-->
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" />
@@ -24,27 +24,29 @@
                         </div>
                         <div class="flex-1 flex flex-col overflow-y-auto bg-gray-800">
 
+                            <!-- Project / Environment  Information -->
+                            <div class="px-4 pt-4 space-y-6 sm:flex-row sm:space-y-0 sm:space-x-8 xl:flex-col xl:space-x-0 xl:space-y-6">
+                                <div class="flex items-center space-x-2">
+                                    <icon-cloud size="6" class="text-gray-300"></icon-cloud>
+                                    <span class="text-sm text-gray-300 leading-5 font-medium">{{ config('vapor-ui.project.name') }}</span>
+                                </div>
+                            </div>
+
+                            <hr class="h-px mt-6 bg-gray-700 border-none" />
+                            
+                            <!-- Logs tabs -->
                             <h3 class="px-3 mt-8 text-xs leading-4 font-semibold text-gray-500 uppercase tracking-wider" id="teams-headline">
                                 Logs
                             </h3>
 
-                            <!-- Logs Groups -->
                             <nav class="flex-1 px-2 py-4 bg-gray-800">
-
                                 <router-link
                                     to="/logs/http"
                                     href="#"
                                     active-class="text-white bg-gray-900 focus:outline-none focus:bg-gray-900 transition ease-in-out duration-150"
                                     class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150"
                                 >
-                                    <svg class="mr-3 h-6 w-6 text-gray-300 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                                        />
-                                    </svg>
+                                    <icon-desktop-computer size="6" class="mr-3 text-gray-400 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150"> </icon-desktop-computer>
                                     HTTP
                                 </router-link>
                                 <router-link
@@ -53,9 +55,7 @@
                                     active-class="text-white bg-gray-900 focus:outline-none focus:bg-gray-900 transition ease-in-out duration-150"
                                     class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150"
                                 >
-                                    <svg class="mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                                    </svg>
+                                    <icon-terminal size="6" class="mr-3 text-gray-400 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150"> </icon-terminal>
                                     CLI
                                 </router-link>
                                 <router-link
@@ -64,9 +64,7 @@
                                     active-class="text-white bg-gray-900 focus:outline-none focus:bg-gray-900 transition ease-in-out duration-150"
                                     class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150"
                                 >
-                                    <svg class="mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-                                    </svg>
+                                    <icon-collection size="6" class="mr-3 text-gray-400 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150"> </icon-collection>
                                     Queue
                                 </router-link>
                             </nav>

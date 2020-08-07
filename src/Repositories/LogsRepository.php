@@ -7,6 +7,7 @@ use Aws\CloudWatchLogs\Exception\CloudWatchLogsException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Laravel\VaporUi\Exceptions\EntryNotFound;
+use Laravel\VaporUi\Support\Cloud;
 use Laravel\VaporUi\Support\SearchResult;
 use Laravel\VaporUi\ValueObjects\Entry;
 
@@ -113,9 +114,12 @@ class LogsRepository
      */
     protected function logGroupName($group)
     {
+        $vaporUi = config('vapor-ui');
+
         return sprintf(
-            '/aws/lambda/vapor-%s%s',
-            config('vapor-ui.project'),
+            '/aws/lambda/vapor-%s-%s%s',
+            $vaporUi['project'],
+            $vaporUi['environment'],
             in_array($group, ['cli', 'queue']) ? "-$group" : ''
         );
     }

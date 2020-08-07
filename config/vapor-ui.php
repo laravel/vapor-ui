@@ -1,5 +1,7 @@
 <?php
 
+use Laravel\VaporUi\Support\Cloud;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -12,7 +14,20 @@ return [
     |
     */
 
-    'project' => env('VAPOR_PROJECT', ltrim(env('VAPOR_SSM_PATH', ''), '/')),
+    'project' => env('VAPOR_PROJECT', Cloud::project()),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Lorem ipsum dolor
+    |--------------------------------------------------------------------------
+    |
+    | Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+    | et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exerci
+    | tation ullamco laboris nisi ut aliquip ex ea commodo consequat du
+    |
+    */
+
+    'environment' => env('VAPOR_ENVIRONMENT', Cloud::environment()),
 
     /*
     |--------------------------------------------------------------------------

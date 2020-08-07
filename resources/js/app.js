@@ -33,10 +33,14 @@ Vue.component('empty-search-results', require('./components/EmptySearchResults.v
 // Icons
 Vue.component('icon-refresh', require('./components/icons/Refresh.vue').default);
 Vue.component('icon-search', require('./components/icons/Search.vue').default);
+Vue.component('icon-cloud', require('./components/icons/Cloud.vue').default);
+Vue.component('icon-collection', require('./components/icons/Collection.vue').default);
+Vue.component('icon-desktop-computer', require('./components/icons/DesktopComputer.vue').default);
 Vue.component('icon-dots-vertical', require('./components/icons/DotsVertical.vue').default);
 Vue.component('icon-calendar', require('./components/icons/Calendar.vue').default);
 Vue.component('icon-clipboard-copy', require('./components/icons/ClipboardCopy.vue').default);
 Vue.component('icon-eye', require('./components/icons/Eye.vue').default);
+Vue.component('icon-terminal', require('./components/icons/Terminal.vue').default);
 
 Vue.mixin(Base);
 
