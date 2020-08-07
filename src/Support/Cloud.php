@@ -42,7 +42,7 @@ class Cloud
          * string, and we keep the rest assuming that
          * is the project name.
          */
-        $parts = explode('-', ltrim($ssmPath));
+        $parts = explode('-', ltrim($ssmPath, '/'));
         array_pop($parts);
 
         return implode('-', $parts);

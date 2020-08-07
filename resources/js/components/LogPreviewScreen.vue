@@ -46,6 +46,25 @@
                         </nav>
                     </div>
                 </div>
+                <div class="mt-3 flex">
+                    <span class="order-1 ml-3 shadow-sm rounded-md sm:order-0 sm:ml-0">
+                        <button
+                            v-on:click="
+                                copyToClipboard(
+                                    $router.resolve({
+                                        name: `logs-${entry.group}-preview`,
+                                        params: { id: entry.id, group: entry.group },
+                                        query: entry.filters,
+                                    }).href
+                                )
+                            "
+                            type="button"
+                            class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out"
+                        >
+                            Share
+                        </button>
+                    </span>
+                </div>
             </div>
         </div>
 
@@ -54,10 +73,10 @@
                 <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                     <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
                         <h3 class="text-lg leading-6 font-medium text-gray-900">
-                            Log details
+                            Details
                         </h3>
                         <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
-                            Personal details and application.
+                            Lorem ipsum dolor sit amet.
                         </p>
                     </div>
                     <div class="px-4 py-5 sm:p-0">
@@ -185,12 +204,13 @@
 import axios from 'axios';
 
 import StylesMixin from './../mixins/entriesStyles';
+import Clipboard from './../mixins/Clipboard';
 
 export default {
     /**
      * The component's mixins.
      */
-    mixins: [StylesMixin],
+    mixins: [StylesMixin, Clipboard],
 
     /**
      * The component's props.

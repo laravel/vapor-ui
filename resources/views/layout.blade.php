@@ -28,7 +28,14 @@
                             <div class="px-4 pt-4 space-y-6 sm:flex-row sm:space-y-0 sm:space-x-8 xl:flex-col xl:space-x-0 xl:space-y-6">
                                 <div class="flex items-center space-x-2">
                                     <icon-cloud size="6" class="text-gray-300"></icon-cloud>
-                                    <span class="text-sm text-gray-300 leading-5 font-medium">{{ config('vapor-ui.project.name') }}</span>
+                                    <span class="text-sm text-gray-300 leading-5 font-medium">{{ config('vapor-ui.project') }} > {{ config('vapor-ui.environment') }}</span>
+                                </div>
+                            </div>
+
+                            <div class="px-4 pt-4 space-y-6 sm:flex-row sm:space-y-0 sm:space-x-8 xl:flex-col xl:space-x-0 xl:space-y-6">
+                                <div class="flex items-center space-x-2">
+                                    <icon-flag size="6" class="text-gray-300"></icon-flag>
+                                    <span class="text-sm text-gray-300 leading-5 font-medium">{{ config('vapor-ui.region') }}</span>
                                 </div>
                             </div>
 
@@ -67,6 +74,29 @@
                                     <icon-collection size="6" class="mr-3 text-gray-400 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150"> </icon-collection>
                                     Queue
                                 </router-link>
+                            </nav>
+
+                            <!-- Debug tabs -->
+                            <h3 class="px-3 mt-8 text-xs leading-4 font-semibold text-gray-500 uppercase tracking-wider" id="teams-headline">
+                                Debug
+                            </h3>
+
+                            <nav class="flex-1 px-2 py-4 bg-gray-800">
+                                <a href="{{ url('/debug') }}" target="_blank" class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                    Debug
+                                </a>
+                                <a href="{{ url('/info') }}" target="_blank" class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                    Info
+                                </a>
+                                <a href="{{ url('/exception') }}" target="_blank" class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                    Exception
+                                </a>
+                                <a href="{{ url('/error') }}" target="_blank" class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                    Error
+                                </a>
+                                <a href="{{ url('/timeout') }}" target="_blank" class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
+                                    Timeout
+                                </a>
                             </nav>
                         </div>
                     </div>

@@ -37,6 +37,7 @@ Vue.component('icon-cloud', require('./components/icons/Cloud.vue').default);
 Vue.component('icon-collection', require('./components/icons/Collection.vue').default);
 Vue.component('icon-desktop-computer', require('./components/icons/DesktopComputer.vue').default);
 Vue.component('icon-dots-vertical', require('./components/icons/DotsVertical.vue').default);
+Vue.component('icon-flag', require('./components/icons/Flag.vue').default);
 Vue.component('icon-calendar', require('./components/icons/Calendar.vue').default);
 Vue.component('icon-clipboard-copy', require('./components/icons/ClipboardCopy.vue').default);
 Vue.component('icon-eye', require('./components/icons/Eye.vue').default);

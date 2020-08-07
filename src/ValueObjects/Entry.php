@@ -21,6 +21,13 @@ class Entry implements JsonSerializable
     public $filters;
 
     /**
+     * The entry's type.
+     *
+     * @var string
+     */
+    public $type;
+
+    /**
      * The entry's group.
      *
      * @var string
@@ -56,7 +63,7 @@ class Entry implements JsonSerializable
         $this->group = $group;
         $this->filters = $filters;
 
-        // Grabs the Aws Request Id
+        // Grabs the request id
         if (! is_string($content['message'])) {
             $this->requestId = $content['message']['context']['aws_request_id'] ?? '';
             unset($content['message']['context']['aws_request_id']);
@@ -72,7 +79,7 @@ class Entry implements JsonSerializable
      *
      * @return array
      */
-    public function sanitized($content)
+    protected function sanitized($content)
     {
         if (is_string($content['message'])) {
             $content['message'] = trim($content['message']);

@@ -3,6 +3,7 @@
 namespace Laravel\VaporUi\Http\Middleware;
 
 use Closure;
+use RuntimeException;
 
 class EnsureEnvironment
 {
@@ -32,7 +33,9 @@ class EnsureEnvironment
         $message = 'Unable to detect [vapor-ui.%s].';
 
         collect($this->configs)->each(function ($name) use ($message) {
-            return abort_if(empty(config("vapor-ui.$name")), 500, sprintf($message, $name));
+            if (empty(config("vapor-ui.$name"))) {
+                throw new RuntimeException(sprintf($message, $name));
+            }
         });
 
         return $next($request);

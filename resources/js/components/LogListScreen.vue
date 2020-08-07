@@ -122,7 +122,7 @@
                                 </th>
 
                                 <th
-                                    v-for="n in 4"
+                                    v-for="n in 3"
                                     class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                 ></th>
                             </tr>
@@ -156,21 +156,15 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-500">
-                                        {{
-                                            entry.content.message.level_name ? entry.content.message.level_name : 'RAW'
-                                        }}
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                     <span
-                                        v-if="entry.content.message.level"
                                         :class="`px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-${messageLevelColor(
                                             entry.content.message.level
                                         )}-100 text-${messageLevelColor(entry.content.message.level)}-800`"
                                         class=""
                                     >
-                                        {{ entry.content.message.level }}
+                                        {{
+                                            entry.content.message.level_name ? entry.content.message.level_name : 'RAW'
+                                        }}
                                     </span>
                                 </td>
                                 <td
@@ -182,63 +176,21 @@
                                     class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"
                                 >
                                     <div class="relative flex justify-end items-center">
-                                        <button
-                                            v-on:click="
-                                                entryOptionsOpen = entryOptionsOpen == entry.id ? null : entry.id
-                                            "
-                                            :id="'entry-options' + entry.id"
-                                            aria-has-popup="true"
-                                            type="button"
+                                        <router-link
+                                            :to="{
+                                                name: `logs-${group}-preview`,
+                                                params: { id: entry.id, group: entry.group },
+                                                query: entry.filters,
+                                            }"
+                                            tag="button"
+                                            href="#"
                                             class="w-8 h-8 inline-flex items-center justify-center text-gray-400 rounded-full bg-transparent hover:text-gray-500 focus:outline-none focus:text-gray-500 focus:bg-gray-100 transition ease-in-out duration-150"
                                         >
-                                            <icon-dots-vertical size="5" />
-                                        </button>
-                                        <div
-                                            v-bind:class="{ hidden: entryOptionsOpen !== entry.id }"
-                                            class="mx-3 origin-top-right absolute right-7 top-0 w-48 mt-1 rounded-md shadow-lg"
-                                        >
-                                            <div
-                                                class="z-10 rounded-md bg-white shadow-xs"
-                                                role="menu"
-                                                aria-orientation="vertical"
-                                                :aria-labelledby="'entry-options' + entry.id"
-                                            >
-                                                <div class="py-1">
-                                                    <router-link
-                                                        :id="'entry-options-link-' + entry.id"
-                                                        :to="{
-                                                            name: `logs-${group}-preview`,
-                                                            params: { id: entry.id, group: entry.group },
-                                                            query: entry.filters,
-                                                        }"
-                                                        href="#"
-                                                        class="group flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-                                                        role="menuitem"
-                                                    >
-                                                        <icon-eye
-                                                            size="5"
-                                                            class="mr-3 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500"
-                                                        />
-                                                        View
-                                                    </router-link>
-                                                    <a
-                                                        v-on:click="
-                                                            copyToClipboard(entry);
-                                                            entryOptionsOpen = null;
-                                                        "
-                                                        href="#"
-                                                        class="group flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-                                                        role="menuitem"
-                                                    >
-                                                        <icon-clipboard-copy
-                                                            size="5"
-                                                            class="mr-3 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500"
-                                                        />
-                                                        Link
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                            <icon-eye
+                                                size="5"
+                                                class="mr-3 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500"
+                                            />
+                                        </router-link>
                                     </div>
                                 </td>
                             </tr>
@@ -296,7 +248,6 @@ export default {
         return {
             entries: [],
             errors: [],
-            entryOptionsOpen: null,
             loadingMore: false,
             minutesAgo: null,
             searching: true,
@@ -466,28 +417,6 @@ export default {
             });
 
             return options;
-        },
-
-        /**
-         * Copies the given log entry link to the clipboard.
-         */
-        copyToClipboard(entry) {
-            const props = this.$router.resolve({
-                name: `logs-${entry.group}-preview`,
-                params: { id: entry.id, group: entry.group },
-                query: entry.filters,
-            });
-
-            const el = document.createElement('textarea');
-            const base = window.location;
-            el.value = base.protocol + '//' + base.host + props.href;
-            el.setAttribute('readonly', '');
-            el.style.position = 'absolute';
-            el.style.left = '-9999px';
-            document.body.appendChild(el);
-            el.select();
-            document.execCommand('copy');
-            document.body.removeChild(el);
         },
 
         /**

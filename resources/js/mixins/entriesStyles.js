@@ -6,7 +6,7 @@ export default {
             if (level == '300') return 'yellow';
             if (level == '400') return 'red';
 
-            return 'red';
+            return 'gray';
         },
     },
 };
