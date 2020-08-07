@@ -107,13 +107,11 @@
                 </loader>
 
                 <!-- No Search Results -->
-                <empty-search-results v-if="!searching && !loadingMore && entries.length == 0" >
+                <empty-search-results v-if="!searching && !loadingMore && entries.length == 0">
                     No logs were found for the given search criteria.
                 </empty-search-results>
-                
+
                 <div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
-
-
                     <table class="min-w-full divide-y divide-gray-200" v-if="!searching && entries.length > 0">
                         <thead>
                             <tr>
@@ -200,7 +198,9 @@
                     </table>
                     <!-- Pagination -->
                     <nav
-                        v-if="(!searching && loadingMore && entries.length > 0) || (!searching && !loadingMore && cursor)"
+                        v-if="
+                            (!searching && loadingMore && entries.length > 0) || (!searching && !loadingMore && cursor)
+                        "
                         class="bg-white px-4 py-3 flex items-center justify-between border-t border-cool-gray-200 sm:px-6"
                     >
                         <div class="hidden sm:block" v-if="!searching && loadingMore && entries.length > 0">
