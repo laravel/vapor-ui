@@ -2057,6 +2057,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _mixins_log__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../mixins/log */ "./resources/js/mixins/log.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -2308,7 +2309,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  /**
+   * The component's mixins.
+   */
+  mixins: [_mixins_log__WEBPACK_IMPORTED_MODULE_3__["default"]],
+
   /**
    * The component's props.
    */
@@ -2380,6 +2387,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       var startTime = moment__WEBPACK_IMPORTED_MODULE_2___default()(this.filters.startTime, 'YYYY-MM-DD LTS').add(new Date().getTimezoneOffset(), 'm');
       this.minutesAgo = parseInt(moment__WEBPACK_IMPORTED_MODULE_2___default.a.duration(moment__WEBPACK_IMPORTED_MODULE_2___default()().diff(startTime)).asMinutes());
       this.searching = true;
+      this.loadingMore = false;
       /**
        * Finally, we perform the request.
        */
@@ -2538,6 +2546,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _mixins_Clipboard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../mixins/Clipboard */ "./resources/js/mixins/Clipboard.js");
+/* harmony import */ var _mixins_log__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../mixins/log */ "./resources/js/mixins/log.js");
 //
 //
 //
@@ -2714,19 +2723,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   /**
    * The component's mixins.
    */
-  mixins: [_mixins_Clipboard__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  mixins: [_mixins_Clipboard__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_log__WEBPACK_IMPORTED_MODULE_2__["default"]],
 
   /**
    * The component's props.
@@ -27617,67 +27621,79 @@ var render = function() {
                     "div",
                     { staticClass: "mt-6 flex space-x-3 md:mt-0 md:ml-4" },
                     [
-                      _c("div", { staticClass: "flex items-start pt-5" }, [
-                        _c("div", { staticClass: "flex items-center h-5" }, [
-                          _c("input", {
+                      _c("div", [
+                        _c(
+                          "label",
+                          {
+                            staticClass:
+                              "block text-sm font-medium leading-5 text-gray-700",
+                            attrs: { for: "type-input" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                Log type\n                            "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
                             directives: [
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.filters.raw,
-                                expression: "filters.raw"
+                                value: _vm.filters.type,
+                                expression: "filters.type"
                               }
                             ],
                             staticClass:
-                              "form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out",
-                            attrs: {
-                              "true-value": 1,
-                              "false-value": null,
-                              id: "raw",
-                              type: "checkbox"
-                            },
-                            domProps: {
-                              checked: Array.isArray(_vm.filters.raw)
-                                ? _vm._i(_vm.filters.raw, null) > -1
-                                : _vm._q(_vm.filters.raw, 1)
-                            },
+                              "mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5",
+                            attrs: { id: "type-input" },
                             on: {
                               change: [
                                 function($event) {
-                                  var $$a = _vm.filters.raw,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? 1 : null
-                                  if (Array.isArray($$a)) {
-                                    var $$v = null,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        _vm.$set(
-                                          _vm.filters,
-                                          "raw",
-                                          $$a.concat([$$v])
-                                        )
-                                    } else {
-                                      $$i > -1 &&
-                                        _vm.$set(
-                                          _vm.filters,
-                                          "raw",
-                                          $$a
-                                            .slice(0, $$i)
-                                            .concat($$a.slice($$i + 1))
-                                        )
-                                    }
-                                  } else {
-                                    _vm.$set(_vm.filters, "raw", $$c)
-                                  }
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.filters,
+                                    "type",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
                                 },
                                 _vm.loadEntries
                               ]
                             }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _vm._m(0)
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: { selected: "" },
+                                domProps: { value: undefined }
+                              },
+                              [_vm._v("All")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.logTypes(), function(label, value) {
+                              return _c(
+                                "option",
+                                { domProps: { value: value } },
+                                [_vm._v(_vm._s(label))]
+                              )
+                            })
+                          ],
+                          2
+                        )
                       ])
                     ]
                   )
@@ -27835,9 +27851,9 @@ var render = function() {
                                     {
                                       class:
                                         "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-" +
-                                        entry.typeColor +
+                                        _vm.logColor(entry.type) +
                                         "-100 text-" +
-                                        entry.typeColor +
+                                        _vm.logColor(entry.type) +
                                         "-800"
                                     },
                                     [
@@ -27995,18 +28011,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "ml-3 text-sm leading-5" }, [
-      _c("p", { staticClass: "text-gray-500" }, [
-        _vm._v("Display raw logs from AWS.")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -28286,7 +28291,7 @@ var render = function() {
                               {
                                 class:
                                   "mt-1 text-sm leading-5 text-" +
-                                  _vm.entry.typeColor +
+                                  _vm.logColor(_vm.entry.type) +
                                   "-900 sm:mt-0 sm:col-span-2"
                               },
                               [
@@ -28375,47 +28380,6 @@ var render = function() {
                               ]
                             )
                           : _vm._e(),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
-                          },
-                          [
-                            _c(
-                              "dt",
-                              {
-                                staticClass:
-                                  "text-sm leading-5 font-medium text-gray-500"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Level Name\n                            "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "dd",
-                              {
-                                staticClass:
-                                  "mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                " +
-                                    _vm._s(
-                                      _vm.entry.content.message.level_name
-                                        ? _vm.entry.content.message.level_name
-                                        : "RAW"
-                                    ) +
-                                    "\n                            "
-                                )
-                              ]
-                            )
-                          ]
-                        ),
                         _vm._v(" "),
                         _c(
                           "div",
@@ -44537,6 +44501,13 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     /**
+     * Returns the list of the log types.
+     */
+    logTypes: function logTypes() {
+      return App.logTypes;
+    },
+
+    /**
      * Creates a debounced function that delays invoking a callback.
      */
     debouncer: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (callback) {
@@ -45705,6 +45676,61 @@ __webpack_require__.r(__webpack_exports__);
       el.select();
       document.execCommand('copy');
       document.body.removeChild(el);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/mixins/log.js":
+/*!************************************!*\
+  !*** ./resources/js/mixins/log.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  methods: {
+    /**
+     * Returns the log types.
+     */
+    logTypes: function logTypes() {
+      return {
+        debug: 'Debug',
+        info: 'Info',
+        notice: 'Notice',
+        warning: 'Warning',
+        alert: 'Alert',
+        critical: 'Critical',
+        emergency: 'Emergency',
+        timeout: 'Timeout',
+        error: 'Error'
+      };
+    },
+
+    /**
+     * Returns the log color by the given type.
+     */
+    logColor: function logColor(type) {
+      var compare = function compare(level) {
+        return level === type.toLowerCase();
+      };
+
+      if (['info', 'notice'].some(compare)) {
+        return 'blue';
+      }
+
+      if (['warning', 'alert'].some(compare)) {
+        return 'yellow';
+      }
+
+      if (['critical', 'emergency', 'error', 'timeout'].some(compare)) {
+        return 'red';
+      }
+
+      return 'gray';
     }
   }
 });

@@ -103,7 +103,11 @@
                                 <dt class="text-sm leading-5 font-medium text-gray-500">
                                     Type
                                 </dt>
-                                <dd :class="`mt-1 text-sm leading-5 text-${entry.typeColor}-900 sm:mt-0 sm:col-span-2`">
+                                <dd
+                                    :class="`mt-1 text-sm leading-5 text-${logColor(
+                                        entry.type
+                                    )}-900 sm:mt-0 sm:col-span-2`"
+                                >
                                     {{ entry.type }}
                                 </dd>
                             </div>
@@ -126,16 +130,6 @@
                                 </dt>
                                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
                                     {{ entry.requestId }}
-                                </dd>
-                            </div>
-                            <div
-                                class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
-                            >
-                                <dt class="text-sm leading-5 font-medium text-gray-500">
-                                    Level Name
-                                </dt>
-                                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                                    {{ entry.content.message.level_name ? entry.content.message.level_name : 'RAW' }}
                                 </dd>
                             </div>
                             <div
@@ -183,13 +177,14 @@
 <script>
 import axios from 'axios';
 
-import Clipboard from './../mixins/Clipboard';
+import ClipboardMixin from './../mixins/Clipboard';
+import LogMixin from './../mixins/log';
 
 export default {
     /**
      * The component's mixins.
      */
-    mixins: [Clipboard],
+    mixins: [ClipboardMixin, LogMixin],
 
     /**
      * The component's props.

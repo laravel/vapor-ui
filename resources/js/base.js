@@ -13,6 +13,13 @@ export default {
         },
 
         /**
+         * Returns the list of the log types.
+         */
+        logTypes() {
+            return App.logTypes;
+        },
+
+        /**
          * Creates a debounced function that delays invoking a callback.
          */
         debouncer: _.debounce((callback) => callback(), 500),

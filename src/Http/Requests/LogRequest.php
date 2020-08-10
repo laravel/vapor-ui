@@ -17,7 +17,7 @@ class LogRequest extends FormRequest
             'query' => ['nullable', 'string'],
             'startTime' => ['required', 'integer'],
             'cursor' => ['nullable', 'string'],
-            'raw' => ['nullable', 'integer'],
+            'type' => ['nullable', 'string'],
         ];
     }
 }

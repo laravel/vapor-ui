@@ -8,8 +8,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Laravel\VaporUi\Exceptions\EntryNotFound;
 use Laravel\VaporUi\Support\Cloud;
+use Laravel\VaporUi\Support\SearchEntry;
 use Laravel\VaporUi\Support\SearchResult;
-use Laravel\VaporUi\ValueObjects\Entry;
 
 class LogsRepository
 {
@@ -37,7 +37,7 @@ class LogsRepository
      * @param  string $group
      * @param  array $filters
      *
-     * @return Entry
+     * @return SearchEntry
      */
     public function get($id, $group, $filters = [])
     {
@@ -89,7 +89,7 @@ class LogsRepository
 
         $entries = (new Collection($response['events']))
             ->filter(function ($event) use ($filters) {
-                return ($filters['raw'] ?? false) || @json_decode($event['message']);
+                return empty($filters['type']) || $filters['type'] === 'timeout' || @json_decode($event['message']);
             })->map(function ($event) use ($group, $filters) {
                 if (array_key_exists('message', $event)) {
                     if ($message = json_decode($event['message'], true)) {
@@ -97,7 +97,7 @@ class LogsRepository
                     }
                 }
 
-                return new Entry($event['eventId'], $group, $filters, $event);
+                return new SearchEntry($event['eventId'], $group, $filters, $event);
             })->values()
             ->all();
 
@@ -161,10 +161,18 @@ class LogsRepository
      */
     protected function filterPattern($filters)
     {
-        $include = ($filters['raw'] ?? false) ? '' : '"message" ';
+        $include = '';
+
+        if (array_key_exists('type', $filters)) {
+            if ($filters['type'] === 'timeout') {
+                $include .= '"Task timed out after" ';
+            } else {
+                $include .= sprintf('"message" "level_name" "%s" ', strtoupper($filters['type']));
+            }
+        }
 
         $query = $filters['query'] ?? '';
-        $exclude = '- "REPORT RequestId" - "START RequestId" - "END RequestId" - "Executing warming requests"';
+        $exclude = '- "START RequestId" - "END RequestId"';
 
         $filterPattern = empty($query)
             ? ''

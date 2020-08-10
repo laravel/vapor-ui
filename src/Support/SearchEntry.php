@@ -1,10 +1,10 @@
 <?php
 
-namespace Laravel\VaporUi\ValueObjects;
+namespace Laravel\VaporUi\Support;
 
 use JsonSerializable;
 
-class Entry implements JsonSerializable
+class SearchEntry implements JsonSerializable
 {
     /**
      * The entry's primary key.
@@ -92,23 +92,8 @@ class Entry implements JsonSerializable
     {
         if (is_string($this->content['message']) && preg_match('/Task timed out after/', $this->content['message']) > 0) {
             $this->type = 'TIMEOUT';
-            $this->typeColor = 'red';
         } else {
             $this->type = strtoupper($this->content['message']['level_name'] ?? 'RAW');
-            switch ($this->content['message']['level'] ?? 100) {
-                default:
-                    $this->typeColor = 'gray';
-                    break;
-                case 200:
-                    $this->typeColor = 'blue';
-                    break;
-                case 300:
-                    $this->typeColor = 'yellow';
-                    break;
-                case 400:
-                    $this->typeColor = 'red';
-                    break;
-            }
         }
 
         return $this;

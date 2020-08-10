@@ -75,21 +75,19 @@
                             </div>
                         </div>
                         <div class="mt-6 flex space-x-3 md:mt-0 md:ml-4">
-                            <div class="flex items-start pt-5">
-                                <div class="flex items-center h-5">
-                                    <input
-                                        v-model="filters.raw"
-                                        v-on:change="loadEntries"
-                                        :true-value="1"
-                                        :false-value="null"
-                                        id="raw"
-                                        type="checkbox"
-                                        class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-                                    />
-                                </div>
-                                <div class="ml-3 text-sm leading-5">
-                                    <p class="text-gray-500">Display raw logs from AWS.</p>
-                                </div>
+                            <div>
+                                <label for="type-input" class="block text-sm font-medium leading-5 text-gray-700">
+                                    Log type
+                                </label>
+                                <select
+                                    id="type-input"
+                                    v-model="filters.type"
+                                    v-on:change="loadEntries"
+                                    class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                >
+                                    <option :value="undefined" selected>All</option>
+                                    <option v-for="(label, value) in logTypes()" :value="value">{{ label }}</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -157,7 +155,9 @@
 
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                     <span
-                                        :class="`px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-${entry.typeColor}-100 text-${entry.typeColor}-800`"
+                                        :class="`px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-${logColor(
+                                            entry.type
+                                        )}-100 text-${logColor(entry.type)}-800`"
                                     >
                                         {{ entry.type }}
                                     </span>
@@ -225,7 +225,14 @@ import _ from 'lodash';
 import axios from 'axios';
 import moment from 'moment';
 
+import LogMixin from './../mixins/log';
+
 export default {
+    /**
+     * The component's mixins.
+     */
+    mixins: [LogMixin],
+
     /**
      * The component's props.
      */
@@ -293,6 +300,7 @@ export default {
             const startTime = moment(this.filters.startTime, 'YYYY-MM-DD LTS').add(new Date().getTimezoneOffset(), 'm');
             this.minutesAgo = parseInt(moment.duration(moment().diff(startTime)).asMinutes());
             this.searching = true;
+            this.loadingMore = false;
 
             /**
              * Finally, we perform the request.
