@@ -384,10 +384,7 @@ export default {
          * Updates the start time, and re-load entries.
          */
         onMinutesAgoChange() {
-            this.filters.startTime = moment()
-                .subtract(this.minutesAgo, 'minutes')
-                .local()
-                .format('YYYY-MM-DD LTS');
+            this.filters.startTime = moment().subtract(this.minutesAgo, 'minutes').local().format('YYYY-MM-DD LTS');
 
             this.loadEntries();
         },
@@ -396,11 +393,9 @@ export default {
          * Gets the minutes ago options.
          */
         getMinutesAgoOptions() {
-            return Array
-                .from(new Set([1, 5, 10, 30, this.minutesAgo].sort((a, b) => a - b)))
-                .map(value => {
-                    return [value, moment().subtract(value, 'minutes').fromNow()];
-                });
+            return Array.from(new Set([1, 5, 10, 30, this.minutesAgo].sort((a, b) => a - b))).map((value) => {
+                return [value, moment().subtract(value, 'minutes').fromNow()];
+            });
         },
 
         /**
