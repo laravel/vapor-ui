@@ -157,14 +157,9 @@
 
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                     <span
-                                        :class="`px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-${messageLevelColor(
-                                            entry.content.message.level
-                                        )}-100 text-${messageLevelColor(entry.content.message.level)}-800`"
-                                        class=""
+                                        :class="`px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-${entry.typeColor}-100 text-${entry.typeColor}-800`"
                                     >
-                                        {{
-                                            entry.content.message.level_name ? entry.content.message.level_name : 'RAW'
-                                        }}
+                                        {{ entry.type }}
                                     </span>
                                 </td>
                                 <td
@@ -230,14 +225,7 @@ import _ from 'lodash';
 import axios from 'axios';
 import moment from 'moment';
 
-import StylesMixin from './../mixins/entriesStyles';
-
 export default {
-    /**
-     * The component's mixins.
-     */
-    mixins: [StylesMixin],
-
     /**
      * The component's props.
      */

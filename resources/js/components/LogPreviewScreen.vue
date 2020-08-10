@@ -101,6 +101,16 @@
                                 class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
                             >
                                 <dt class="text-sm leading-5 font-medium text-gray-500">
+                                    Type
+                                </dt>
+                                <dd :class="`mt-1 text-sm leading-5 text-${entry.typeColor}-900 sm:mt-0 sm:col-span-2`">
+                                    {{ entry.type }}
+                                </dd>
+                            </div>
+                            <div
+                                class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
+                            >
+                                <dt class="text-sm leading-5 font-medium text-gray-500">
                                     Log Stream Name
                                 </dt>
                                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
@@ -126,22 +136,6 @@
                                 </dt>
                                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
                                     {{ entry.content.message.level_name ? entry.content.message.level_name : 'RAW' }}
-                                </dd>
-                            </div>
-
-                            <div
-                                v-if="entry.content.message.level"
-                                class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
-                            >
-                                <dt class="text-sm leading-5 font-medium text-gray-500">
-                                    Level
-                                </dt>
-                                <dd
-                                    :class="`mt-1 text-sm leading-5 text-${messageLevelColor(
-                                        entry.content.message.level
-                                    )}-900 sm:mt-0 sm:col-span-2`"
-                                >
-                                    {{ entry.content.message.level }}
                                 </dd>
                             </div>
                             <div
@@ -189,14 +183,13 @@
 <script>
 import axios from 'axios';
 
-import StylesMixin from './../mixins/entriesStyles';
 import Clipboard from './../mixins/Clipboard';
 
 export default {
     /**
      * The component's mixins.
      */
-    mixins: [StylesMixin, Clipboard],
+    mixins: [Clipboard],
 
     /**
      * The component's props.

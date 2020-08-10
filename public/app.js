@@ -2057,7 +2057,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _mixins_entriesStyles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../mixins/entriesStyles */ "./resources/js/mixins/entriesStyles.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -2306,21 +2305,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
-//
-//
-//
-//
-//
-
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  /**
-   * The component's mixins.
-   */
-  mixins: [_mixins_entriesStyles__WEBPACK_IMPORTED_MODULE_3__["default"]],
-
   /**
    * The component's props.
    */
@@ -2549,8 +2537,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _mixins_entriesStyles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../mixins/entriesStyles */ "./resources/js/mixins/entriesStyles.js");
-/* harmony import */ var _mixins_Clipboard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../mixins/Clipboard */ "./resources/js/mixins/Clipboard.js");
+/* harmony import */ var _mixins_Clipboard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../mixins/Clipboard */ "./resources/js/mixins/Clipboard.js");
 //
 //
 //
@@ -2733,20 +2720,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   /**
    * The component's mixins.
    */
-  mixins: [_mixins_entriesStyles__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_Clipboard__WEBPACK_IMPORTED_MODULE_2__["default"]],
+  mixins: [_mixins_Clipboard__WEBPACK_IMPORTED_MODULE_1__["default"]],
 
   /**
    * The component's props.
@@ -27855,23 +27835,15 @@ var render = function() {
                                     {
                                       class:
                                         "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-" +
-                                        _vm.messageLevelColor(
-                                          entry.content.message.level
-                                        ) +
+                                        entry.typeColor +
                                         "-100 text-" +
-                                        _vm.messageLevelColor(
-                                          entry.content.message.level
-                                        ) +
+                                        entry.typeColor +
                                         "-800"
                                     },
                                     [
                                       _vm._v(
                                         "\n                                    " +
-                                          _vm._s(
-                                            entry.content.message.level_name
-                                              ? entry.content.message.level_name
-                                              : "RAW"
-                                          ) +
+                                          _vm._s(entry.type) +
                                           "\n                                "
                                       )
                                     ]
@@ -28304,6 +28276,45 @@ var render = function() {
                               },
                               [
                                 _vm._v(
+                                  "\n                                Type\n                            "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "dd",
+                              {
+                                class:
+                                  "mt-1 text-sm leading-5 text-" +
+                                  _vm.entry.typeColor +
+                                  "-900 sm:mt-0 sm:col-span-2"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(_vm.entry.type) +
+                                    "\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
+                          },
+                          [
+                            _c(
+                              "dt",
+                              {
+                                staticClass:
+                                  "text-sm leading-5 font-medium text-gray-500"
+                              },
+                              [
+                                _vm._v(
                                   "\n                                Log Stream Name\n                            "
                                 )
                               ]
@@ -28405,51 +28416,6 @@ var render = function() {
                             )
                           ]
                         ),
-                        _vm._v(" "),
-                        _vm.entry.content.message.level
-                          ? _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
-                              },
-                              [
-                                _c(
-                                  "dt",
-                                  {
-                                    staticClass:
-                                      "text-sm leading-5 font-medium text-gray-500"
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                Level\n                            "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "dd",
-                                  {
-                                    class:
-                                      "mt-1 text-sm leading-5 text-" +
-                                      _vm.messageLevelColor(
-                                        _vm.entry.content.message.level
-                                      ) +
-                                      "-900 sm:mt-0 sm:col-span-2"
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                " +
-                                        _vm._s(
-                                          _vm.entry.content.message.level
-                                        ) +
-                                        "\n                            "
-                                    )
-                                  ]
-                                )
-                              ]
-                            )
-                          : _vm._e(),
                         _vm._v(" "),
                         _c(
                           "div",
@@ -45739,29 +45705,6 @@ __webpack_require__.r(__webpack_exports__);
       el.select();
       document.execCommand('copy');
       document.body.removeChild(el);
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/mixins/entriesStyles.js":
-/*!**********************************************!*\
-  !*** ./resources/js/mixins/entriesStyles.js ***!
-  \**********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({
-  methods: {
-    messageLevelColor: function messageLevelColor(level) {
-      if (level == '100') return 'gray';
-      if (level == '200') return 'blue';
-      if (level == '300') return 'yellow';
-      if (level == '400') return 'red';
-      return 'gray';
     }
   }
 });

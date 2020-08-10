@@ -62,32 +62,56 @@ class Entry implements JsonSerializable
         $this->id = $id;
         $this->group = $group;
         $this->filters = $filters;
+        $this->content = $content;
 
-        // Grabs the request id
-        if (! is_string($content['message'])) {
-            $this->requestId = $content['message']['context']['aws_request_id'] ?? '';
-            unset($content['message']['context']['aws_request_id']);
-        }
-
-        $this->content = $this->sanitized($content);
+        $this->pullRequestId()
+             ->pullType();
     }
 
     /**
-     * Returns the sanitized content.
+     * Pulls the request id from the content.
      *
-     * @param  array $content
-     *
-     * @return array
+     * @return $this
      */
-    protected function sanitized($content)
+    protected function pullRequestId()
     {
-        if (is_string($content['message'])) {
-            $content['message'] = trim($content['message']);
-        } elseif (array_key_exists('message', $content['message'])) {
-            $content['message']['message'] = trim($content['message']['message']);
+        if (! is_string($this->content['message'])) {
+            $this->requestId = $this->content['message']['context']['aws_request_id'] ?? '';
+            unset($this->content['message']['context']['aws_request_id']);
         }
 
-        return $content;
+        return $this;
+    }
+
+    /**
+     * Pulls the type from the content.
+     *
+     * @return $this
+     */
+    protected function pullType()
+    {
+        if (is_string($this->content['message']) && preg_match('/Task timed out after/', $this->content['message']) > 0) {
+            $this->type = 'TIMEOUT';
+            $this->typeColor = 'red';
+        } else {
+            $this->type = strtoupper($this->content['message']['level_name'] ?? 'RAW');
+            switch ($this->content['message']['level'] ?? 100) {
+                default:
+                    $this->typeColor = 'gray';
+                    break;
+                case 200:
+                    $this->typeColor = 'blue';
+                    break;
+                case 300:
+                    $this->typeColor = 'yellow';
+                    break;
+                case 400:
+                    $this->typeColor = 'red';
+                    break;
+            }
+        }
+
+        return $this;
     }
 
     /**
