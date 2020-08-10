@@ -2362,6 +2362,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
    * Clean after the component is destroyed.
    */
   destroyed: function destroyed() {
+    this.filters = {};
     document.onkeyup = null;
   },
 
@@ -2439,39 +2440,35 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
      * Creates a new debouncer when a the search input changes.
      */
     search: function search() {
-      var _this3 = this;
-
-      this.debouncer(function () {
-        _this3.loadEntries();
-      });
+      this.debouncer(this.loadEntries);
     },
 
     /**
      * Using the current cursor, performs a request
-     * and attach the receive new entries.
+     * and attach the received new entries.
      */
     loadMore: function loadMore() {
-      var _this4 = this;
+      var _this3 = this;
 
       this.loadingMore = true;
       this.request(this.cursor).then(function (_ref2) {
-        var _this4$entries;
+        var _this3$entries;
 
         var data = _ref2.data;
 
-        (_this4$entries = _this4.entries).push.apply(_this4$entries, _toConsumableArray(data.entries));
+        (_this3$entries = _this3.entries).push.apply(_this3$entries, _toConsumableArray(data.entries));
 
-        _this4.cursor = data.cursor;
-        _this4.loadingMore = false;
+        _this3.cursor = data.cursor;
+        _this3.loadingMore = false;
 
-        if (_this4.entries.length < 100 && _this4.cursor) {
-          _this4.loadMore();
+        if (_this3.entries.length < 50 && _this3.cursor) {
+          _this3.loadMore();
         }
       });
     },
 
     /**
-     * Validates the current filters.
+     * Validates the filters.
      */
     validate: function validate() {
       this.errors = [];
@@ -2486,33 +2483,20 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     /**
      * Updates the start time, and re-load entries.
      */
-    onTimeAgoChange: function onTimeAgoChange() {
+    onMinutesAgoChange: function onMinutesAgoChange() {
       this.filters.startTime = moment__WEBPACK_IMPORTED_MODULE_2___default()().subtract(this.minutesAgo, 'minutes').local().format('YYYY-MM-DD LTS');
       this.loadEntries();
-    },
-
-    /**
-     * [updateMinutesAgoInput description]
-     */
-    updateMinutesAgoInput: function updateMinutesAgoInput() {
-      var startTime = moment__WEBPACK_IMPORTED_MODULE_2___default()(this.filters.startTime, 'YYYY-MM-DD LTS').add(new Date().getTimezoneOffset(), 'm');
-      var duration = moment__WEBPACK_IMPORTED_MODULE_2___default.a.duration(moment__WEBPACK_IMPORTED_MODULE_2___default()().diff(startTime));
-      var minutes = parseInt(duration.asMinutes());
-      this.minutesAgo = minutes;
     },
 
     /**
      * Gets the minutes ago options.
      */
     getMinutesAgoOptions: function getMinutesAgoOptions() {
-      var minutes = Array.from(new Set([1, 5, 10, 30, this.minutesAgo].sort(function (a, b) {
+      return Array.from(new Set([1, 5, 10, 30, this.minutesAgo].sort(function (a, b) {
         return a - b;
-      })));
-      var options = [];
-      minutes.forEach(function (value) {
-        options.push([value, moment__WEBPACK_IMPORTED_MODULE_2___default()().subtract(value, 'minutes').fromNow()]);
+      }))).map(function (value) {
+        return [value, moment__WEBPACK_IMPORTED_MODULE_2___default()().subtract(value, 'minutes').fromNow()];
       });
-      return options;
     },
 
     /**
@@ -27564,7 +27548,7 @@ var render = function() {
                                             : $$selectedVal[0]
                                         },
                                         function($event) {
-                                          return _vm.onTimeAgoChange()
+                                          return _vm.onMinutesAgoChange()
                                         }
                                       ]
                                     }

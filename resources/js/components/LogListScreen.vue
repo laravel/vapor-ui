@@ -55,7 +55,7 @@
                                     <div class="absolute inset-y-0 right-0 flex items-center">
                                         <select
                                             v-model="minutesAgo"
-                                            v-on:change="onTimeAgoChange()"
+                                            v-on:change="onMinutesAgoChange()"
                                             aria-label="Currency"
                                             class="form-select h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm sm:leading-5"
                                         >
@@ -278,6 +278,7 @@ export default {
      * Clean after the component is destroyed.
      */
     destroyed() {
+        this.filters = {};
         document.onkeyup = null;
     },
 
@@ -322,7 +323,6 @@ export default {
             const filters = { ...this.filters };
 
             let params = { ...this.filters };
-
             if (this.filters.startTime) {
                 params.startTime = moment(this.filters.startTime, 'YYYY-MM-DD LTS')
                     .add(new Date().getTimezoneOffset(), 'm')
@@ -346,14 +346,12 @@ export default {
          * Creates a new debouncer when a the search input changes.
          */
         search() {
-            this.debouncer(() => {
-                this.loadEntries();
-            });
+            this.debouncer(this.loadEntries);
         },
 
         /**
          * Using the current cursor, performs a request
-         * and attach the receive new entries.
+         * and attach the received new entries.
          */
         loadMore() {
             this.loadingMore = true;
@@ -361,17 +359,16 @@ export default {
             this.request(this.cursor).then(({ data }) => {
                 this.entries.push(...data.entries);
                 this.cursor = data.cursor;
-
                 this.loadingMore = false;
 
-                if (this.entries.length < 100 && this.cursor) {
+                if (this.entries.length < 50 && this.cursor) {
                     this.loadMore();
                 }
             });
         },
 
         /**
-         * Validates the current filters.
+         * Validates the filters.
          */
         validate() {
             this.errors = [];
@@ -386,35 +383,24 @@ export default {
         /**
          * Updates the start time, and re-load entries.
          */
-        onTimeAgoChange() {
-            this.filters.startTime = moment().subtract(this.minutesAgo, 'minutes').local().format('YYYY-MM-DD LTS');
+        onMinutesAgoChange() {
+            this.filters.startTime = moment()
+                .subtract(this.minutesAgo, 'minutes')
+                .local()
+                .format('YYYY-MM-DD LTS');
 
             this.loadEntries();
-        },
-
-        /**
-         * [updateMinutesAgoInput description]
-         */
-        updateMinutesAgoInput() {
-            const startTime = moment(this.filters.startTime, 'YYYY-MM-DD LTS').add(new Date().getTimezoneOffset(), 'm');
-
-            const duration = moment.duration(moment().diff(startTime));
-            const minutes = parseInt(duration.asMinutes());
-            this.minutesAgo = minutes;
         },
 
         /**
          * Gets the minutes ago options.
          */
         getMinutesAgoOptions() {
-            const minutes = Array.from(new Set([1, 5, 10, 30, this.minutesAgo].sort((a, b) => a - b)));
-            const options = [];
-
-            minutes.forEach((value) => {
-                options.push([value, moment().subtract(value, 'minutes').fromNow()]);
-            });
-
-            return options;
+            return Array
+                .from(new Set([1, 5, 10, 30, this.minutesAgo].sort((a, b) => a - b)))
+                .map(value => {
+                    return [value, moment().subtract(value, 'minutes').fromNow()];
+                });
         },
 
         /**
