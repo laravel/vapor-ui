@@ -21,6 +21,19 @@ class LogsRepository
     protected $client;
 
     /**
+     * The list of logs that should be ignored.
+     */
+    protected $ignore = [
+        'START RequestId',
+        'REPORT RequestId',
+        'END RequestId',
+        'Executing warming requests',
+        'Loaded Composer autoload filePreparing to add secrets to runtimePreparing to boot FPMEnsuring ready to start FPMStarting FPM Process',
+        'NOTICE: ready to handle connections',
+        'Caching Laravel configuration',
+    ];
+
+    /**
      * Creates a new instance of the logs repository.
      *
      * @return void
@@ -172,7 +185,7 @@ class LogsRepository
         }
 
         $query = $filters['query'] ?? '';
-        $exclude = '- "START RequestId" - "END RequestId"';
+        $exclude = '- "'.collect($this->ignore)->implode('" - "', $this->ignore).'"';
 
         $filterPattern = empty($query)
             ? ''
