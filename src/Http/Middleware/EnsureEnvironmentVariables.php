@@ -5,7 +5,7 @@ namespace Laravel\VaporUi\Http\Middleware;
 use Closure;
 use RuntimeException;
 
-class EnsureEnvironment
+class EnsureEnvironmentVariables
 {
     /**
      * The list of needed environment variables.

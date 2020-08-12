@@ -59,4 +59,14 @@ class Cloud
 
         return $ssmPath;
     }
+
+    /**
+     * Checks if the app is running under the vanity url.
+     *
+     * @return bool
+     */
+    public static function underVanityUrl()
+    {
+        return 'https://'.request()->getHttpHost() === ($_ENV['APP_VANITY_URL'] ?? null);
+    }
 }

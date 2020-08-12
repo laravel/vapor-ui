@@ -22,6 +22,10 @@ class VaporUiServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../public' => public_path('vendor/vapor-ui'),
             ], 'vapor-ui-assets');
+
+            $this->publishes([
+                __DIR__.'/../stubs/VaporUiServiceProvider.stub' => app_path('Providers/VaporUiServiceProvider.php'),
+            ], 'vapor-ui-provider');
         }
     }
 
@@ -33,6 +37,10 @@ class VaporUiServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/vapor-ui.php', 'vapor-ui');
+
+        $this->commands([
+            Console\InstallCommand::class,
+        ]);
 
         $this->app->singleton(LogsRepository::class, function () {
             $client = new CloudWatchLogsClient([

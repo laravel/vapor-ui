@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Support\Facades\File;
 use RuntimeException;
 
-class EnsureAssets
+class EnsureUpToDateAssets
 {
     /**
      * Ensures assets have being published.
