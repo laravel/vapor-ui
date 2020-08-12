@@ -41,6 +41,7 @@ class VaporUiServiceProvider extends ServiceProvider
                 'credentials' => [
                     'key' => config('vapor-ui.credentials.key'),
                     'secret' => config('vapor-ui.credentials.secret'),
+                    'token' => $_ENV['AWS_SESSION_TOKEN'] ?? null,
                 ],
             ]);
 
