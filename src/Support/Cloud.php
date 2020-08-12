@@ -65,7 +65,7 @@ class Cloud
      *
      * @return bool
      */
-    public static function underVanityUrl()
+    public static function runningInVanityUrl()
     {
         return 'https://'.request()->getHttpHost() === ($_ENV['APP_VANITY_URL'] ?? null);
     }

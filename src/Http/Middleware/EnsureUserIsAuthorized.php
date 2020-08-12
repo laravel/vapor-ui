@@ -18,10 +18,8 @@ class EnsureUserIsAuthorized
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $allowed = app()->environment('local') || (Cloud::underVanityUrl() && (
-            ! Gate::has('viewVaporUi')
-            || Gate::allows('viewVaporUi', [$request->user()]))
-        );
+        $allowed = app()->environment('local')
+            || (Cloud::runningInVanityUrl() && Gate::allows('viewVaporUi', [$request->user()]));
 
         return $allowed ? $next($request) : abort(403);
     }
