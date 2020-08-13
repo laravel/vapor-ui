@@ -41,4 +41,4 @@ jobs:
         run: vendor/bin/phpstan analyse
 
       - name: Execute unit tests
-        run: vendor/bin/pest --colors=always --verbose --group=unit
+        run: vendor/bin/pest
