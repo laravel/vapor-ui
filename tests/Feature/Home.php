@@ -4,7 +4,7 @@ it('requires environment variables', function () {
     config()->set('vapor-ui.region', null);
 
     $this->get('vapor-ui')
-         ->assertStatus(500);
+        ->assertStatus(500);
 });
 
 // @todo
