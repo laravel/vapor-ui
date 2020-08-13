@@ -1,7 +1,5 @@
 /vendor
 /node_modules
-composer.lock
-/phpunit.xml
-.phpstan.neon
-.phpunit.result.cache
-.env
+/composer.lock
+/.phpunit.result.cache
+/.env
