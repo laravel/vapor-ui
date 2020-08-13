@@ -29,7 +29,7 @@
     "require-dev": {
         "nunomaduro/larastan": "^0.6.2",
         "orchestra/testbench": "^5.0|^6.0",
-        "pestphp/pest": "dev-master"
+        "pestphp/pest": "^0.3"
     },
     "autoload": {
         "psr-4": {
