@@ -1,15 +1,17 @@
 <?php
 
-it('requires lambda runtime', function () {
+it('requires environment variables', function () {
     config()->set('vapor-ui.region', null);
 
-    $this->get('/vapor-ui')->assertForbidden();
+    $this->get('vapor-ui')
+         ->assertStatus(500);
 });
 
 // @todo
-it('requires vanity url');
+it('requires user is authorized');
+it('requires published assets');
 
-it('has title', function () {
+test('title', function () {
     $project = config('vapor-ui.project');
 
     $this->get('/vapor-ui')->assertSee(

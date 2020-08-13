@@ -5,7 +5,7 @@ use Laravel\VaporUi\Support\Cloud;
 return [
     /*
     |--------------------------------------------------------------------------
-    | Lorem ipsum dolor
+    | Vapor Project
     |--------------------------------------------------------------------------
     |
     | Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
@@ -18,7 +18,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Lorem ipsum dolor
+    | Vapor Environment
     |--------------------------------------------------------------------------
     |
     | Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
@@ -31,7 +31,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Lorem ipsum dolor
+    | Aws Region
     |--------------------------------------------------------------------------
     |
     | Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
@@ -44,7 +44,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Lorem ipsum dolor
+    | Aws Credentials
     |--------------------------------------------------------------------------
     |
     | Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
