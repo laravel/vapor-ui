@@ -39,6 +39,3 @@ jobs:
 
       - name: Execute static analysis
         run: vendor/bin/phpstan analyse
-
-      - name: Execute unit tests
-        run: vendor/bin/pest
