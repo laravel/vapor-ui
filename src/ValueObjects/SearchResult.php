@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\VaporUi\Support;
+namespace Laravel\VaporUi\ValueObjects;
 
 use Illuminate\Support\Collection;
 use JsonSerializable;
@@ -8,18 +8,18 @@ use JsonSerializable;
 class SearchResult implements JsonSerializable
 {
     /**
-     * The cursor for pagination, if any.
-     *
-     * @var string|null
-     */
-    public $cursor;
-
-    /**
      * The collection of entries.
      *
      * @var Collection
      */
     public $entries;
+
+    /**
+     * The cursor for pagination, if any.
+     *
+     * @var string|null
+     */
+    public $cursor;
 
     /**
      * Creates a new search result.

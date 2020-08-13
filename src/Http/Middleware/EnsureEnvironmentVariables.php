@@ -3,6 +3,7 @@
 namespace Laravel\VaporUi\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 use RuntimeException;
 
 class EnsureEnvironmentVariables
@@ -23,9 +24,9 @@ class EnsureEnvironmentVariables
     /**
      * Ensures environment variables are properly configured.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string|null  $guard
+     * @param Request $request
+     * @param Closure $next
+     * @param string|null $guard
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)

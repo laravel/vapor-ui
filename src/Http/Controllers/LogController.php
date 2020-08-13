@@ -4,20 +4,22 @@ namespace Laravel\VaporUi\Http\Controllers;
 
 use Laravel\VaporUi\Http\Requests\LogRequest;
 use Laravel\VaporUi\Repositories\LogsRepository;
+use Laravel\VaporUi\ValueObjects\Log;
+use Laravel\VaporUi\ValueObjects\SearchResult;
 
 class LogController
 {
     /**
      * Holds an instance of the log repository.
      *
-     * @var \Laravel\VaporUi\Repositories\LogsRepository
+     * @var LogsRepository
      */
     protected $repository;
 
     /**
      * Creates a new instance of the log controller.
      *
-     * @param  \Laravel\VaporUi\Repositories\LogsRepository $repository
+     * @param LogsRepository $repository
      *
      * @return void
      */
@@ -29,10 +31,10 @@ class LogController
     /**
      * Gets the log results of the given $group lambda.
      *
-     * @param  \Laravel\VaporUi\Http\Requests\LogRequest $request
+     * @param LogRequest $request
      * @param  string $group
      *
-     * @return \Laravel\VaporUi\Support\SearchResult
+     * @return SearchResult
      */
     public function index(LogRequest $request, $group)
     {
@@ -42,11 +44,11 @@ class LogController
     /**
      * Gets the log result of the given $group lambda and $id.
      *
-     * @param  \Laravel\VaporUi\Http\Requests\LogRequest $request
+     * @param LogRequest $request
      * @param  string $group
      * @param  string $id
      *
-     * @return \Laravel\VaporUi\Support\SearchEntry|null
+     * @return Log|null
      */
     public function show(LogRequest $request, $group, $id)
     {

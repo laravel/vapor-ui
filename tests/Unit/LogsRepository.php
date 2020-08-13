@@ -22,8 +22,6 @@ it('has pagination', function () {
 });
 
 it('resolves entries', function () {
-    $logs = resolve(LogsRepository::class);
-
     $result = $this->logs->search('cli');
 
     expect($result->entries)->toBeIterable();

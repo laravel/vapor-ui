@@ -2,12 +2,14 @@
 
 namespace Laravel\VaporUi\Http\Controllers;
 
+use Illuminate\View\View;
+
 class HomeController
 {
     /**
      * Gets the Vapor Ui home page.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function __invoke()
     {

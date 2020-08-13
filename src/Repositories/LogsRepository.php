@@ -6,9 +6,8 @@ use Aws\CloudWatchLogs\CloudWatchLogsClient;
 use Aws\CloudWatchLogs\Exception\CloudWatchLogsException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Laravel\VaporUi\Support\Cloud;
-use Laravel\VaporUi\Support\SearchEntry;
-use Laravel\VaporUi\Support\SearchResult;
+use Laravel\VaporUi\ValueObjects\Log;
+use Laravel\VaporUi\ValueObjects\SearchResult;
 
 class LogsRepository
 {
@@ -37,9 +36,11 @@ class LogsRepository
     /**
      * Creates a new instance of the logs repository.
      *
+     * @param CloudWatchLogsClient $client
+     *
      * @return void
      */
-    public function __construct(CloudWatchLogsClient $client)
+    public function __construct($client)
     {
         $this->client = $client;
     }
@@ -47,24 +48,24 @@ class LogsRepository
     /**
      * Gets the given log by its eventId.
      *
-     * @param  string $id
-     * @param  string $group
-     * @param  array $filters
+     * @param string $id
+     * @param string $group
+     * @param array $filters
      *
-     * @return SearchEntry|null
+     * @return Log|null
      */
     public function get($id, $group, $filters = [])
     {
         return $this->search($group, $filters)
-                    ->entries
-                    ->firstWhere('id', $id);
+            ->entries
+            ->firstWhere('id', $id);
     }
 
     /**
      * Search for the logs.
      *
-     * @param  string $group
-     * @param  array $filters
+     * @param string $group
+     * @param array $filters
      *
      * @return SearchResult
      */
@@ -76,7 +77,7 @@ class LogsRepository
                 'limit' => $this->limit($filters),
                 'nextToken' => $this->nextToken($filters),
                 'startTime' => $this->startTime($filters),
-                'filterPattern' =>  $this->filterPattern($filters),
+                'filterPattern' => $this->filterPattern($filters),
             ]))->toArray();
         } catch (CloudWatchLogsException $e) {
             $resourceNotFoundException = '"__type":"ResourceNotFoundException"';
@@ -94,13 +95,12 @@ class LogsRepository
             ->filter(function ($event) use ($filters) {
                 return empty($filters['type']) || $filters['type'] === 'timeout' || @json_decode($event['message']);
             })->map(function ($event) use ($group, $filters) {
-                if (array_key_exists('message', $event)) {
-                    if ($message = json_decode($event['message'], true)) {
-                        $event['message'] = $message;
-                    }
+                if (array_key_exists('message', $event)
+                    && ($message = json_decode($event['message'], true))) {
+                    $event['message'] = $message;
                 }
 
-                return new SearchEntry($event['eventId'], $group, $filters, $event);
+                return new Log($event['eventId'], $group, $filters, $event);
             })->values();
 
         return new SearchResult($entries, $response['nextToken'] ?? null);
@@ -109,7 +109,7 @@ class LogsRepository
     /**
      * Returns the log group name from the given $group.
      *
-     * @param  string $group
+     * @param string $group
      *
      * @return string
      */
@@ -128,7 +128,7 @@ class LogsRepository
     /**
      * Gets the limit from the given $filters.
      *
-     * @param  array $filters
+     * @param array $filters
      *
      * @return int
      */
@@ -140,7 +140,7 @@ class LogsRepository
     /**
      * Gets the next token from the given $filters.
      *
-     * @param  array $filters
+     * @param array $filters
      *
      * @return string|null
      */
@@ -152,7 +152,7 @@ class LogsRepository
     /**
      * Gets the start time from the given $filters.
      *
-     * @param  array $filters
+     * @param array $filters
      *
      * @return int|null
      */
@@ -164,7 +164,7 @@ class LogsRepository
     /**
      * Gets the filter pattern from the given $filters.
      *
-     * @param  array $filters
+     * @param array $filters
      *
      * @return string
      */

@@ -1,10 +1,10 @@
 <?php
 
-namespace Laravel\VaporUi\Support;
+namespace Laravel\VaporUi\ValueObjects;
 
 use JsonSerializable;
 
-class SearchEntry implements JsonSerializable
+class Log implements JsonSerializable
 {
     /**
      * The entry's primary key.

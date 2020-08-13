@@ -3,6 +3,7 @@
 namespace Laravel\VaporUi\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Laravel\VaporUi\Support\Cloud;
 
@@ -11,8 +12,8 @@ class EnsureUserIsAuthorized
     /**
      * Ensures the user is authorized to visit Vapor Ui Dashboard.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  Request  $request
+     * @param Closure $next
      * @param  string|null  $guard
      * @return mixed
      */
