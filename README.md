@@ -33,6 +33,13 @@ Finally, visit the Vapor Ui dashboard thought the vanity URL:
 https://your-vanity-url.com/vapor-ui
 ```
 
+**Warning**: Did your project got deployed with Vapor before the XX/XX/2020? You may have to perform these additional steps: 
+
+1. Edit the `laravel-vapor-role-policy` here: [console.aws.amazon.com/iam/home](https://console.aws.amazon.com/iam/home#/roles/laravel-vapor-role$jsonEditor?policyName=laravel-vapor-role-policy&step=edit)
+2. Head over to CloudWatch Logs > Actions > Read
+3. Next, select `FilterLogEvents`
+4. Finally, click in `Review the policy` and `Save changes`
+
 <a name="local-environment"></a>
 ### Local Environment
 
