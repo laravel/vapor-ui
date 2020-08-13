@@ -27,7 +27,7 @@
         "laravel/framework": "^6.0|^7.0|^8.0"
     },
     "require-dev": {
-        "nunomaduro/larastan": "^0.6.2",
+        "nunomaduro/larastan": "dev-master",
         "orchestra/testbench": "^5.0|^6.0",
         "pestphp/pest": "^0.3"
     },
