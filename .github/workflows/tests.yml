@@ -32,7 +32,7 @@ jobs:
         run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-progress
 
       - name: Execute static analysis
-        run: vendor/bin/phpstan analyse
+        run: php vendor/bin/phpstan analyse
 
       - name: Execute tests
-        run: vendor/bin/pest --verbose --group=unit
+        run: php vendor/bin/pest --colors=always --verbose --group=unit
