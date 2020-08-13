@@ -48,7 +48,7 @@
 
                             <nav class="flex-1 px-2 py-4 bg-gray-800">
                                 <router-link
-                                    to="/logs/http"
+                                    :to="{ name: `logs-http-index`, query: this.$route.query }"
                                     href="#"
                                     active-class="text-white bg-gray-900 focus:outline-none focus:bg-gray-900 transition ease-in-out duration-150"
                                     class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150"
@@ -57,7 +57,7 @@
                                     HTTP
                                 </router-link>
                                 <router-link
-                                    to="/logs/cli"
+                                    :to="{ name: `logs-cli-index`, query: this.$route.query }"
                                     href="#"
                                     active-class="text-white bg-gray-900 focus:outline-none focus:bg-gray-900 transition ease-in-out duration-150"
                                     class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150"
@@ -66,7 +66,7 @@
                                     CLI
                                 </router-link>
                                 <router-link
-                                    to="/logs/queue"
+                                    :to="{ name: `logs-queue-index`, query: this.$route.query }"
                                     href="#"
                                     active-class="text-white bg-gray-900 focus:outline-none focus:bg-gray-900 transition ease-in-out duration-150"
                                     class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150"

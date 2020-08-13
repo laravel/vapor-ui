@@ -98,19 +98,19 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col mt-2">
                 <!-- Loader -->
-                <loader v-if="searching || (loadingMore && entries.length == 0)">
-                    <template v-if="loadingMore && entries.length === 0">
+                <loader v-if="searching && entries.length == 0">
+                    <template v-if="cursor">
                         No logs have being found yet, still searching...
                     </template>
                 </loader>
 
                 <!-- No Search Results -->
-                <empty-search-results v-if="!searching && !loadingMore && entries.length == 0">
+                <empty-search-results v-if="!searching && entries.length == 0">
                     No logs were found for the given search criteria.
                 </empty-search-results>
 
                 <div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
-                    <table class="min-w-full divide-y divide-gray-200" v-if="!searching && entries.length > 0">
+                    <table class="min-w-full divide-y divide-gray-200" v-if="entries.length > 0">
                         <thead>
                             <tr>
                                 <th
@@ -193,19 +193,16 @@
                     </table>
                     <!-- Pagination -->
                     <nav
-                        v-if="
-                            (!searching && loadingMore && entries.length > 0) || (!searching && !loadingMore && cursor)
-                        "
+                        v-if="entries.length > 0 && cursor"
                         class="bg-white px-4 py-3 flex items-center justify-between border-t border-cool-gray-200 sm:px-6"
                     >
-                        <div class="hidden sm:block" v-if="!searching && loadingMore && entries.length > 0">
+                        <div v-if="searching" class="block">
                             <p class="text-sm ml-4 leading-5 text-cool-gray-700">
                                 Searching for newer entries..
                             </p>
                         </div>
-                        <div class="flex-1 flex justify-between sm:justify-end">
+                        <div v-else class="flex-1 flex justify-between sm:justify-end">
                             <a
-                                v-if="!searching && !loadingMore && cursor"
                                 href="#"
                                 v-on:click="loadMore"
                                 class="ml-3 relative inline-flex items-center px-4 py-2 border border-cool-gray-300 text-sm leading-5 font-medium rounded-md text-cool-gray-700 bg-white hover:text-cool-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-cool-gray-100 active:text-cool-gray-700 transition ease-in-out duration-150"
@@ -245,7 +242,6 @@ export default {
         return {
             entries: [],
             errors: [],
-            loadingMore: false,
             minutesAgo: null,
             searching: true,
             cursor: null,
@@ -300,8 +296,8 @@ export default {
              */
             const startTime = moment(this.filters.startTime, 'YYYY-MM-DD LTS').add(new Date().getTimezoneOffset(), 'm');
             this.minutesAgo = parseInt(moment.duration(moment().diff(startTime)).asMinutes());
-            this.searching = true;
-            this.loadingMore = false;
+            this.entries = [];
+            this.cursor = null;
 
             /**
              * Finally, we perform the request.
@@ -309,7 +305,6 @@ export default {
             this.request().then(({ data }) => {
                 this.entries = data.entries;
                 this.cursor = data.cursor;
-                this.searching = false;
                 if (this.entries.length < 50 && this.cursor) {
                     this.loadMore();
                 }
@@ -333,7 +328,10 @@ export default {
 
             params.cursor = cursor;
 
+            this.searching = true;
             return axios.get(`/vapor-ui/api/logs/${this.group}`, { params }).then((data) => {
+                this.searching = false;
+
                 if (JSON.stringify(filters) !== JSON.stringify(this.filters)) {
                     throw 'The filters have been changed.';
                 }
@@ -354,13 +352,9 @@ export default {
          * and attach the received new entries.
          */
         loadMore() {
-            this.loadingMore = true;
-
             this.request(this.cursor).then(({ data }) => {
                 this.entries.push(...data.entries);
                 this.cursor = data.cursor;
-                this.loadingMore = false;
-
                 if (this.entries.length < 50 && this.cursor) {
                     this.loadMore();
                 }

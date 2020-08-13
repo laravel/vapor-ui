@@ -2303,9 +2303,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
-//
-//
-//
 
 
 
@@ -2328,7 +2325,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     return {
       entries: [],
       errors: [],
-      loadingMore: false,
       minutesAgo: null,
       searching: true,
       cursor: null,
@@ -2387,8 +2383,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       var startTime = moment__WEBPACK_IMPORTED_MODULE_2___default()(this.filters.startTime, 'YYYY-MM-DD LTS').add(new Date().getTimezoneOffset(), 'm');
       this.minutesAgo = parseInt(moment__WEBPACK_IMPORTED_MODULE_2___default.a.duration(moment__WEBPACK_IMPORTED_MODULE_2___default()().diff(startTime)).asMinutes());
-      this.searching = true;
-      this.loadingMore = false;
+      this.entries = [];
+      this.cursor = null;
       /**
        * Finally, we perform the request.
        */
@@ -2397,7 +2393,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         var data = _ref.data;
         _this.entries = data.entries;
         _this.cursor = data.cursor;
-        _this.searching = false;
 
         if (_this.entries.length < 50 && _this.cursor) {
           _this.loadMore();
@@ -2425,9 +2420,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         query: Object.assign({}, this.$route.query, params)
       })["catch"](function () {});
       params.cursor = cursor;
+      this.searching = true;
       return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/vapor-ui/api/logs/".concat(this.group), {
         params: params
       }).then(function (data) {
+        _this2.searching = false;
+
         if (JSON.stringify(filters) !== JSON.stringify(_this2.filters)) {
           throw 'The filters have been changed.';
         }
@@ -2450,7 +2448,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     loadMore: function loadMore() {
       var _this3 = this;
 
-      this.loadingMore = true;
       this.request(this.cursor).then(function (_ref2) {
         var _this3$entries;
 
@@ -2459,7 +2456,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         (_this3$entries = _this3.entries).push.apply(_this3$entries, _toConsumableArray(data.entries));
 
         _this3.cursor = data.cursor;
-        _this3.loadingMore = false;
 
         if (_this3.entries.length < 50 && _this3.cursor) {
           _this3.loadMore();
@@ -27687,11 +27683,11 @@ var render = function() {
           "div",
           { staticClass: "flex flex-col mt-2" },
           [
-            _vm.searching || (_vm.loadingMore && _vm.entries.length == 0)
+            _vm.searching && _vm.entries.length == 0
               ? _c(
                   "loader",
                   [
-                    _vm.loadingMore && _vm.entries.length === 0
+                    _vm.cursor
                       ? [
                           _vm._v(
                             "\n                    No logs have being found yet, still searching...\n                "
@@ -27703,7 +27699,7 @@ var render = function() {
                 )
               : _vm._e(),
             _vm._v(" "),
-            !_vm.searching && !_vm.loadingMore && _vm.entries.length == 0
+            !_vm.searching && _vm.entries.length == 0
               ? _c("empty-search-results", [
                   _vm._v(
                     "\n                No logs were found for the given search criteria.\n            "
@@ -27718,7 +27714,7 @@ var render = function() {
                   "align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg"
               },
               [
-                !_vm.searching && _vm.entries.length > 0
+                _vm.entries.length > 0
                   ? _c(
                       "table",
                       { staticClass: "min-w-full divide-y divide-gray-200" },
@@ -27922,8 +27918,7 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
-                (!_vm.searching && _vm.loadingMore && _vm.entries.length > 0) ||
-                (!_vm.searching && !_vm.loadingMore && _vm.cursor)
+                _vm.entries.length > 0 && _vm.cursor
                   ? _c(
                       "nav",
                       {
@@ -27931,10 +27926,8 @@ var render = function() {
                           "bg-white px-4 py-3 flex items-center justify-between border-t border-cool-gray-200 sm:px-6"
                       },
                       [
-                        !_vm.searching &&
-                        _vm.loadingMore &&
-                        _vm.entries.length > 0
-                          ? _c("div", { staticClass: "hidden sm:block" }, [
+                        _vm.searching
+                          ? _c("div", { staticClass: "block" }, [
                               _c(
                                 "p",
                                 {
@@ -27948,17 +27941,14 @@ var render = function() {
                                 ]
                               )
                             ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "flex-1 flex justify-between sm:justify-end"
-                          },
-                          [
-                            !_vm.searching && !_vm.loadingMore && _vm.cursor
-                              ? _c(
+                          : _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "flex-1 flex justify-between sm:justify-end"
+                              },
+                              [
+                                _c(
                                   "a",
                                   {
                                     staticClass:
@@ -27972,9 +27962,8 @@ var render = function() {
                                     )
                                   ]
                                 )
-                              : _vm._e()
-                          ]
-                        )
+                              ]
+                            )
                       ]
                     )
                   : _vm._e()
