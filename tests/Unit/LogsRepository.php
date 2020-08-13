@@ -44,7 +44,7 @@ it('has limit', function () {
 });
 
 it('has filter by group', function () {
-    foreach (['cli', 'cli'] as $group) {
+    collect(['cli', 'http'])->each(function ($group) {
         $result = $this->logs->search($group);
 
         expect($events = $result->entries)->toBeIterable();
@@ -53,7 +53,7 @@ it('has filter by group', function () {
         foreach ($expectedKeys as $key) {
             expect($events[0]->content)->toHaveKey($key);
         }
-    }
+    });
 });
 
 it('has filter by query', function () {
@@ -80,9 +80,7 @@ it('can get events by id', function () {
     $result = $this->logs->search(...$arguments);
 
     $id = $result->entries[0]->id;
-    $cursor = null;
 
     $entry = $this->logs->get($id, ...$arguments);
-
     expect($entry->id)->toBe($id);
 });
