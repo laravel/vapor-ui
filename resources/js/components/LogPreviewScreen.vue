@@ -218,9 +218,7 @@ export default {
             })
             .then(({ data, status }) => {
                 this.ready = true;
-                if (status === 200) {
-                    this.entry = data;
-                }
+                this.entry = data;
             });
 
         document.title = `Vapor Ui - ${this.title} - Detail`;

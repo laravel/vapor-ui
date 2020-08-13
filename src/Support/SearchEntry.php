@@ -37,7 +37,7 @@ class SearchEntry implements JsonSerializable
     /**
      * The entry's content.
      *
-     * @var array|string
+     * @var array
      */
     public $content;
 
@@ -53,6 +53,7 @@ class SearchEntry implements JsonSerializable
      *
      * @param  string $id
      * @param  string $group
+     * @param  array $filters
      * @param  array $content
      *
      * @return void

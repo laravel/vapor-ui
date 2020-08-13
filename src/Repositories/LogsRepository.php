@@ -6,7 +6,6 @@ use Aws\CloudWatchLogs\CloudWatchLogsClient;
 use Aws\CloudWatchLogs\Exception\CloudWatchLogsException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Laravel\VaporUi\Exceptions\EntryNotFound;
 use Laravel\VaporUi\Support\Cloud;
 use Laravel\VaporUi\Support\SearchEntry;
 use Laravel\VaporUi\Support\SearchResult;
@@ -22,6 +21,8 @@ class LogsRepository
 
     /**
      * The list of logs that should be ignored.
+     *
+     * @var array
      */
     protected $ignore = [
         'START RequestId',
@@ -46,28 +47,17 @@ class LogsRepository
     /**
      * Gets the given log by its eventId.
      *
-     * @param  string $eventId
+     * @param  string $id
      * @param  string $group
      * @param  array $filters
      *
-     * @return SearchEntry
+     * @return SearchEntry|null
      */
     public function get($id, $group, $filters = [])
     {
-        $entry = null;
-
-        $result = $this->search($group, $filters);
-
-        foreach ($result->entries as $entry) {
-            if ($entry->id === $id) {
-                return $entry;
-            }
-        }
-
-        throw new EntryNotFound(sprintf(
-            'Entry [%s] not found.',
-            $id
-        ));
+        return $this->search($group, $filters)
+                    ->entries
+                    ->firstWhere('id', $id);
     }
 
     /**
@@ -111,8 +101,7 @@ class LogsRepository
                 }
 
                 return new SearchEntry($event['eventId'], $group, $filters, $event);
-            })->values()
-            ->all();
+            })->values();
 
         return new SearchResult($entries, $response['nextToken'] ?? null);
     }
@@ -121,7 +110,6 @@ class LogsRepository
      * Returns the log group name from the given $group.
      *
      * @param  string $group
-     * @param  array $filters
      *
      * @return string
      */
@@ -140,6 +128,8 @@ class LogsRepository
     /**
      * Gets the limit from the given $filters.
      *
+     * @param  array $filters
+     *
      * @return int
      */
     protected function limit($filters)
@@ -149,6 +139,8 @@ class LogsRepository
 
     /**
      * Gets the next token from the given $filters.
+     *
+     * @param  array $filters
      *
      * @return string|null
      */
@@ -160,6 +152,8 @@ class LogsRepository
     /**
      * Gets the start time from the given $filters.
      *
+     * @param  array $filters
+     *
      * @return int|null
      */
     protected function startTime($filters)
@@ -169,6 +163,8 @@ class LogsRepository
 
     /**
      * Gets the filter pattern from the given $filters.
+     *
+     * @param  array $filters
      *
      * @return string
      */
@@ -185,7 +181,7 @@ class LogsRepository
         }
 
         $query = $filters['query'] ?? '';
-        $exclude = '- "'.collect($this->ignore)->implode('" - "', $this->ignore).'"';
+        $exclude = '- "'.collect($this->ignore)->implode('" - "').'"';
 
         $filterPattern = empty($query)
             ? ''

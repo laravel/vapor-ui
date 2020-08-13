@@ -17,7 +17,7 @@ class SearchResult implements JsonSerializable
     /**
      * The collection of entries.
      *
-     * @var array
+     * @var Collection
      */
     public $entries;
 

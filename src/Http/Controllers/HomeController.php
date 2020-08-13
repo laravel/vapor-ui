@@ -7,7 +7,7 @@ class HomeController
     /**
      * Gets the Vapor Ui home page.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function __invoke()
     {

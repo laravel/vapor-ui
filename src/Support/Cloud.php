@@ -21,9 +21,8 @@ class Cloud
          * environment of the project.
          */
         $parts = explode('-', $ssmPath);
-        $environment = array_pop($parts);
 
-        return $environment;
+        return array_pop($parts);
     }
 
     /**

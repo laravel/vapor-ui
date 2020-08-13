@@ -22,6 +22,8 @@ class EnsureUserIsAuthorized
             || app()->environment('testing')
             || (Cloud::runningInVanityUrl() && Gate::allows('viewVaporUi', [$request->user()]));
 
-        return $allowed ? $next($request) : abort(403);
+        abort_unless($allowed, 403);
+
+        return $next($request);
     }
 }

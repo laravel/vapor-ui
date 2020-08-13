@@ -2,7 +2,6 @@
 
 namespace Laravel\VaporUi\Http\Controllers;
 
-use Laravel\VaporUi\Exceptions\EntryNotFound;
 use Laravel\VaporUi\Http\Requests\LogRequest;
 use Laravel\VaporUi\Repositories\LogsRepository;
 
@@ -47,14 +46,10 @@ class LogController
      * @param  string $group
      * @param  string $id
      *
-     * @return \Laravel\VaporUi\ValueObjects\Entry
+     * @return \Laravel\VaporUi\Support\SearchEntry|null
      */
     public function show(LogRequest $request, $group, $id)
     {
-        try {
-            return $this->repository->get($id, $group, $request->validated());
-        } catch (EntryNotFound $e) {
-            abort(404);
-        }
+        return $this->repository->get($id, $group, $request->validated());
     }
 }

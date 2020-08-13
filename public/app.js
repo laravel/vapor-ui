@@ -2749,10 +2749,7 @@ __webpack_require__.r(__webpack_exports__);
       var data = _ref.data,
           status = _ref.status;
       _this.ready = true;
-
-      if (status === 200) {
-        _this.entry = data;
-      }
+      _this.entry = data;
     });
     document.title = "Vapor Ui - ".concat(this.title, " - Detail");
   }
