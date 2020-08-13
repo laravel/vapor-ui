@@ -38,4 +38,7 @@ jobs:
         if: "matrix.php >= 8"
 
       - name: Execute static analysis
-        run: php vendor/bin/phpstan analyse
+        run: vendor/bin/phpstan analyse
+
+      - name: Execute unit tests
+        run: vendor/bin/pest --colors=always --verbose --group=unit
