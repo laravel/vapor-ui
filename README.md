@@ -7,7 +7,7 @@
 
 ## Introduction
 
-Vapor Ui provides a beautiful dashboard for your Laravel infrastructure on Vapor. Consectetur adipiscing elit, sed do eiusmod tempor in.
+Vapor Ui provides a beautiful dashboard to monitor your Laravel serverless infrastructure. It gives you easy access to a variety of metrics from across all your AWS resources.
 
 <a name="installation"></a>
 ## Installation
