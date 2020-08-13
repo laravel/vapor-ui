@@ -94,7 +94,7 @@ To keep the assets up-to-date and avoid issues in future updates, you may add th
 
 ## Contributing
 
-Thank you for considering contributing to Vapor UI! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Thank you for considering contributing to Vapor Ui! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
 ## Code of Conduct
 
@@ -106,4 +106,4 @@ Please review [our security policy](https://github.com/laravel/vapor-ui/security
 
 ## License
 
-Laravel Vapor UI is open-sourced software licensed under the [MIT license](LICENSE.md).
+Laravel Vapor Ui is open-sourced software licensed under the [MIT license](LICENSE.md).
