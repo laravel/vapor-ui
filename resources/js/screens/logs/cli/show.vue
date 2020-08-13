@@ -1,5 +1,5 @@
 <template>
-    <log-preview-screen title="HTTP Logs" group="http">
+    <log-show title="CLI Logs" group="cli">
         <template slot="table-parameters" slot-scope="{ entry }"> </template>
-    </log-preview-screen>
+    </log-show>
 </template>

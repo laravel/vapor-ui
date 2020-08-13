@@ -1,5 +1,5 @@
 <template>
-    <log-preview-screen title="CLI Logs" group="cli">
+    <log-show title="Queue Logs" group="queue">
         <template slot="table-parameters" slot-scope="{ entry }"> </template>
-    </log-preview-screen>
+    </log-show>
 </template>

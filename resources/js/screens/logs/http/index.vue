@@ -1,5 +1,5 @@
 <template>
-    <log-list-screen title="CLI Logs" group="cli">
+    <log-index title="HTTP Logs" group="http">
         <template slot="row" slot-scope="{ entry }"> </template>
-    </log-list-screen>
+    </log-index>
 </template>

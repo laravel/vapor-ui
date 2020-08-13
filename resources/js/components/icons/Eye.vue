@@ -1,5 +1,5 @@
 <template>
-    <svg :class="sizeClass" fill="currentColor" viewBox="0 0 20 20">
+    <svg fill="currentColor" viewBox="0 0 20 20" :class="sizeClass">
         <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
         <path
             fill-rule="evenodd"

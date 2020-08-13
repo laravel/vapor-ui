@@ -4,42 +4,13 @@
             <div class="flex-1 px-4 flex justify-between sm:px-6 lg:max-w-6xl lg:mx-auto lg:px-8">
                 <div class="mt-5">
                     <div>
-                        <nav class="sm:hidden">
+                        <nav class="sm:flex items-center text-sm leading-5 font-medium">
                             <router-link
-                                :to="{ name: `logs-${group}-list`, query: filters }"
-                                class="flex items-center text-sm leading-5 font-medium text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out"
-                            >
-                                <svg
-                                    class="flex-shrink-0 -ml-1 mr-1 h-5 w-5 text-gray-400"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                >
-                                    <path
-                                        fill-rule="evenodd"
-                                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                        clip-rule="evenodd"
-                                    />
-                                </svg>
-                                Back
-                            </router-link>
-                        </nav>
-                        <nav class="hidden sm:flex items-center text-sm leading-5 font-medium">
-                            <router-link
-                                :to="{ name: `logs-${group}-list`, query: filters }"
+                                :to="{ name: `logs-${group}-index`, query: filters }"
                                 class="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out"
                                 >{{ title }}</router-link
                             >
-                            <svg
-                                class="flex-shrink-0 mx-2 h-5 w-5 text-gray-400"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                            >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                    clip-rule="evenodd"
-                                />
-                            </svg>
+                            <icon-chevron-right size="5" class="flex-shrink-0 mx-2 text-gray-400"></icon-chevron-right>
                             <a href="#" class="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out"
                                 >Detail</a
                             >
@@ -52,7 +23,7 @@
                             v-on:click="
                                 copyToClipboard(
                                     $router.resolve({
-                                        name: `logs-${entry.group}-preview`,
+                                        name: `logs-${entry.group}-show`,
                                         params: { id: entry.id, group: entry.group },
                                         query: entry.filters,
                                     }).href

@@ -173,7 +173,7 @@
                                     <div class="relative flex justify-end items-center">
                                         <router-link
                                             :to="{
-                                                name: `logs-${group}-preview`,
+                                                name: `logs-${group}-show`,
                                                 params: { id: entry.id, group: entry.group },
                                                 query: entry.filters,
                                             }"

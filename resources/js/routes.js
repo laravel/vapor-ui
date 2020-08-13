@@ -3,37 +3,37 @@ export default [
 
     {
         path: '/logs/http',
-        name: 'logs-http-list',
-        component: require('./screens/logs/http/list').default,
+        name: 'logs-http-index',
+        component: require('./screens/logs/http/index').default,
     },
 
     {
         path: '/logs/http/:id',
-        name: 'logs-http-preview',
-        component: require('./screens/logs/http/preview').default,
+        name: 'logs-http-show',
+        component: require('./screens/logs/http/show').default,
     },
 
     {
         path: '/logs/cli',
-        name: 'logs-cli-list',
-        component: require('./screens/logs/cli/list').default,
+        name: 'logs-cli-index',
+        component: require('./screens/logs/cli/index').default,
     },
 
     {
         path: '/logs/cli/:id',
-        name: 'logs-cli-preview',
-        component: require('./screens/logs/cli/preview').default,
+        name: 'logs-cli-show',
+        component: require('./screens/logs/cli/show').default,
     },
 
     {
         path: '/logs/queue',
-        name: 'logs-queue-list',
-        component: require('./screens/logs/queue/list').default,
+        name: 'logs-queue-index',
+        component: require('./screens/logs/queue/index').default,
     },
 
     {
         path: '/logs/queue/:id',
-        name: 'logs-queue-preview',
-        component: require('./screens/logs/queue/preview').default,
+        name: 'logs-queue-show',
+        component: require('./screens/logs/queue/show').default,
     },
 ];

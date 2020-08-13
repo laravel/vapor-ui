@@ -25,12 +25,13 @@ const router = new VueRouter({
 Vue.component('vue-json-pretty', VueJsonPretty);
 
 // Components
-Vue.component('log-list-screen', require('./components/LogListScreen.vue').default);
-Vue.component('log-preview-screen', require('./components/LogPreviewScreen.vue').default);
+Vue.component('log-index', require('./components/LogIndex.vue').default);
+Vue.component('log-show', require('./components/LogShow.vue').default);
 Vue.component('loader', require('./components/Loader.vue').default);
 Vue.component('empty-search-results', require('./components/EmptySearchResults.vue').default);
 
 // Icons
+//
 Vue.component('icon-refresh', require('./components/icons/Refresh.vue').default);
 Vue.component('icon-search', require('./components/icons/Search.vue').default);
 Vue.component('icon-cloud', require('./components/icons/Cloud.vue').default);
@@ -40,6 +41,7 @@ Vue.component('icon-dots-vertical', require('./components/icons/DotsVertical.vue
 Vue.component('icon-flag', require('./components/icons/Flag.vue').default);
 Vue.component('icon-calendar', require('./components/icons/Calendar.vue').default);
 Vue.component('icon-clipboard-copy', require('./components/icons/ClipboardCopy.vue').default);
+Vue.component('icon-chevron-right', require('./components/icons/ChevronRight.vue').default);
 Vue.component('icon-eye', require('./components/icons/Eye.vue').default);
 Vue.component('icon-terminal', require('./components/icons/Terminal.vue').default);
 

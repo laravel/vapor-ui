@@ -1,5 +1,5 @@
 <template>
-    <log-list-screen title="HTTP Logs" group="http">
+    <log-index title="Queue Logs" group="queue">
         <template slot="row" slot-scope="{ entry }"> </template>
-    </log-list-screen>
+    </log-index>
 </template>
