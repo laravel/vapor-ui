@@ -29,7 +29,8 @@
     "require-dev": {
         "nunomaduro/larastan": "dev-master",
         "orchestra/testbench": "^5.0|^6.0",
-        "pestphp/pest": "^0.3"
+        "pestphp/pest": "^0.3",
+        "phpstan/phpstan": "^0.12.37"
     },
     "autoload": {
         "psr-4": {
