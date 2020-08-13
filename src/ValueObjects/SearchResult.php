@@ -8,14 +8,14 @@ use JsonSerializable;
 class SearchResult implements JsonSerializable
 {
     /**
-     * The collection of entries.
+     * The search result entries.
      *
      * @var Collection
      */
     public $entries;
 
     /**
-     * The cursor for pagination, if any.
+     * The search result cursor, if any.
      *
      * @var string|null
      */
@@ -24,8 +24,8 @@ class SearchResult implements JsonSerializable
     /**
      * Creates a new search result.
      *
-     * @param  Collection $entries
-     * @param  string|null $cursor
+     * @param Collection $entries
+     * @param string|null $cursor
      *
      * @return void
      */

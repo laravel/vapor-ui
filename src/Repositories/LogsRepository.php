@@ -19,7 +19,7 @@ class LogsRepository
     protected $client;
 
     /**
-     * The list of logs that should be ignored.
+     * The list of log messages that should be ignored.
      *
      * @var array
      */

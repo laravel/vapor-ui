@@ -32,7 +32,7 @@ class LogController
      * Gets the log results of the given $group lambda.
      *
      * @param LogRequest $request
-     * @param  string $group
+     * @param string $group
      *
      * @return SearchResult
      */
@@ -45,8 +45,8 @@ class LogController
      * Gets the log result of the given $group lambda and $id.
      *
      * @param LogRequest $request
-     * @param  string $group
-     * @param  string $id
+     * @param string $group
+     * @param string $id
      *
      * @return Log|null
      */

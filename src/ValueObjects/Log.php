@@ -7,54 +7,54 @@ use JsonSerializable;
 class Log implements JsonSerializable
 {
     /**
-     * The entry's primary key.
+     * The log id.
      *
      * @var string
      */
     public $id;
 
     /**
-     * The entry's filters.
+     * The log filters.
      *
      * @var array
      */
     public $filters;
 
     /**
-     * The entry's type.
+     * The log type.
      *
      * @var string
      */
     public $type;
 
     /**
-     * The entry's group.
+     * The log group.
      *
      * @var string
      */
     public $group;
 
     /**
-     * The entry's content.
+     * The log content.
      *
      * @var array
      */
     public $content;
 
     /**
-     * The entry's request id.
+     * The log request id, if any.
      *
      * @var string|null
      */
     public $requestId;
 
     /**
-     * Creates a new entry.
+     * Creates a new log.
      *
-     * @param  string $id
-     * @param  string $group
-     * @param  array $filters
-     * @param  array $content
+     * @param string $id
+     * @param string $group
+     * @param array $filters
+     * @param array $content
      *
      * @return void
      */
@@ -66,7 +66,7 @@ class Log implements JsonSerializable
         $this->content = $content;
 
         $this->pullRequestId()
-             ->pullType();
+            ->pullType();
     }
 
     /**
