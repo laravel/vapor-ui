@@ -40,6 +40,7 @@ class VaporUiServiceProvider extends ServiceProvider
 
         $this->commands([
             Console\InstallCommand::class,
+            Console\PublishCommand::class,
         ]);
 
         $this->app->singleton(LogsRepository::class, function () {
