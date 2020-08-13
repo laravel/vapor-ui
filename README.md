@@ -12,6 +12,17 @@ Vapor Ui provides a beautiful dashboard to monitor your Laravel serverless infra
 <a name="installation"></a>
 ## Installation
 
+**Note to beta testers**: Because Vapor Ui is not public yet, please add the following lines to your `composer.json` file:
+
+```json
+"repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/laravel/vapor-ui"
+    }
+],
+```
+
 You may use Composer to install Vapor Ui into your Laravel project:
 ```bash
 composer require laravel/vapor-ui --dev
