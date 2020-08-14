@@ -18,17 +18,14 @@
                     </div>
                 </div>
                 <div class="mt-3 flex">
+                    <transition name="fade">
+                        <span class="text-sm leading-5 text-green-500 p-2" v-if="sharing">
+                            Copied to clipboard
+                        </span>
+                    </transition>
                     <span class="order-1 ml-3 shadow-sm rounded-md sm:order-0 sm:ml-0">
                         <button
-                            v-on:click="
-                                copyToClipboard(
-                                    $router.resolve({
-                                        name: `logs-${entry.group}-show`,
-                                        params: { id: entry.id, group: entry.group },
-                                        query: entry.filters,
-                                    }).href
-                                )
-                            "
+                            v-on:click="share(entry)"
                             type="button"
                             class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out"
                         >
@@ -206,6 +203,7 @@ export default {
             filters: null,
             ready: false,
             currentTab: 'context',
+            sharing: false,
         };
     },
 
@@ -227,6 +225,28 @@ export default {
             });
 
         document.title = `Vapor Ui - ${this.title} - Detail`;
+    },
+
+    /**
+     * The component's methods.
+     */
+    methods: {
+        /**
+         * Copies the given entry to the clipboard.
+         */
+        share(entry) {
+            this.copyToClipboard(
+                this.$router.resolve({
+                    name: `logs-${entry.group}-show`,
+                    params: { id: entry.id, group: entry.group },
+                    query: entry.filters,
+                }).href
+            );
+
+            this.sharing = true;
+
+            setTimeout(() => (this.sharing = false), 2000);
+        },
     },
 };
 </script>

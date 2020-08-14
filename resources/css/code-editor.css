@@ -39,3 +39,12 @@
 .hljs-literal {
     color: #a291f5 !important;
 }
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}

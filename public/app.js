@@ -2705,9 +2705,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 
@@ -2731,7 +2728,8 @@ __webpack_require__.r(__webpack_exports__);
       entry: null,
       filters: null,
       ready: false,
-      currentTab: 'context'
+      currentTab: 'context',
+      sharing: false
     };
   },
 
@@ -2752,6 +2750,31 @@ __webpack_require__.r(__webpack_exports__);
       _this.entry = data;
     });
     document.title = "Vapor Ui - ".concat(this.title, " - Detail");
+  },
+
+  /**
+   * The component's methods.
+   */
+  methods: {
+    /**
+     * Copies the given entry to the clipboard.
+     */
+    share: function share(entry) {
+      var _this2 = this;
+
+      this.copyToClipboard(this.$router.resolve({
+        name: "logs-".concat(entry.group, "-show"),
+        params: {
+          id: entry.id,
+          group: entry.group
+        },
+        query: entry.filters
+      }).href);
+      this.sharing = true;
+      setTimeout(function () {
+        return _this2.sharing = false;
+      }, 2000);
+    }
   }
 });
 
@@ -28097,44 +28120,56 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "mt-3 flex" }, [
-                _c(
-                  "span",
-                  {
-                    staticClass:
-                      "order-1 ml-3 shadow-sm rounded-md sm:order-0 sm:ml-0"
-                  },
-                  [
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            _vm.copyToClipboard(
-                              _vm.$router.resolve({
-                                name: "logs-" + _vm.entry.group + "-show",
-                                params: {
-                                  id: _vm.entry.id,
-                                  group: _vm.entry.group
-                                },
-                                query: _vm.entry.filters
-                              }).href
+              _c(
+                "div",
+                { staticClass: "mt-3 flex" },
+                [
+                  _c("transition", { attrs: { name: "fade" } }, [
+                    _vm.sharing
+                      ? _c(
+                          "span",
+                          {
+                            staticClass: "text-sm leading-5 text-green-500 p-2"
+                          },
+                          [
+                            _vm._v(
+                              "\n                        Copied to clipboard\n                    "
                             )
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                        Share\n                    "
+                          ]
                         )
-                      ]
-                    )
-                  ]
-                )
-              ])
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "order-1 ml-3 shadow-sm rounded-md sm:order-0 sm:ml-0"
+                    },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.share(_vm.entry)
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                        Share\n                    "
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
             ]
           )
         ]
