@@ -45,11 +45,11 @@ class VaporUiServiceProvider extends ServiceProvider
 
         $this->app->singleton(LogsRepository::class, function () {
             $client = new CloudWatchLogsClient([
-                'region' => config('vapor-ui.region'),
+                'region' => config('vapor-ui.region', $_ENV['AWS_REGION'] ?? ''),
                 'version' => 'latest',
                 'credentials' => [
-                    'key' => config('vapor-ui.credentials.key'),
-                    'secret' => config('vapor-ui.credentials.secret'),
+                    'key' => config('vapor-ui.credentials.key', $_ENV['AWS_ACCESS_KEY_ID'] ?? ''),
+                    'secret' => config('vapor-ui.credentials.secret', $_ENV['AWS_SECRET_ACCESS_KEY'] ?? ''),
                     'token' => $_ENV['AWS_SESSION_TOKEN'] ?? null,
                 ],
             ]);

@@ -40,7 +40,7 @@ return [
     |
     */
 
-    'region' => env('AWS_REGION', ''),
+    'region' => env('AWS_REGION'),
 
     /*
     |--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return [
     */
 
     'credentials' => [
-        'key' => env('AWS_ACCESS_KEY_ID', ''),
-        'secret' => env('AWS_SECRET_ACCESS_KEY', ''),
+        'key' => env('AWS_ACCESS_KEY_ID'),
+        'secret' => env('AWS_SECRET_ACCESS_KEY'),
     ],
 ];
