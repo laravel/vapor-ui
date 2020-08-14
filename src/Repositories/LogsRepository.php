@@ -45,7 +45,7 @@ class LogsRepository
     }
 
     /**
-     * Gets the given log by its eventId.
+     * Gets the log by the given id.
      *
      * @param string $id
      * @param string $group
@@ -61,7 +61,7 @@ class LogsRepository
     }
 
     /**
-     * Search for the logs.
+     * Search for the logs by the given filters.
      *
      * @param string $group
      * @param array $filters

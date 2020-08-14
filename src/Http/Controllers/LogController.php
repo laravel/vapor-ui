@@ -29,7 +29,7 @@ class LogController
     }
 
     /**
-     * Gets the log results of the given $group lambda.
+     * Gets the log results by the given request filters.
      *
      * @param LogRequest $request
      * @param string $group
@@ -42,7 +42,7 @@ class LogController
     }
 
     /**
-     * Gets the log result of the given $group lambda and $id.
+     * Gets a log by the given request filters.
      *
      * @param LogRequest $request
      * @param string $group

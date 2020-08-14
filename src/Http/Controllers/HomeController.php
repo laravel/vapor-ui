@@ -7,7 +7,7 @@ use Illuminate\View\View;
 class HomeController
 {
     /**
-     * Gets the Vapor Ui home page.
+     * Returns the Vapor Ui home page.
      *
      * @return View
      */

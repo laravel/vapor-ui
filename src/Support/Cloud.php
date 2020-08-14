@@ -15,11 +15,6 @@ class Cloud
             return '';
         }
 
-        /**
-         * Here we pop the last part from the ssm path
-         * string, and we keep the last part is the
-         * environment of the project.
-         */
         $parts = explode('-', $ssmPath);
 
         return array_pop($parts);
@@ -36,11 +31,6 @@ class Cloud
             return '';
         }
 
-        /**
-         * Here we pop the last part from the ssm path
-         * string, and we keep the rest assuming that
-         * is the project name.
-         */
         $parts = explode('-', ltrim($ssmPath, '/'));
         array_pop($parts);
 
@@ -60,7 +50,7 @@ class Cloud
     }
 
     /**
-     * Checks if the app is running under the vanity url.
+     * Checks if the app is running in the vanity url.
      *
      * @return bool
      */

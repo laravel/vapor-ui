@@ -127,7 +127,7 @@ class Log implements JsonSerializable
     }
 
     /**
-     * Get the array representation of the entry.
+     * Get the array representation of the log.
      *
      * @return array
      */
