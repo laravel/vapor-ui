@@ -33,7 +33,7 @@ Finally, visit the Vapor Ui dashboard thought the vanity URL:
 https://your-vanity-url.com/vapor-ui
 ```
 
-**Warning**: Did your project got first deployed with Vapor before the [XX/XX/2020](https://github.com/laravel/vapor/pull/107)? You may have to perform these additional steps: 
+**Warning**: Did your project got first deployed with Vapor before the 14 Aug 2020? You may have to perform these additional steps: 
 
 1. Edit the `laravel-vapor-role-policy` here: [console.aws.amazon.com/iam/home](https://console.aws.amazon.com/iam/home#/roles/laravel-vapor-role$jsonEditor?policyName=laravel-vapor-role-policy&step=edit)
 2. Head over to CloudWatch Logs > Actions > Read
