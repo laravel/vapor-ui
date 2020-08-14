@@ -180,7 +180,7 @@ export default {
             entry: null,
             filters: null,
             ready: false,
-            currentTab: 'context'
+            currentTab: 'context',
         };
     },
 
