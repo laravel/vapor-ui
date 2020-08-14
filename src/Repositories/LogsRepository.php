@@ -4,7 +4,6 @@ namespace Laravel\VaporUi\Repositories;
 
 use Aws\CloudWatchLogs\CloudWatchLogsClient;
 use Aws\CloudWatchLogs\Exception\CloudWatchLogsException;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Laravel\VaporUi\ValueObjects\Log;
 use Laravel\VaporUi\ValueObjects\SearchResult;
@@ -91,7 +90,7 @@ class LogsRepository
             ];
         }
 
-        $entries = (new Collection($response['events']))
+        $entries = collect($response['events'])
             ->filter(function ($event) use ($filters) {
                 return empty($filters['type']) || $filters['type'] === 'timeout' || @json_decode($event['message']);
             })->map(function ($event) use ($group, $filters) {

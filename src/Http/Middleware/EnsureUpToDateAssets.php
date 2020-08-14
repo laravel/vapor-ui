@@ -10,7 +10,7 @@ use RuntimeException;
 class EnsureUpToDateAssets
 {
     /**
-     * Ensures assets have being published.
+     * Ensures assets are up to date.
      *
      * @param Request $request
      * @param Closure $next
