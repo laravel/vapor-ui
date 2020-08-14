@@ -45,11 +45,11 @@ https://your-vanity-url.com/vapor-ui
 
 If for some reason, you can't access your application thought the vanity URL, you may want to use Vapor Ui in your local environment. And, for that, you need to set the following environment variables:
 ```
-VAPOR_PROJECT=
-VAPOR_ENVIRONMENT=
-AWS_REGION=
 AWS_ACCESS_KEY_ID=
+AWS_DEFAULT_REGION=
 AWS_SECRET_ACCESS_KEY=
+VAPOR_ENVIRONMENT=
+VAPOR_PROJECT=
 ```
 
 <a name="dashboard-authorization"></a>
