@@ -2674,6 +2674,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2713,8 +2722,7 @@ __webpack_require__.r(__webpack_exports__);
       params: this.filters,
       validateStatus: false
     }).then(function (_ref) {
-      var data = _ref.data,
-          status = _ref.status;
+      var data = _ref.data;
       _this.ready = true;
       _this.entry = data;
     });
@@ -28037,7 +28045,11 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v(_vm._s(_vm.title))]
+                        [
+                          _vm._v(
+                            _vm._s(_vm.title) + "\n                        "
+                          )
+                        ]
                       ),
                       _vm._v(" "),
                       _c("icon-chevron-right", {
@@ -28052,7 +28064,7 @@ var render = function() {
                             "text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out",
                           attrs: { href: "#" }
                         },
-                        [_vm._v("Detail")]
+                        [_vm._v("Details")]
                       )
                     ],
                     1
@@ -28163,6 +28175,43 @@ var render = function() {
                                         .local()
                                         .format("YYYY-MM-DD LTS")
                                     ) +
+                                    "\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
+                          },
+                          [
+                            _c(
+                              "dt",
+                              {
+                                staticClass:
+                                  "text-sm leading-5 font-medium text-gray-500"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Event ID\n                            "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "dd",
+                              {
+                                staticClass:
+                                  "mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(_vm.entry.id) +
                                     "\n                            "
                                 )
                               ]
@@ -28391,15 +28440,9 @@ var staticRenderFns = [
         _c(
           "h3",
           { staticClass: "text-lg leading-6 font-medium text-gray-900" },
-          [_vm._v("\n                        Detail\n                    ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "p",
-          { staticClass: "mt-1 max-w-2xl text-sm leading-5 text-gray-500" },
           [
             _vm._v(
-              "\n                        Lorem ipsum dolor sit amet.\n                    "
+              "\n                        Log details\n                    "
             )
           ]
         )

@@ -27,7 +27,7 @@ class EnsureUpToDateAssets
             }
 
             if (File::get($publishedPath) !== File::get(__DIR__.'/../../../public/mix-manifest.json')) {
-                throw new RuntimeException('The published Vapor Ui assets are not up-to-date with the installed version.  Please run: `php artisan vendor:publish --tag "vapor-ui-assets" --force`.');
+                throw new RuntimeException('The published Vapor Ui assets are not up-to-date with the installed version.  Please run: `php artisan vapor-ui:publish`.');
             }
         }
 

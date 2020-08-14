@@ -8,11 +8,11 @@
                             <router-link
                                 :to="{ name: `logs-${group}-index`, query: filters }"
                                 class="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out"
-                                >{{ title }}</router-link
-                            >
+                                >{{ title }}
+                            </router-link>
                             <icon-chevron-right size="5" class="flex-shrink-0 mx-2 text-gray-400"></icon-chevron-right>
                             <a href="#" class="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out"
-                                >Detail</a
+                                >Details</a
                             >
                         </nav>
                     </div>
@@ -52,11 +52,8 @@
                 <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                     <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
                         <h3 class="text-lg leading-6 font-medium text-gray-900">
-                            Detail
+                            Log details
                         </h3>
-                        <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
-                            Lorem ipsum dolor sit amet.
-                        </p>
                     </div>
                     <div class="px-4 py-5 sm:p-0">
                         <dl>
@@ -68,6 +65,18 @@
                                     {{ moment().utc(entry.content.timestamp, 'x').local().format('YYYY-MM-DD LTS') }}
                                 </dd>
                             </div>
+
+                            <div
+                                class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
+                            >
+                                <dt class="text-sm leading-5 font-medium text-gray-500">
+                                    Event ID
+                                </dt>
+                                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                                    {{ entry.id }}
+                                </dd>
+                            </div>
+
                             <div
                                 class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
                             >
@@ -171,7 +180,7 @@ export default {
             entry: null,
             filters: null,
             ready: false,
-            currentTab: 'context',
+            currentTab: 'context'
         };
     },
 
@@ -187,7 +196,7 @@ export default {
                 params: this.filters,
                 validateStatus: false,
             })
-            .then(({ data, status }) => {
+            .then(({ data }) => {
                 this.ready = true;
                 this.entry = data;
             });
