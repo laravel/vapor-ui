@@ -3,11 +3,15 @@
 namespace Laravel\VaporUi;
 
 use Aws\CloudWatchLogs\CloudWatchLogsClient;
+use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
+use Laravel\VaporUi\Concerns\ConfiguresVaporUi;
 use Laravel\VaporUi\Repositories\LogsRepository;
 
 class VaporUiServiceProvider extends ServiceProvider
 {
+    use ConfiguresVaporUi;
+
     /**
      * Bootstrap any application services.
      *
@@ -37,6 +41,7 @@ class VaporUiServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/vapor-ui.php', 'vapor-ui');
+        $this->ensureVaporUiIsConfigured();
 
         $this->commands([
             Console\InstallCommand::class,
@@ -44,17 +49,22 @@ class VaporUiServiceProvider extends ServiceProvider
         ]);
 
         $this->app->singleton(LogsRepository::class, function () {
-            $client = new CloudWatchLogsClient([
-                'region' => config('vapor-ui.region', $_ENV['AWS_REGION'] ?? ''),
-                'version' => 'latest',
-                'credentials' => [
-                    'key' => config('vapor-ui.credentials.key', $_ENV['AWS_ACCESS_KEY_ID'] ?? ''),
-                    'secret' => config('vapor-ui.credentials.secret', $_ENV['AWS_SECRET_ACCESS_KEY'] ?? ''),
-                    'token' => $_ENV['AWS_SESSION_TOKEN'] ?? null,
-                ],
-            ]);
+            $config = config('vapor-ui');
 
-            return new LogsRepository($client);
+            $cloudWatchConfig = [
+                'region' => $config['region'],
+                'version' => 'latest',
+            ];
+
+            if ($config['key'] && $config['secret']) {
+                $cloudWatchConfig['credentials'] = Arr::only(
+                    $config, ['key', 'secret', 'token']
+                );
+            }
+
+            return new LogsRepository(
+                new CloudWatchLogsClient($cloudWatchConfig)
+            );
         });
     }
 }
