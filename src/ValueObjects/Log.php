@@ -2,6 +2,9 @@
 
 namespace Laravel\VaporUi\ValueObjects;
 
+use function GuzzleHttp\Psr7\str;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use JsonSerializable;
 
 class Log implements JsonSerializable
@@ -26,6 +29,13 @@ class Log implements JsonSerializable
      * @var string
      */
     public $type;
+
+    /**
+     * The log location, if any.
+     *
+     * @var string|null
+     */
+    public $location;
 
     /**
      * The log group.
@@ -66,7 +76,8 @@ class Log implements JsonSerializable
         $this->content = $content;
 
         $this->pullRequestId()
-            ->pullType();
+            ->pullType()
+            ->pullLocation();
     }
 
     /**
@@ -76,10 +87,25 @@ class Log implements JsonSerializable
      */
     protected function pullRequestId()
     {
-        if (! is_string($this->content['message'])) {
-            $this->requestId = $this->content['message']['context']['aws_request_id'] ?? '';
-            unset($this->content['message']['context']['aws_request_id']);
-        }
+        $this->requestId = Arr::get($this->content, 'message.context.aws_request_id');
+
+        Arr::forget($this->content, 'message.context.aws_request_id');
+
+        return $this;
+    }
+
+    /**
+     * Pulls the location from the content.
+     *
+     * @return $this
+     */
+    protected function pullLocation()
+    {
+        $this->location = Str::replaceFirst(
+            '/var/task/',
+            '',
+            Arr::get($this->content, 'message.context.exception.file')
+        );
 
         return $this;
     }
@@ -94,7 +120,7 @@ class Log implements JsonSerializable
         if (is_string($this->content['message']) && preg_match('/Task timed out after/', $this->content['message']) > 0) {
             $this->type = 'TIMEOUT';
         } else {
-            $this->type = strtoupper($this->content['message']['level_name'] ?? 'RAW');
+            $this->type = Arr::get($this->content, 'message.level_name', 'RAW');
         }
 
         return $this;

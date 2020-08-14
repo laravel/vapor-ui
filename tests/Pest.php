@@ -1,3 +1,7 @@
 <?php
 
-uses(Tests\TestCase::class)->in('Feature', 'Unit');
+uses(Tests\TestCase::class)
+    ->group('integration')
+    ->in('Integration');
+
+uses()->group('unit')->in('Unit');

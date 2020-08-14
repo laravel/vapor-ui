@@ -2683,6 +2683,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -28154,7 +28179,9 @@ var render = function() {
                               },
                               [
                                 _vm._v(
-                                  "\n                                Time\n                            "
+                                  "\n                                Time (" +
+                                    _vm._s(_vm.moment().tz.guess()) +
+                                    ")\n                            "
                                 )
                               ]
                             ),
@@ -28166,16 +28193,51 @@ var render = function() {
                                   "mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2"
                               },
                               [
-                                _vm._v(
-                                  "\n                                " +
-                                    _vm._s(
-                                      _vm
-                                        .moment()
-                                        .utc(_vm.entry.content.timestamp, "x")
-                                        .local()
-                                        .format("YYYY-MM-DD LTS")
-                                    ) +
-                                    "\n                            "
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "text-sm leading-5 font-medium text-gray-900"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                    " +
+                                        _vm._s(
+                                          _vm
+                                            .moment()
+                                            .utc(
+                                              _vm.entry.content.timestamp,
+                                              "x"
+                                            )
+                                            .local()
+                                            .format("YYYY-MM-DD LTS")
+                                        ) +
+                                        "\n                                "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "text-sm leading-5 text-gray-500"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                    " +
+                                        _vm._s(
+                                          _vm
+                                            .moment()
+                                            .utc(
+                                              _vm.entry.content.timestamp,
+                                              "x"
+                                            )
+                                            .fromNow()
+                                        ) +
+                                        "\n                                "
+                                    )
+                                  ]
                                 )
                               ]
                             )
@@ -28212,45 +28274,6 @@ var render = function() {
                                 _vm._v(
                                   "\n                                " +
                                     _vm._s(_vm.entry.id) +
-                                    "\n                            "
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
-                          },
-                          [
-                            _c(
-                              "dt",
-                              {
-                                staticClass:
-                                  "text-sm leading-5 font-medium text-gray-500"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Type\n                            "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "dd",
-                              {
-                                class:
-                                  "mt-1 text-sm leading-5 text-" +
-                                  _vm.logColor(_vm.entry.type) +
-                                  "-900 sm:mt-0 sm:col-span-2"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                " +
-                                    _vm._s(_vm.entry.type) +
                                     "\n                            "
                                 )
                               ]
@@ -28326,6 +28349,86 @@ var render = function() {
                                     _vm._v(
                                       "\n                                " +
                                         _vm._s(_vm.entry.requestId) +
+                                        "\n                            "
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
+                          },
+                          [
+                            _c(
+                              "dt",
+                              {
+                                staticClass:
+                                  "text-sm leading-5 font-medium text-gray-500"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Type\n                            "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "dd",
+                              {
+                                class:
+                                  "mt-1 text-sm leading-5 text-" +
+                                  _vm.logColor(_vm.entry.type) +
+                                  "-900 sm:mt-0 sm:col-span-2"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(_vm.entry.type) +
+                                    "\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.entry.location
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
+                              },
+                              [
+                                _c(
+                                  "dt",
+                                  {
+                                    staticClass:
+                                      "text-sm leading-5 font-medium text-gray-500"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Location\n                            "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "dd",
+                                  {
+                                    class:
+                                      "mt-1 text-sm leading-5 text-" +
+                                      _vm.logColor(_vm.entry.type) +
+                                      "-900 sm:mt-0 sm:col-span-2"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(_vm.entry.location) +
                                         "\n                            "
                                     )
                                   ]

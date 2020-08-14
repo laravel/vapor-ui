@@ -59,10 +59,17 @@
                         <dl>
                             <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
                                 <dt class="text-sm leading-5 font-medium text-gray-500">
-                                    Time
+                                    Time ({{ moment().tz.guess() }})
                                 </dt>
                                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                                    {{ moment().utc(entry.content.timestamp, 'x').local().format('YYYY-MM-DD LTS') }}
+                                    <div class="text-sm leading-5 font-medium text-gray-900">
+                                        {{
+                                            moment().utc(entry.content.timestamp, 'x').local().format('YYYY-MM-DD LTS')
+                                        }}
+                                    </div>
+                                    <div class="text-sm leading-5 text-gray-500">
+                                        {{ moment().utc(entry.content.timestamp, 'x').fromNow() }}
+                                    </div>
                                 </dd>
                             </div>
 
@@ -77,20 +84,6 @@
                                 </dd>
                             </div>
 
-                            <div
-                                class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
-                            >
-                                <dt class="text-sm leading-5 font-medium text-gray-500">
-                                    Type
-                                </dt>
-                                <dd
-                                    :class="`mt-1 text-sm leading-5 text-${logColor(
-                                        entry.type
-                                    )}-900 sm:mt-0 sm:col-span-2`"
-                                >
-                                    {{ entry.type }}
-                                </dd>
-                            </div>
                             <div
                                 class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
                             >
@@ -112,6 +105,38 @@
                                     {{ entry.requestId }}
                                 </dd>
                             </div>
+
+                            <div
+                                class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
+                            >
+                                <dt class="text-sm leading-5 font-medium text-gray-500">
+                                    Type
+                                </dt>
+                                <dd
+                                    :class="`mt-1 text-sm leading-5 text-${logColor(
+                                        entry.type
+                                    )}-900 sm:mt-0 sm:col-span-2`"
+                                >
+                                    {{ entry.type }}
+                                </dd>
+                            </div>
+
+                            <div
+                                v-if="entry.location"
+                                class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
+                            >
+                                <dt class="text-sm leading-5 font-medium text-gray-500">
+                                    Location
+                                </dt>
+                                <dd
+                                    :class="`mt-1 text-sm leading-5 text-${logColor(
+                                        entry.type
+                                    )}-900 sm:mt-0 sm:col-span-2`"
+                                >
+                                    {{ entry.location }}
+                                </dd>
+                            </div>
+
                             <div
                                 class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
                             >
@@ -180,7 +205,7 @@ export default {
             entry: null,
             filters: null,
             ready: false,
-            currentTab: 'context'
+            currentTab: 'context',
         };
     },
 

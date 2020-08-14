@@ -1,7 +1,5 @@
 <?php
 
-uses()->group('requires-aws');
-
 test('group', function () {
     $response = $this->json('GET', '/vapor-ui/api/logs/cli', [
         'startTime' => now()->subDay(1)->timestamp,

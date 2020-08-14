@@ -11,8 +11,8 @@
          stopOnFailure="false"
 >
     <testsuites>
-        <testsuite name="Vapor Ui Feature Test Suite">
-            <directory suffix=".php">./tests/Feature</directory>
+        <testsuite name="Vapor Ui Integration Test Suite">
+            <directory suffix=".php">./tests/Integration</directory>
         </testsuite>
         <testsuite name="Vapor Ui Unit Test Suite">
             <directory suffix=".php">./tests/Unit</directory>
