@@ -73,13 +73,31 @@
                 </div>
 
                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                    <div class="border border-gray-200 rounded-md bg-gray-900 text-white overflow-x-auto">
+                    <div
+                        v-if="currentTab == 'payload'"
+                        class="border border-gray-200 rounded-md bg-gray-900 text-white overflow-x-auto"
+                    >
                         <vue-json-pretty
                             class="m-4 3rem"
                             :showLine="false"
                             :deep="4"
-                            :data="currentTab == 'payload' ? entry.content.payload : entry.content.exception"
+                            :data="entry.content.payload"
                         ></vue-json-pretty>
+                    </div>
+
+                    <div v-else class="border border-gray-200 rounded-md bg-gray-900 text-white overflow-x-auto">
+                        <div class="m-4 3rem">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <tbody>
+                                    <!-- Odd row -->
+                                    <tr v-for="line in entry.content.exception.split('Stack trace:')[1].split(/\r?\n/)">
+                                        <td class="whitespace-no-wrap text-sm leading-5 font-medium text-white">
+                                            {{ line }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </dd>
             </div>

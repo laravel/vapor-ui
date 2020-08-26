@@ -2191,10 +2191,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2421,6 +2417,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _mixins_Clipboard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../mixins/Clipboard */ "./resources/js/mixins/Clipboard.js");
+//
+//
+//
+//
 //
 //
 //
@@ -3016,17 +3016,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   /**
@@ -3047,6 +3036,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_log__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../mixins/log */ "./resources/js/mixins/log.js");
+//
+//
+//
 //
 //
 //
@@ -3251,18 +3243,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   /**
@@ -3283,47 +3263,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_log__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../mixins/log */ "./resources/js/mixins/log.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -27923,7 +27862,7 @@ var render = function() {
                     _vm.cursor
                       ? [
                           _vm._v(
-                            "\n                    No entries have being found yet, still searching...\n                "
+                            " No entries have being found yet, still searching... "
                           )
                         ]
                       : _vm._e()
@@ -28019,11 +27958,7 @@ var render = function() {
                                   staticClass:
                                     "text-sm ml-4 leading-5 text-cool-gray-700"
                                 },
-                                [
-                                  _vm._v(
-                                    "\n                            Searching for newer entries..\n                        "
-                                  )
-                                ]
+                                [_vm._v("Searching for newer entries..")]
                               )
                             ])
                           : _c(
@@ -28171,11 +28106,7 @@ var render = function() {
                           {
                             staticClass: "text-sm leading-5 text-green-500 p-2"
                           },
-                          [
-                            _vm._v(
-                              "\n                        Copied to clipboard\n                    "
-                            )
-                          ]
+                          [_vm._v(" Copied to clipboard ")]
                         )
                       : _vm._e()
                   ]),
@@ -28222,9 +28153,7 @@ var render = function() {
           !_vm.ready ? _c("loader") : _vm._e(),
           _vm._v(" "),
           _vm.ready && !_vm.entry
-            ? _c("search-empty-results", [
-                _vm._v("\n            Entry not found.\n        ")
-              ])
+            ? _c("search-empty-results", [_vm._v(" Entry not found. ")])
             : _vm._e(),
           _vm._v(" "),
           _vm.ready && _vm.entry
@@ -29072,13 +29001,7 @@ var render = function() {
                   {
                     staticClass: "text-sm leading-5 font-medium text-gray-500"
                   },
-                  [
-                    _vm._v(
-                      "\n                Time (" +
-                        _vm._s(_vm.moment().tz.guess()) +
-                        ")\n            "
-                    )
-                  ]
+                  [_vm._v("Time (" + _vm._s(_vm.moment().tz.guess()) + ")")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -29142,7 +29065,7 @@ var render = function() {
                   {
                     staticClass: "text-sm leading-5 font-medium text-gray-500"
                   },
-                  [_vm._v("\n                ID\n            ")]
+                  [_vm._v("ID")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -29172,7 +29095,7 @@ var render = function() {
                   {
                     staticClass: "text-sm leading-5 font-medium text-gray-500"
                   },
-                  [_vm._v("\n                Connection\n            ")]
+                  [_vm._v("Connection")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -29204,7 +29127,7 @@ var render = function() {
                   {
                     staticClass: "text-sm leading-5 font-medium text-gray-500"
                   },
-                  [_vm._v("\n                Queue\n            ")]
+                  [_vm._v("Queue")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -29236,7 +29159,7 @@ var render = function() {
                   {
                     staticClass: "text-sm leading-5 font-medium text-gray-500"
                   },
-                  [_vm._v("\n                Name\n            ")]
+                  [_vm._v("Name")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -29268,7 +29191,7 @@ var render = function() {
                   {
                     staticClass: "text-sm leading-5 font-medium text-gray-500"
                   },
-                  [_vm._v("\n                Message\n            ")]
+                  [_vm._v("Message")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -29352,27 +29275,72 @@ var render = function() {
                       "mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2"
                   },
                   [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "border border-gray-200 rounded-md bg-gray-900 text-white overflow-x-auto"
-                      },
-                      [
-                        _c("vue-json-pretty", {
-                          staticClass: "m-4 3rem",
-                          attrs: {
-                            showLine: false,
-                            deep: 4,
-                            data:
-                              _vm.currentTab == "payload"
-                                ? entry.content.payload
-                                : entry.content.exception
-                          }
-                        })
-                      ],
-                      1
-                    )
+                    _vm.currentTab == "payload"
+                      ? _c(
+                          "div",
+                          {
+                            staticClass:
+                              "border border-gray-200 rounded-md bg-gray-900 text-white overflow-x-auto"
+                          },
+                          [
+                            _c("vue-json-pretty", {
+                              staticClass: "m-4 3rem",
+                              attrs: {
+                                showLine: false,
+                                deep: 4,
+                                data: entry.content.payload
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      : _c(
+                          "div",
+                          {
+                            staticClass:
+                              "border border-gray-200 rounded-md bg-gray-900 text-white overflow-x-auto"
+                          },
+                          [
+                            _c("div", { staticClass: "m-4 3rem" }, [
+                              _c(
+                                "table",
+                                {
+                                  staticClass:
+                                    "min-w-full divide-y divide-gray-200"
+                                },
+                                [
+                                  _c(
+                                    "tbody",
+                                    _vm._l(
+                                      entry.content.exception
+                                        .split("Stack trace:")[1]
+                                        .split(/\r?\n/),
+                                      function(line) {
+                                        return _c("tr", [
+                                          _c(
+                                            "td",
+                                            {
+                                              staticClass:
+                                                "whitespace-no-wrap text-sm leading-5 font-medium text-white"
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                                        " +
+                                                  _vm._s(line) +
+                                                  "\n                                    "
+                                              )
+                                            ]
+                                          )
+                                        ])
+                                      }
+                                    ),
+                                    0
+                                  )
+                                ]
+                              )
+                            ])
+                          ]
+                        )
                   ]
                 )
               ]
@@ -29422,7 +29390,7 @@ var render = function() {
                       "block text-sm font-medium leading-5 text-gray-700",
                     attrs: { for: "type-input" }
                   },
-                  [_vm._v("\n                    Log type\n                ")]
+                  [_vm._v(" Log type ")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -29675,13 +29643,7 @@ var render = function() {
                   {
                     staticClass: "text-sm leading-5 font-medium text-gray-500"
                   },
-                  [
-                    _vm._v(
-                      "\n                Time (" +
-                        _vm._s(_vm.moment().tz.guess()) +
-                        ")\n            "
-                    )
-                  ]
+                  [_vm._v("Time (" + _vm._s(_vm.moment().tz.guess()) + ")")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -29745,7 +29707,7 @@ var render = function() {
                   {
                     staticClass: "text-sm leading-5 font-medium text-gray-500"
                   },
-                  [_vm._v("\n                ID\n            ")]
+                  [_vm._v("ID")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -29775,7 +29737,7 @@ var render = function() {
                   {
                     staticClass: "text-sm leading-5 font-medium text-gray-500"
                   },
-                  [_vm._v("\n                Log Stream Name\n            ")]
+                  [_vm._v("Log Stream Name")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -29809,7 +29771,7 @@ var render = function() {
                         staticClass:
                           "text-sm leading-5 font-medium text-gray-500"
                       },
-                      [_vm._v("\n                Request ID\n            ")]
+                      [_vm._v("Request ID")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -29842,7 +29804,7 @@ var render = function() {
                   {
                     staticClass: "text-sm leading-5 font-medium text-gray-500"
                   },
-                  [_vm._v("\n                Type\n            ")]
+                  [_vm._v("Type")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -29878,7 +29840,7 @@ var render = function() {
                         staticClass:
                           "text-sm leading-5 font-medium text-gray-500"
                       },
-                      [_vm._v("\n                Location\n            ")]
+                      [_vm._v("Location")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -29913,7 +29875,7 @@ var render = function() {
                   {
                     staticClass: "text-sm leading-5 font-medium text-gray-500"
                   },
-                  [_vm._v("\n                Message\n            ")]
+                  [_vm._v("Message")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -46430,13 +46392,13 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     sizeClass: function sizeClass() {
       return {
-        '4': 'h-4 w-4',
-        '5': 'h-5 w-5',
-        '6': 'h-6 w-6',
-        '8': 'h-8 w-8',
-        '12': 'h-12 w-12',
-        '16': 'h-16 w-16',
-        '20': 'h-20 w-20'
+        4: 'h-4 w-4',
+        5: 'h-5 w-5',
+        6: 'h-6 w-6',
+        8: 'h-8 w-8',
+        12: 'h-12 w-12',
+        16: 'h-16 w-16',
+        20: 'h-20 w-20'
       }[this.size];
     }
   }
@@ -46626,19 +46588,6 @@ __webpack_require__.r(__webpack_exports__);
      */
     jobColor: function jobColor(displayName) {
       return 'red';
-      /**
-      const compare = (level) => level === type.toLowerCase();
-       if (['info', 'notice'].some(compare)) {
-          return 'blue';
-      }
-       if (['warning', 'alert'].some(compare)) {
-          return 'yellow';
-      }
-       if (['critical', 'emergency', 'error', 'timeout'].some(compare)) {
-          return 'red';
-      }
-       return 'gray';
-      */
     }
   }
 });
