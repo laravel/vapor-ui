@@ -2,38 +2,42 @@ export default [
     { path: '/', redirect: '/logs/http' },
 
     {
-        path: '/logs/http',
-        name: 'logs-http-index',
-        component: require('./screens/logs/http/index').default,
+        path: '/logs/:group',
+        name: 'logs-index',
+        component: require('./screens/logs/index').default,
+        meta: {
+            resource: 'logs',
+            createTitle: ({ group }) => group.toUpperCase() + ' Logs',
+        },
     },
 
     {
-        path: '/logs/http/:id',
-        name: 'logs-http-show',
-        component: require('./screens/logs/http/show').default,
+        path: '/logs/:group/:id',
+        name: 'logs-show',
+        component: require('./screens/logs/show').default,
+        meta: {
+            resource: 'logs',
+            createTitle: ({ group }) => group.toUpperCase() + ' Logs - Details',
+        },
     },
 
     {
-        path: '/logs/cli',
-        name: 'logs-cli-index',
-        component: require('./screens/logs/cli/index').default,
+        path: '/jobs/:group',
+        name: 'jobs-index',
+        component: require('./screens/jobs/index').default,
+        meta: {
+            resource: 'jobs',
+            createTitle: ({ group }) => group.toUpperCase() + ' Jobs',
+        },
     },
 
     {
-        path: '/logs/cli/:id',
-        name: 'logs-cli-show',
-        component: require('./screens/logs/cli/show').default,
-    },
-
-    {
-        path: '/logs/queue',
-        name: 'logs-queue-index',
-        component: require('./screens/logs/queue/index').default,
-    },
-
-    {
-        path: '/logs/queue/:id',
-        name: 'logs-queue-show',
-        component: require('./screens/logs/queue/show').default,
+        path: '/jobs/:group/:id',
+        name: 'jobs-show',
+        component: require('./screens/jobs/show').default,
+        meta: {
+            resource: 'jobs',
+            createTitle: ({ group }) => group.toUpperCase() + ' Jobs - Details',
+        },
     },
 ];

@@ -2,7 +2,6 @@
 
 namespace Laravel\VaporUi\ValueObjects;
 
-use function GuzzleHttp\Psr7\str;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use JsonSerializable;
@@ -10,11 +9,18 @@ use JsonSerializable;
 class Log implements JsonSerializable
 {
     /**
-     * The log id.
+     * The log content.
+     *
+     * @var array
+     */
+    public $content;
+
+    /**
+     * The log group.
      *
      * @var string
      */
-    public $id;
+    public $group;
 
     /**
      * The log filters.
@@ -22,6 +28,13 @@ class Log implements JsonSerializable
      * @var array
      */
     public $filters;
+
+    /**
+     * The log id.
+     *
+     * @var string
+     */
+    public $id;
 
     /**
      * The log type.
@@ -38,20 +51,6 @@ class Log implements JsonSerializable
     public $location;
 
     /**
-     * The log group.
-     *
-     * @var string
-     */
-    public $group;
-
-    /**
-     * The log content.
-     *
-     * @var array
-     */
-    public $content;
-
-    /**
      * The log request id, if any.
      *
      * @var string|null
@@ -61,23 +60,34 @@ class Log implements JsonSerializable
     /**
      * Creates a new log.
      *
-     * @param string $id
      * @param string $group
      * @param array $filters
      * @param array $content
      *
      * @return void
      */
-    public function __construct($id, $group, $filters, $content)
+    public function __construct($content, $group, $filters)
     {
-        $this->id = $id;
+        $this->content = $content;
         $this->group = $group;
         $this->filters = $filters;
-        $this->content = $content;
 
-        $this->pullRequestId()
+        $this->pullId()
+            ->pullRequestId()
             ->pullType()
             ->pullLocation();
+    }
+
+    /**
+     * Pulls the id from the content.
+     *
+     * @return $this
+     */
+    protected function pullId()
+    {
+        $this->id = $this->content['eventId'];
+
+        return $this;
     }
 
     /**

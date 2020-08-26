@@ -74,22 +74,8 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="mt-6 flex space-x-3 md:mt-0 md:ml-4">
-                            <div>
-                                <label for="type-input" class="block text-sm font-medium leading-5 text-gray-700">
-                                    Log type
-                                </label>
-                                <select
-                                    id="type-input"
-                                    v-model="filters.type"
-                                    v-on:change="loadEntries"
-                                    class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
-                                >
-                                    <option :value="undefined" selected>All</option>
-                                    <option v-for="(label, value) in logTypes()" :value="value">{{ label }}</option>
-                                </select>
-                            </div>
-                        </div>
+
+                        <slot name="filters" :loadEntries="loadEntries" :filters="filters"></slot>
                     </div>
                 </div>
             </div>
@@ -99,15 +85,13 @@
             <div class="flex flex-col mt-2">
                 <!-- Loader -->
                 <loader v-if="searching && entries.length == 0">
-                    <template v-if="cursor">
-                        No logs have being found yet, still searching...
-                    </template>
+                    <template v-if="cursor"> No entries have being found yet, still searching... </template>
                 </loader>
 
                 <!-- No Search Results -->
-                <empty-search-results v-if="!searching && entries.length == 0">
-                    No logs were found for the given search criteria.
-                </empty-search-results>
+                <search-empty-results v-if="!searching && entries.length == 0">
+                    No entries were found for the given search criteria.
+                </search-empty-results>
 
                 <div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
                     <table class="min-w-full divide-y divide-gray-200" v-if="entries.length > 0">
@@ -127,67 +111,7 @@
                         </thead>
                         <transition-group tag="tbody" name="list" class="bg-white divide-y divide-gray-200">
                             <tr v-for="entry in entries" :key="entry.id">
-                                <td
-                                    class="max-w-0 w-full px-6 py-4 whitespace-no-wrap text-sm leading-5 text-cool-gray-900"
-                                >
-                                    <div class="ml-4">
-                                        <div class="text-sm leading-5 font-medium text-gray-900 truncate">
-                                            <p class="truncate">
-                                                {{
-                                                    entry.content.message.message
-                                                        ? entry.content.message.message
-                                                        : entry.content.message
-                                                }}
-                                            </p>
-                                        </div>
-                                        <div
-                                            v-if="
-                                                entry.content.message.context &&
-                                                entry.content.message.context.exception &&
-                                                entry.content.message.context.exception.class
-                                            "
-                                            class="text-sm leading-5 text-gray-500"
-                                        >
-                                            {{ entry.content.message.context.exception.class }}
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <span
-                                        :class="`px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-${logColor(
-                                            entry.type
-                                        )}-100 text-${logColor(entry.type)}-800`"
-                                    >
-                                        {{ entry.type }}
-                                    </span>
-                                </td>
-                                <td
-                                    class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
-                                >
-                                    {{ moment().utc(entry.content.timestamp, 'x').local().format('YYYY-MM-DD LTS') }}
-                                </td>
-                                <td
-                                    class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"
-                                >
-                                    <div class="relative flex justify-end items-center">
-                                        <router-link
-                                            :to="{
-                                                name: `logs-${group}-show`,
-                                                params: { id: entry.id, group: entry.group },
-                                                query: entry.filters,
-                                            }"
-                                            tag="button"
-                                            href="#"
-                                            class="w-8 h-8 inline-flex items-center justify-center text-gray-400 rounded-full bg-transparent hover:text-gray-500 focus:outline-none focus:text-gray-500 focus:bg-gray-100 transition ease-in-out duration-150"
-                                        >
-                                            <icon-eye
-                                                size="5"
-                                                class="mr-3 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500"
-                                            />
-                                        </router-link>
-                                    </div>
-                                </td>
+                                <slot name="row" :entry="entry"></slot>
                             </tr>
                         </transition-group>
                     </table>
@@ -197,9 +121,7 @@
                         class="bg-white px-4 py-3 flex items-center justify-between border-t border-cool-gray-200 sm:px-6"
                     >
                         <div v-if="searching" class="block">
-                            <p class="text-sm ml-4 leading-5 text-cool-gray-700">
-                                Searching for newer entries..
-                            </p>
+                            <p class="text-sm ml-4 leading-5 text-cool-gray-700">Searching for newer entries..</p>
                         </div>
                         <div v-else class="flex-1 flex justify-between sm:justify-end">
                             <a
@@ -218,23 +140,10 @@
 </template>
 
 <script>
-import _ from 'lodash';
 import axios from 'axios';
 import moment from 'moment';
 
-import LogMixin from './../mixins/log';
-
 export default {
-    /**
-     * The component's mixins.
-     */
-    mixins: [LogMixin],
-
-    /**
-     * The component's props.
-     */
-    props: ['group', 'title'],
-
     /**
      * The component's data.
      */
@@ -250,10 +159,25 @@ export default {
     },
 
     /**
+     * Watch component's data.
+     */
+    watch: {
+        $route(to, from) {
+            if (to.params.group !== this.group) {
+                this.group = this.$route.params.group;
+                this.title = this.$route.meta.title;
+
+                this.loadEntries();
+            }
+        },
+    },
+
+    /**
      * Prepare the component.
      */
     mounted() {
-        document.title = 'Vapor Ui - ' + this.title;
+        this.group = this.$route.params.group;
+        this.title = this.$route.meta.title;
 
         for (const [filter, value] of Object.entries(this.$route.query)) {
             if (this.$route.query[filter]) {
@@ -304,6 +228,7 @@ export default {
              */
             this.request().then(({ data }) => {
                 this.entries = data.entries;
+                console.log(data);
                 this.cursor = data.cursor;
                 if (this.entries.length < 50 && this.cursor) {
                     this.loadMore();
@@ -329,7 +254,7 @@ export default {
             params.cursor = cursor;
 
             this.searching = true;
-            return axios.get(`/vapor-ui/api/logs/${this.group}`, { params }).then((data) => {
+            return axios.get(`/vapor-ui/api/${this.$route.meta.resource}/${this.group}`, { params }).then((data) => {
                 this.searching = false;
 
                 if (JSON.stringify(filters) !== JSON.stringify(this.filters)) {

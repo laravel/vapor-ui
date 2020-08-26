@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="flex items-center" style="height: 150px;">
+        <div class="flex items-center" style="height: 150px">
             <svg
                 class="mx-auto block text-gray-500"
                 :style="{ width: `${width}px` }"

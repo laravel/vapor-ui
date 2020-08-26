@@ -42,13 +42,13 @@
                             <hr class="h-px mt-6 bg-gray-700 border-none" />
 
                             <!-- Logs tabs -->
-                            <h3 class="px-3 mt-8 text-xs leading-4 font-semibold text-gray-500 uppercase tracking-wider" id="teams-headline">
+                            <h3 class="px-3 mt-8 text-xs leading-4 font-semibold text-gray-500 uppercase tracking-wider">
                                 Logs
                             </h3>
 
                             <nav class="flex-1 px-2 py-4 bg-gray-800">
                                 <router-link
-                                    :to="{ name: `logs-http-index`, query: this.$route.query }"
+                                    :to="{ name: `logs-index`, query: this.$route.query, params: { group: 'http' } }"
                                     href="#"
                                     active-class="text-white bg-gray-900 focus:outline-none focus:bg-gray-900 transition ease-in-out duration-150"
                                     class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150"
@@ -57,7 +57,7 @@
                                     HTTP
                                 </router-link>
                                 <router-link
-                                    :to="{ name: `logs-cli-index`, query: this.$route.query }"
+                                    :to="{ name: `logs-index`, query: this.$route.query, params: { group: 'cli' } }"
                                     href="#"
                                     active-class="text-white bg-gray-900 focus:outline-none focus:bg-gray-900 transition ease-in-out duration-150"
                                     class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150"
@@ -66,7 +66,7 @@
                                     CLI
                                 </router-link>
                                 <router-link
-                                    :to="{ name: `logs-queue-index`, query: this.$route.query }"
+                                    :to="{ name: `logs-index`, query: this.$route.query, params: { group: 'queue' } }"
                                     href="#"
                                     active-class="text-white bg-gray-900 focus:outline-none focus:bg-gray-900 transition ease-in-out duration-150"
                                     class="mt-1 group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150"
@@ -76,8 +76,24 @@
                                 </router-link>
                             </nav>
 
+                            <!-- Logs tabs -->
+                            <h3 class="px-3 text-xs leading-4 font-semibold text-gray-500 uppercase tracking-wider">
+                                Jobs
+                            </h3>
+
+                            <nav class="flex-1 px-2 py-4 bg-gray-800">
+                                <router-link
+                                    :to="{ name: `jobs-index`, query: this.$route.query, params: { group: 'failed' } }"
+                                    href="#"
+                                    active-class="text-white bg-gray-900 focus:outline-none focus:bg-gray-900 transition ease-in-out duration-150"
+                                    class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150"
+                                >
+                                    <icon-x-circle size="6" class="mr-3 text-gray-400 group-hover:text-gray-300 group-focus:text-gray-300 transition ease-in-out duration-150"> </icon-x-circle>
+                                    Failed
+                                </router-link>
+                            </nav>
                             <!-- Debug tabs -->
-                            <h3 class="px-3 mt-8 text-xs leading-4 font-semibold text-gray-500 uppercase tracking-wider" id="teams-headline">
+                            <h3 class="px-3 mt-8 text-xs leading-4 font-semibold text-gray-500 uppercase tracking-wider">
                                 Debug
                             </h3>
 

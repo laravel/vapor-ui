@@ -28,6 +28,7 @@ class LogsRepository
         'END RequestId',
         'Executing warming requests',
         'Loaded Composer autoload filePreparing to add secrets to runtimePreparing to boot FPMEnsuring ready to start FPMStarting FPM Process',
+        'NOTICE: fpm is running,',
         'NOTICE: ready to handle connections',
         'Caching Laravel configuration',
     ];
@@ -47,13 +48,13 @@ class LogsRepository
     /**
      * Gets the log by the given id.
      *
-     * @param string $id
      * @param string $group
+     * @param string $id
      * @param array $filters
      *
      * @return Log|null
      */
-    public function get($id, $group, $filters = [])
+    public function get($group, $id, $filters = [])
     {
         return $this->search($group, $filters)
             ->entries
@@ -73,7 +74,7 @@ class LogsRepository
         try {
             $response = $this->client->filterLogEvents(array_filter([
                 'logGroupName' => $this->logGroupName($group),
-                'limit' => $this->limit($filters),
+                'limit' => 50,
                 'nextToken' => $this->nextToken($filters),
                 'startTime' => $this->startTime($filters),
                 'filterPattern' => $this->filterPattern($filters),
@@ -99,7 +100,7 @@ class LogsRepository
                     $event['message'] = $message;
                 }
 
-                return new Log($event['eventId'], $group, $filters, $event);
+                return new Log($event, $group, $filters);
             })->values();
 
         return new SearchResult($entries, $response['nextToken'] ?? null);
@@ -122,18 +123,6 @@ class LogsRepository
             $vaporUi['environment'],
             in_array($group, ['cli', 'queue']) ? "-$group" : ''
         );
-    }
-
-    /**
-     * Gets the limit from the given $filters.
-     *
-     * @param array $filters
-     *
-     * @return int
-     */
-    protected function limit($filters)
-    {
-        return isset($filters['limit']) ? (int) $filters['limit'] : 50;
     }
 
     /**
@@ -180,7 +169,9 @@ class LogsRepository
         }
 
         $query = $filters['query'] ?? '';
-        $exclude = '- "'.collect($this->ignore)->implode('" - "').'"';
+        $exclude = $this->ignore
+            ? '- "'.collect($this->ignore)->implode('" - "').'"'
+            : '';
 
         $filterPattern = empty($query)
             ? ''

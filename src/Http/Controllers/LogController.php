@@ -31,12 +31,12 @@ class LogController
     /**
      * Gets the log results by the given request filters.
      *
-     * @param LogRequest $request
      * @param string $group
+     * @param LogRequest $request
      *
      * @return SearchResult
      */
-    public function index(LogRequest $request, $group)
+    public function index($group, LogRequest $request)
     {
         return $this->repository->search($group, $request->validated());
     }
@@ -44,14 +44,14 @@ class LogController
     /**
      * Gets a log by the given request filters.
      *
-     * @param LogRequest $request
      * @param string $group
      * @param string $id
+     * @param LogRequest $request
      *
      * @return Log|null
      */
-    public function show(LogRequest $request, $group, $id)
+    public function show($group, $id, LogRequest $request)
     {
-        return $this->repository->get($id, $group, $request->validated());
+        return $this->repository->get($group, $id, $request->validated());
     }
 }

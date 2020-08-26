@@ -22,13 +22,21 @@ const router = new VueRouter({
     base: '/vapor-ui',
 });
 
+router.beforeEach((to, from, next) => {
+    to.meta.title = to.meta.createTitle(to.params);
+
+    document.title = 'Vapor Ui - ' + to.meta.title;
+
+    next();
+});
+
 Vue.component('vue-json-pretty', VueJsonPretty);
 
 // Components
-Vue.component('log-index', require('./components/LogIndex.vue').default);
-Vue.component('log-show', require('./components/LogShow.vue').default);
+Vue.component('search', require('./components/Search.vue').default);
+Vue.component('search-details', require('./components/SearchDetails.vue').default);
+Vue.component('search-empty-results', require('./components/SearchEmptyResults.vue').default);
 Vue.component('loader', require('./components/Loader.vue').default);
-Vue.component('empty-search-results', require('./components/EmptySearchResults.vue').default);
 
 // Icons
 //
@@ -44,6 +52,7 @@ Vue.component('icon-clipboard-copy', require('./components/icons/ClipboardCopy.v
 Vue.component('icon-chevron-right', require('./components/icons/ChevronRight.vue').default);
 Vue.component('icon-eye', require('./components/icons/Eye.vue').default);
 Vue.component('icon-terminal', require('./components/icons/Terminal.vue').default);
+Vue.component('icon-x-circle', require('./components/icons/XCircle.vue').default);
 
 Vue.mixin(Base);
 
