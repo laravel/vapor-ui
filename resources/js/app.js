@@ -33,6 +33,7 @@ router.beforeEach((to, from, next) => {
 Vue.component('vue-json-pretty', VueJsonPretty);
 
 // Components
+Vue.component('async-button', require('./components/AsyncButton.vue').default);
 Vue.component('search', require('./components/Search.vue').default);
 Vue.component('search-details', require('./components/SearchDetails.vue').default);
 Vue.component('search-empty-results', require('./components/SearchEmptyResults.vue').default);

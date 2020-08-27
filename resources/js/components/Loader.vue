@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div class="flex items-center" style="height: 150px">
+        <div class="flex items-center mt-4" style="height: 150px">
             <svg
-                class="mx-auto block text-gray-500"
+                :class="`mx-auto block text-${color}-500`"
                 :style="{ width: `${width}px` }"
                 viewBox="0 0 120 30"
                 xmlns="http://www.w3.org/2000/svg"
@@ -87,6 +87,11 @@
 export default {
     name: 'Loader',
     props: {
+        color: {
+            type: [String],
+            required: false,
+            default: 'gray',
+        },
         width: {
             type: [Number, String],
             required: false,

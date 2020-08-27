@@ -1,5 +1,19 @@
 <template>
     <search-details>
+        <template slot="actions" slot-scope="{ entry }">
+            <span class="inline-flex rounded-md shadow-sm">
+                <async-button
+                    type="button"
+                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150"
+                    :loading="retrying"
+                    :disabled="retrying"
+                    @click.native.prevent="retry(entry)"
+                >
+                    Retry
+                </async-button>
+            </span>
+        </template>
+
         <template slot="details" slot-scope="{ entry }">
             <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
                 <dt class="text-sm leading-5 font-medium text-gray-500">Time ({{ moment().tz.guess() }})</dt>
@@ -89,7 +103,6 @@
                         <div class="m-4 3rem">
                             <table class="min-w-full divide-y divide-gray-200">
                                 <tbody>
-                                    <!-- Odd row -->
                                     <tr v-for="line in entry.content.exception.split('Stack trace:')[1].split(/\r?\n/)">
                                         <td class="whitespace-no-wrap text-sm leading-5 font-medium text-white">
                                             {{ line }}
@@ -106,6 +119,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 import LogMixin from './../../mixins/log';
 
 export default {
@@ -114,10 +129,39 @@ export default {
      */
     mixins: [LogMixin],
 
+    /**
+     * The component's data.
+     */
     data() {
         return {
             currentTab: 'payload',
+            retrying: false,
         };
+    },
+
+    /**
+     * The component's methods.
+     */
+    methods: {
+        /**
+         * Retries the given job.
+         */
+        retry(entry) {
+            if (this.retrying) return;
+
+            this.retrying = true;
+
+            const then = setTimeout(
+                () =>
+                    this.$router.push({
+                        name: 'jobs-index',
+                        params: { group: 'failed' },
+                    }),
+                1000
+            );
+
+            axios.post(`/vapor-ui/api/jobs/failed/retry/${entry.id}`).then(then);
+        },
     },
 };
 </script>

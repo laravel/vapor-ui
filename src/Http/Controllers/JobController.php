@@ -3,6 +3,7 @@
 namespace Laravel\VaporUi\Http\Controllers;
 
 use Laravel\VaporUi\Http\Requests\JobRequest;
+use Laravel\VaporUi\Jobs\RetryFailedJob;
 use Laravel\VaporUi\Repositories\JobsRepository;
 use Laravel\VaporUi\ValueObjects\Job;
 use Laravel\VaporUi\ValueObjects\SearchResult;
@@ -53,5 +54,17 @@ class JobController
     public function show($group, $id, JobRequest $request)
     {
         return $this->repository->get($group, $id, $request->validated());
+    }
+
+    /**
+     * Retry a job by the given id.
+     *
+     * @param string $id
+     *
+     * @return void
+     */
+    public function retry($id)
+    {
+        dispatch_now(new RetryFailedJob($id));
     }
 }

@@ -40,9 +40,9 @@ class JobsRepository
      */
     public function get($group, $id, $filters = [])
     {
-        $content = $this->provider->find($id);
-
-        return new Job((array) $content, $group, $filters);
+        if ($content = $this->provider->find($id)) {
+            return new Job((array) $content, $group, $filters);
+        }
     }
 
     /**

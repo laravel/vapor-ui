@@ -52,10 +52,17 @@
 
             <div v-if="ready && entry" class="max-w-4xl mx-auto">
                 <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-                    <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900">
-                            {{ $route.meta.title }}
-                        </h3>
+                    <div
+                        class="px-4 py-5 justify-between border-b border-gray-200 sm:px-6 flex flex-wrap sm:flex-no-wrap"
+                    >
+                        <div>
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 mt-3">
+                                {{ $route.meta.title }}
+                            </h3>
+                        </div>
+                        <div>
+                            <slot name="actions" :entry="entry"></slot>
+                        </div>
                     </div>
                     <div class="px-4 py-5 sm:p-0">
                         <dl>

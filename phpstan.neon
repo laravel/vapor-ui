@@ -14,4 +14,7 @@ parameters:
     excludes_analyse:
         - ./*/*/FileToBeExcluded.php
 
+    ignoreErrors:
+        - '#\|null but return statement is missing.#'
+
     checkMissingIterableValueType: false

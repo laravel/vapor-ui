@@ -20,5 +20,7 @@ Route::prefix('vapor-ui')
         Route::get('/api/jobs/{group}', [JobController::class, 'index']);
         Route::get('/api/jobs/{group}/{id}', [JobController::class, 'show']);
 
+        Route::post('/api/jobs/failed/retry/{id}', [JobController::class, 'retry']);
+
         Route::get('/{view?}', HomeController::class)->where('view', '(.*)')->name('vapor-ui');
     });
