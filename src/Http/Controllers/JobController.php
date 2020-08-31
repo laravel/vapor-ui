@@ -3,6 +3,7 @@
 namespace Laravel\VaporUi\Http\Controllers;
 
 use Laravel\VaporUi\Http\Requests\JobRequest;
+use Laravel\VaporUi\Jobs\ForgetFailedJob;
 use Laravel\VaporUi\Jobs\RetryFailedJob;
 use Laravel\VaporUi\Repositories\JobsRepository;
 use Laravel\VaporUi\ValueObjects\Job;
@@ -66,5 +67,17 @@ class JobController
     public function retry($id)
     {
         dispatch_now(new RetryFailedJob($id));
+    }
+
+    /**
+     * Forget a job by the given id.
+     *
+     * @param string $id
+     *
+     * @return void
+     */
+    public function forget($id)
+    {
+        dispatch_now(new ForgetFailedJob($id));
     }
 }

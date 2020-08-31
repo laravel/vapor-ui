@@ -5,11 +5,22 @@
                 <async-button
                     type="button"
                     class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150"
-                    :loading="retrying"
-                    :disabled="retrying"
-                    @click.native.prevent="retry(entry)"
+                    :loading="running"
+                    :disabled="running"
+                    @click.native.prevent="run('retry', entry)"
                 >
                     Retry
+                </async-button>
+            </span>
+            <span class="inline-flex rounded-md shadow-sm">
+                <async-button
+                    type="button"
+                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-700 transition ease-in-out duration-150"
+                    :loading="running"
+                    :disabled="running"
+                    @click.native.prevent="run('forget', entry)"
+                >
+                    Forget
                 </async-button>
             </span>
         </template>
@@ -135,7 +146,7 @@ export default {
     data() {
         return {
             currentTab: 'payload',
-            retrying: false,
+            running: false,
         };
     },
 
@@ -146,10 +157,10 @@ export default {
         /**
          * Retries the given job.
          */
-        retry(entry) {
-            if (this.retrying) return;
+        run(action, entry) {
+            if (this.running) return;
 
-            this.retrying = true;
+            this.running = true;
 
             const then = setTimeout(
                 () =>
@@ -160,7 +171,7 @@ export default {
                 1000
             );
 
-            axios.post(`/vapor-ui/api/jobs/failed/retry/${entry.id}`).then(then);
+            axios.post(`/vapor-ui/api/jobs/failed/${action}/${entry.id}`).then(then);
         },
     },
 };

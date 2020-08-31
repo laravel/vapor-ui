@@ -3259,6 +3259,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3273,7 +3284,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       currentTab: 'payload',
-      retrying: false
+      running: false
     };
   },
 
@@ -3284,11 +3295,11 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * Retries the given job.
      */
-    retry: function retry(entry) {
+    run: function run(action, entry) {
       var _this = this;
 
-      if (this.retrying) return;
-      this.retrying = true;
+      if (this.running) return;
+      this.running = true;
       var then = setTimeout(function () {
         return _this.$router.push({
           name: 'jobs-index',
@@ -3297,7 +3308,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       }, 1000);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/vapor-ui/api/jobs/failed/retry/".concat(entry.id)).then(then);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/vapor-ui/api/jobs/failed/".concat(action, "/").concat(entry.id)).then(then);
     }
   }
 });
@@ -29291,17 +29302,44 @@ var render = function() {
                       "inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150",
                     attrs: {
                       type: "button",
-                      loading: _vm.retrying,
-                      disabled: _vm.retrying
+                      loading: _vm.running,
+                      disabled: _vm.running
                     },
                     nativeOn: {
                       click: function($event) {
                         $event.preventDefault()
-                        return _vm.retry(entry)
+                        return _vm.run("retry", entry)
                       }
                     }
                   },
                   [_vm._v("\n                Retry\n            ")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "span",
+              { staticClass: "inline-flex rounded-md shadow-sm" },
+              [
+                _c(
+                  "async-button",
+                  {
+                    staticClass:
+                      "inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-700 transition ease-in-out duration-150",
+                    attrs: {
+                      type: "button",
+                      loading: _vm.running,
+                      disabled: _vm.running
+                    },
+                    nativeOn: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.run("forget", entry)
+                      }
+                    }
+                  },
+                  [_vm._v("\n                Forget\n            ")]
                 )
               ],
               1
