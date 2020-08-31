@@ -18,9 +18,9 @@ class VaporUiServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the Vapor Ui gate.
+     * Register the Vapor UI gate.
      *
-     * This gate determines who can access Vapor Ui thought the vanity URL.
+     * This gate determines who can access Vapor UI through the vanity URL.
      *
      * @return void
      */
