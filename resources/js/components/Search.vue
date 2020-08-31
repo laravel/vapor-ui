@@ -288,7 +288,7 @@ export default {
                     this.searching = false;
                     this.troubleshooting = {
                         exception: response.data.exception,
-                        message: response.data.message
+                        message: response.data.message,
                     };
                 });
         },
