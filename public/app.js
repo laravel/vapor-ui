@@ -3303,6 +3303,7 @@ __webpack_require__.r(__webpack_exports__);
       var then = setTimeout(function () {
         return _this.$router.push({
           name: 'jobs-index',
+          query: _this.$route.query,
           params: {
             group: 'failed'
           }

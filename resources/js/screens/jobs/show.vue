@@ -166,6 +166,7 @@ export default {
                 () =>
                     this.$router.push({
                         name: 'jobs-index',
+                        query: this.$route.query,
                         params: { group: 'failed' },
                     }),
                 1000
