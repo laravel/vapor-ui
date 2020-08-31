@@ -22,10 +22,10 @@ mix.options({
         },
     },
 })
-    .postCss('resources/css/vapor-ui.css', 'public/app.css')
-    .options({
-        postCss: [tailwindcss('./tailwind.config.js')],
-    })
+    .postCss('resources/css/vapor-ui.css', 'public/app.css', [
+        require('postcss-import'),
+        require('tailwindcss'),
+    ])
     .setPublicPath('public')
     .js('resources/js/app.js', 'public')
     .version()

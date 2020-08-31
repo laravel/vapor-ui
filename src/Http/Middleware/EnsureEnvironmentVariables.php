@@ -32,7 +32,7 @@ class EnsureEnvironmentVariables
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $message = 'Unable to detect [vapor-ui.%s]. Did you set needed environment variables?';
+        $message = 'Unable to detect [vapor-ui.%s]. Did you set the needed environment variables?';
         $config = config('vapor-ui');
 
         collect($this->configs)->each(function ($name) use ($message, $config) {
