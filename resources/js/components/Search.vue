@@ -101,12 +101,12 @@
                             <icon-exclamation :size="6" />
 
                             <div class="ml-3 font-semibold text-sm text-gray-600 uppercase tracking-wider">
-                                {{ troubleshooting.exception }}
+                                Server Error
                             </div>
                         </div>
 
                         <div class="mt-3 max-w-2xl text-sm text-gray-700">
-                            {{ troubleshooting.message }}
+                            It looks like there was an error. Please check your application logs.
                         </div>
                     </div>
                 </template>
@@ -286,10 +286,7 @@ export default {
                 })
                 .catch(({ response }) => {
                     this.searching = false;
-                    this.troubleshooting = {
-                        exception: response.data.exception,
-                        message: response.data.message
-                    };
+                    this.troubleshooting = true;
                 });
         },
 

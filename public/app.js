@@ -2387,10 +2387,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       })["catch"](function (_ref2) {
         var response = _ref2.response;
         _this2.searching = false;
-        _this2.troubleshooting = {
-          exception: response.data.exception,
-          message: response.data.message
-        };
+        _this2.troubleshooting = true;
       });
     },
 
@@ -28101,9 +28098,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                            " +
-                                  _vm._s(_vm.troubleshooting.exception) +
-                                  "\n                        "
+                                "\n                            Server Error\n                        "
                               )
                             ]
                           )
@@ -28116,9 +28111,7 @@ var render = function() {
                         { staticClass: "mt-3 max-w-2xl text-sm text-gray-700" },
                         [
                           _vm._v(
-                            "\n                        " +
-                              _vm._s(_vm.troubleshooting.message) +
-                              "\n                    "
+                            "\n                        It looks like there was an error. Please check your application logs.\n                    "
                           )
                         ]
                       )
