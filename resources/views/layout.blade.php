@@ -97,41 +97,6 @@
                                     Failed
                                 </router-link>
                             </nav>
-
-                            <!-- Debug tabs / To delete -->
-                            <h3 class="px-3 mt-8 text-xs leading-4 font-semibold text-gray-500 uppercase tracking-wider">
-                                Debug
-                            </h3>
-
-                            <nav class="flex-1 px-2 py-4 bg-gray-800">
-                                <a href="{{ url('/debug') }}" target="_blank" class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                    Debug
-                                </a>
-                                <a href="{{ url('/info') }}" target="_blank" class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                    Info
-                                </a>
-                                <a href="{{ url('/warning') }}" target="_blank" class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                    Warning
-                                </a>
-                                <a href="{{ url('/emergency') }}" target="_blank" class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                    Emergency
-                                </a>
-                                <a href="{{ url('/exception') }}" target="_blank" class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                    Exception
-                                </a>
-                                <a href="{{ url('/error') }}" target="_blank" class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                    Error
-                                </a>
-                                <a href="{{ url('/queue-exception') }}" target="_blank" class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                    Queue exception
-                                </a>
-                                <a href="{{ url('/queue-timeout') }}" target="_blank" class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                    Queue timeout
-                                </a>
-                                <a href="{{ url('/timeout') }}" target="_blank" class="group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition ease-in-out duration-150">
-                                    Http Timeout
-                                </a>
-                            </nav>
                         </div>
                     </div>
                 </div>
