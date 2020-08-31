@@ -2,7 +2,6 @@
 
 namespace Laravel\VaporUi\Jobs;
 
-use Illuminate\Contracts\Queue\Factory;
 use Illuminate\Queue\Failed\FailedJobProviderInterface;
 
 class ForgetFailedJob
