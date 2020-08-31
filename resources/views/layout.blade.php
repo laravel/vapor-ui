@@ -51,7 +51,7 @@
                                 Logs
                             </h3>
 
-                            <nav class="flex-1 px-2 py-4 bg-gray-800">
+                            <nav class="px-2 py-4 bg-gray-800">
                                 <router-link
                                     :to="{ name: `logs-index`, query: this.$route.query, params: { group: 'http' } }"
                                     href="#"
@@ -86,7 +86,7 @@
                                 Jobs
                             </h3>
 
-                            <nav class="flex-1 px-2 py-4 bg-gray-800">
+                            <nav class="px-2 py-4 bg-gray-800">
                                 <router-link
                                     :to="{ name: `jobs-index`, query: this.$route.query, params: { group: 'failed' } }"
                                     href="#"
