@@ -45,6 +45,7 @@ Vue.component('icon-refresh', require('./components/icons/Refresh.vue').default)
 Vue.component('icon-search', require('./components/icons/Search.vue').default);
 Vue.component('icon-cloud', require('./components/icons/Cloud.vue').default);
 Vue.component('icon-collection', require('./components/icons/Collection.vue').default);
+Vue.component('icon-exclamation', require('./components/icons/Exclamation.vue').default);
 Vue.component('icon-desktop-computer', require('./components/icons/DesktopComputer.vue').default);
 Vue.component('icon-dots-vertical', require('./components/icons/DotsVertical.vue').default);
 Vue.component('icon-flag', require('./components/icons/Flag.vue').default);

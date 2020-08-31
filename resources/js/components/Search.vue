@@ -89,9 +89,27 @@
                 </loader>
 
                 <!-- No Search Results -->
-                <search-empty-results v-if="!searching && entries.length == 0">
+                <search-empty-results v-if="!searching && !troubleshooting && entries.length == 0">
                     No entries were found for the given search criteria.
                 </search-empty-results>
+
+                <!-- Troubleshooting -->
+                <template v-if="!searching && troubleshooting">
+                    <div class="px-6 py-4 bg-white shadow-md rounded-lg">
+                        <!-- Create Your First Project -->
+                        <div class="flex items-center">
+                            <icon-exclamation :size="6" />
+
+                            <div class="ml-3 font-semibold text-sm text-gray-600 uppercase tracking-wider">
+                                {{ troubleshooting.exception }}
+                            </div>
+                        </div>
+
+                        <div class="mt-3 max-w-2xl text-sm text-gray-700">
+                            {{ troubleshooting.message }}
+                        </div>
+                    </div>
+                </template>
 
                 <div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
                     <table class="min-w-full divide-y divide-gray-200" v-if="entries.length > 0">
@@ -254,15 +272,25 @@ export default {
             params.cursor = cursor;
 
             this.searching = true;
-            return axios.get(`/vapor-ui/api/${this.$route.meta.resource}/${this.group}`, { params }).then((data) => {
-                this.searching = false;
+            return axios
+                .get(`/vapor-ui/api/${this.$route.meta.resource}/${this.group}`, { params })
+                .then((data) => {
+                    this.searching = false;
+                    this.troubleshooting = false;
 
-                if (JSON.stringify(filters) !== JSON.stringify(this.filters)) {
-                    throw 'The filters have been changed.';
-                }
+                    if (JSON.stringify(filters) !== JSON.stringify(this.filters)) {
+                        throw 'The filters have been changed.';
+                    }
 
-                return data;
-            });
+                    return data;
+                })
+                .catch(({ response }) => {
+                    this.searching = false;
+                    this.troubleshooting = {
+                        exception: response.data.exception,
+                        message: response.data.message
+                    };
+                });
         },
 
         /**
