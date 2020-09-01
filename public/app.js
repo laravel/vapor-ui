@@ -3277,6 +3277,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -29328,7 +29331,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "span",
-              { staticClass: "inline-flex rounded-md shadow-sm" },
+              { staticClass: "inline-flex rounded-md shadow-sm ml-2" },
               [
                 _c(
                   "async-button",
