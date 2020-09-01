@@ -24,6 +24,8 @@ After installing Vapor UI, publish its assets using the `vapor-ui:install` Artis
 php artisan vapor-ui:install
 ```
 
+After installing Vapor UI, you should configure the <a name="dashboard-authorization">Dashboard Authorization</a> using the `gate` method in your `app/Providers/VaporUIServiceProvider.php` file.
+
 Next, re-deploy your Laravel Vapor project using the Vapor CLI:
 
 ```bash
@@ -52,7 +54,7 @@ VAPOR_PROJECT=
 <a name="dashboard-authorization"></a>
 ### Dashboard Authorization
 
-Vapor UI exposes a dashboard at `/vapor-ui`. You will only be able to access this dashboard in the `local` environment or the through the vanity URL. Within your `app/Providers/VaporUIServiceProvider.php` file, there is a `gate` method. This authorization gate controls access to Vapor UI through the **vanity URL**. You are free to modify this gate as needed to restrict access to your Vapor UI dashboard:
+Vapor UI exposes a dashboard at `/vapor-ui`. By default, you will only be able to access this dashboard in the `local` environment. Within your `app/Providers/VaporUIServiceProvider.php` file, there is a `gate` method. This authorization gate controls access to Vapor UI in **non-local** environments. You are free to modify this gate as needed to restrict access to your Vapor UI dashboard:
 
 ```php
 /**
