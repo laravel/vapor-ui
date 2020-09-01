@@ -10,7 +10,7 @@ use Laravel\VaporUi\Support\Cloud;
 class EnsureUserIsAuthorized
 {
     /**
-     * Ensures the user is authorized to visit Vapor Ui Dashboard.
+     * Ensures the user is authorized to visit Vapor UI Dashboard.
      *
      * @param Request $request
      * @param Closure $next
@@ -21,7 +21,7 @@ class EnsureUserIsAuthorized
     {
         $allowed = app()->environment('local')
             || app()->environment('testing')
-            || (Cloud::runningInVanityUrl() && Gate::allows('viewVaporUi', [$request->user()]));
+            || Gate::allows('viewVaporUI', [$request->user()]);
 
         abort_unless($allowed, 403);
 

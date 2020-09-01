@@ -25,7 +25,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     to.meta.title = to.meta.createTitle(to.params);
 
-    document.title = 'Vapor Ui - ' + to.meta.title;
+    document.title = 'Vapor UI - ' + to.meta.title;
 
     next();
 });

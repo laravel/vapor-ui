@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Config;
 trait ConfiguresVaporUi
 {
     /**
-     * Ensure Vapor Ui is properly configured.
+     * Ensure Vapor UI is properly configured.
      *
      * @return void
      */

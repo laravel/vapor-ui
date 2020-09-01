@@ -5,6 +5,6 @@ test('content', function () {
     $environment = $_ENV['VAPOR_ENVIRONMENT'];
 
     $this->get('/vapor-ui')->assertSee(
-        "Vapor Ui - $project - $environment"
+        "Vapor UI - $project - $environment"
     );
 });

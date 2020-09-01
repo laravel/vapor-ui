@@ -18,7 +18,7 @@ class PublishCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Publish all of the Vapor Ui resources';
+    protected $description = 'Publish all of the Vapor UI resources';
 
     /**
      * Execute the console command.

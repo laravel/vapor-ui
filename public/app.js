@@ -45603,7 +45603,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_6__["default"]({
 });
 router.beforeEach(function (to, from, next) {
   to.meta.title = to.meta.createTitle(to.params);
-  document.title = 'Vapor Ui - ' + to.meta.title;
+  document.title = 'Vapor UI - ' + to.meta.title;
   next();
 });
 vue__WEBPACK_IMPORTED_MODULE_4___default.a.component('vue-json-pretty', vue_json_pretty__WEBPACK_IMPORTED_MODULE_5___default.a); // Components

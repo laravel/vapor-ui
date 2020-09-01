@@ -19,7 +19,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Install all of the Vapor Ui resources';
+    protected $description = 'Install all of the Vapor UI resources';
 
     /**
      * Execute the console command.
@@ -28,19 +28,19 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        $this->comment('Publishing Vapor Ui Service Provider...');
+        $this->comment('Publishing Vapor UI Service Provider...');
         $this->callSilent('vendor:publish', ['--tag' => 'vapor-ui-provider']);
 
-        $this->comment('Publishing Vapor Ui Assets...');
+        $this->comment('Publishing Vapor UI Assets...');
         $this->callSilent('vendor:publish', ['--tag' => 'vapor-ui-assets']);
 
         $this->registerVaporUiServiceProvider();
 
-        $this->info('Vapor Ui scaffolding installed successfully.');
+        $this->info('Vapor UI scaffolding installed successfully.');
     }
 
     /**
-     * Register the Vapor Ui service provider in the application configuration file.
+     * Register the Vapor UI service provider in the application configuration file.
      *
      * @return void
      */

@@ -8,7 +8,7 @@
         <meta name="robots" content="noindex, nofollow" />
 
         <!-- Title -->
-        <title>Vapor Ui - {{ config('vapor-ui.project') }} - {{ config('vapor-ui.environment') }}</title>
+        <title>Vapor UI - {{ config('vapor-ui.project') }} - {{ config('vapor-ui.environment') }}</title>
 
         <!-- Style sheets -->
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" />

@@ -11,10 +11,10 @@
          stopOnFailure="false"
 >
     <testsuites>
-        <testsuite name="Vapor Ui Integration Test Suite">
+        <testsuite name="Vapor UI Integration Test Suite">
             <directory suffix=".php">./tests/Integration</directory>
         </testsuite>
-        <testsuite name="Vapor Ui Unit Test Suite">
+        <testsuite name="Vapor UI Unit Test Suite">
             <directory suffix=".php">./tests/Unit</directory>
         </testsuite>
     </testsuites>
