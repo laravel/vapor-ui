@@ -2,11 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
     purge: {
-        content: [
-            './resources/views/**/*.blade.php',
-            './resources/js/**/*.vue',
-            './resources/js/**/*.js'
-        ],
+        content: ['./resources/views/**/*.blade.php', './resources/js/**/*.vue', './resources/js/**/*.js'],
 
         options: {
             whitelist: [
@@ -21,9 +17,9 @@ module.exports = {
                 'bg-red-100',
                 'text-gray-900',
                 'text-gray800',
-                'bg-gray-100'
+                'bg-gray-100',
             ],
-        }
+        },
     },
     theme: {
         extend: {
