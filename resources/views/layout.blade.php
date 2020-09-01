@@ -31,7 +31,7 @@
                             <!-- Project Name -->
                             <div class="px-4 pt-4 space-y-6 sm:flex-row sm:space-y-0 sm:space-x-8 xl:flex-col xl:space-x-0 xl:space-y-6">
                                 <div class="flex items-center space-x-2">
-                                    <icon-cloud size="6" class="text-gray-300"></icon-cloud>
+                                    <icon-cloud size="4" class="text-gray-300"></icon-cloud>
                                     <span class="text-sm text-gray-300 leading-5 font-medium">{{ config('vapor-ui.project') }} > {{ config('vapor-ui.environment') }}</span>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@
                             <!-- Project Environment -->
                             <div class="px-4 pt-4 space-y-6 sm:flex-row sm:space-y-0 sm:space-x-8 xl:flex-col xl:space-x-0 xl:space-y-6">
                                 <div class="flex items-center space-x-2">
-                                    <icon-flag size="6" class="text-gray-300"></icon-flag>
+                                    <icon-flag size="4" class="text-gray-300"></icon-flag>
                                     <span class="text-sm text-gray-300 leading-5 font-medium">{{ config('vapor-ui.region') }}</span>
                                 </div>
                             </div>
