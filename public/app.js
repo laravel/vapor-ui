@@ -2556,10 +2556,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -28400,9 +28396,11 @@ var render = function() {
                         ]
                       )
                     ]
-                  )
+                  ),
+                  _vm._v(" "),
+                  _vm._t("actions", null, { entry: _vm.entry })
                 ],
-                1
+                2
               )
             ]
           )
@@ -28431,30 +28429,22 @@ var render = function() {
                       "div",
                       {
                         staticClass:
-                          "px-4 py-5 justify-between border-b border-gray-200 sm:px-6 flex flex-wrap sm:flex-no-wrap"
+                          "px-4 py-5 border-b border-gray-200 sm:px-6"
                       },
                       [
-                        _c("div", [
-                          _c(
-                            "h3",
-                            {
-                              staticClass:
-                                "text-lg leading-6 font-medium text-gray-900 mt-3"
-                            },
-                            [
-                              _vm._v(
-                                "\n                            " +
-                                  _vm._s(_vm.$route.meta.title) +
-                                  "\n                        "
-                              )
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
                         _c(
-                          "div",
-                          [_vm._t("actions", null, { entry: _vm.entry })],
-                          2
+                          "h3",
+                          {
+                            staticClass:
+                              "text-lg leading-6 font-medium text-gray-900"
+                          },
+                          [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(_vm.$route.meta.title) +
+                                "\n                    "
+                            )
+                          ]
                         )
                       ]
                     ),
@@ -29304,7 +29294,9 @@ var render = function() {
           return [
             _c(
               "span",
-              { staticClass: "inline-flex rounded-md shadow-sm" },
+              {
+                staticClass: "order-0 sm:order-1 sm:ml-3 shadow-sm rounded-md"
+              },
               [
                 _c(
                   "async-button",
@@ -29331,7 +29323,9 @@ var render = function() {
             _vm._v(" "),
             _c(
               "span",
-              { staticClass: "inline-flex rounded-md shadow-sm ml-2" },
+              {
+                staticClass: "order-0 sm:order-1 sm:ml-3 shadow-sm rounded-md"
+              },
               [
                 _c(
                   "async-button",
