@@ -24,7 +24,7 @@ After installing Vapor UI, publish its assets using the `vapor-ui:install` Artis
 php artisan vapor-ui:install
 ```
 
-After installing Vapor UI, you should configure the [dashboard authorization](#dashboard-authorization) using the `gate` method in your `app/Providers/VaporUIServiceProvider.php` file.
+Then, you should configure the [dashboard authorization](#dashboard-authorization) using the `gate` method in your `app/Providers/VaporUIServiceProvider.php` file.
 
 Next, re-deploy your Laravel Vapor project using the Vapor CLI:
 
