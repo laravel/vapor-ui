@@ -1,0 +1,60 @@
+{
+    "name": "laravel/vapor-ui",
+    "description": "The Laravel Vapor UI.",
+    "keywords": [
+        "laravel",
+        "vapor"
+    ],
+    "homepage": "https://github.com/laravel/vapor-ui",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/laravel/vapor-ui/issues",
+        "source": "https://github.com/laravel/vapor-ui"
+    },
+    "authors": [
+        {
+            "name": "Taylor Otwell",
+            "email": "taylor@laravel.com"
+        },
+        {
+            "name": "Nuno Maduro",
+            "email": "enunomaduro@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3",
+        "aws/aws-sdk-php": "^3.148.3",
+        "laravel/framework": "^6.0|^7.0|^8.0"
+    },
+    "require-dev": {
+        "nunomaduro/larastan": "^0.6.4",
+        "orchestra/testbench": "^5.0|^6.0",
+        "pestphp/pest": "^0.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laravel\\VaporUi\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/",
+            "App\\": "stubs/app/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Laravel\\VaporUi\\VaporUiServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
