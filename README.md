@@ -4,4 +4,4 @@
 
 Vapor abstracts the complexity of managing Laravel applications on AWS Lambda, as well as interfacing those applications with SQS queues, databases, Redis clusters, networks, CloudFront CDN, and more.
 
-This package provides a beautiful dashboard accessible via your Vapor application that allows you to view / search your application's logs and failed queue jobs. To learn more about Vapor and how to use this dashboard, please consult the [official documentation](https://docs.vapor.build).
+This package provides a beautiful dashboard accessible via your Vapor application that allows you to view / search your application's logs and failed queue jobs. To learn more about Vapor and how to use this dashboard, please consult the [official documentation](https://docs.vapor.build/1.0/introduction.html#installing-the-vapor-ui-dashboard).
