@@ -85,7 +85,7 @@
             <div class="flex flex-col mt-2">
                 <!-- Loader -->
                 <loader v-if="searching && entries.length == 0">
-                    <template v-if="cursor"> No entries have being found yet, still searching... </template>
+                    <template v-if="cursor">No entries have been found yet, still searching...</template>
                 </loader>
 
                 <!-- No Search Results -->
