@@ -10,6 +10,7 @@ use Laravel\VaporUi\Http\Middleware\EnsureUserIsAuthorized;
 
 Route::prefix('vapor-ui')
     ->middleware([
+        'web',
         EnsureUserIsAuthorized::class,
         EnsureEnvironmentVariables::class,
         EnsureUpToDateAssets::class,
