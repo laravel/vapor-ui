@@ -10,7 +10,7 @@
                             {{ entry.message }}
                         </p>
                     </div>
-                    <div v-if="entry.exception" class="text-sm leading-5 text-gray-500">
+                    <div v-if="entry.exception" class="text-sm leading-5 text-gray-500 truncate">
                         {{ entry.exception }}
                     </div>
                 </div>

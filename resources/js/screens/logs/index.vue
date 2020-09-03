@@ -31,7 +31,7 @@
                             entry.content.message.context.exception &&
                             entry.content.message.context.exception.class
                         "
-                        class="text-sm leading-5 text-gray-500"
+                        class="text-sm leading-5 text-gray-500 truncate"
                     >
                         {{ entry.content.message.context.exception.class }}
                     </div>
