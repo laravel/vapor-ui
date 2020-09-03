@@ -99,8 +99,7 @@ class Job implements JsonSerializable
      */
     protected function pullTimestamp()
     {
-        $this->timestamp = Carbon::createFromFormat(
-            'Y-m-d H:i:s',
+        $this->timestamp = Carbon::parse(
             $this->content['failed_at']
         )->timestamp * 1000;
 

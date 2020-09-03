@@ -71,8 +71,7 @@ class JobsRepository
                     }
                 }
 
-                return (Carbon::createFromFormat(
-                    'Y-m-d H:i:s',
+                return (Carbon::parse(
                     $content->failed_at,
                 )->timestamp * 1000) >= $startTime;
             })->slice($offset, $limit)
