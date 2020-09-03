@@ -1,6 +1,13 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v0.0.3...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v0.0.4...master)
+
+
+## [v0.0.4 (2020-09-03)](https://github.com/laravel/vapor-ui/compare/v0.0.3...v0.0.4)
+
+### Fixed
+- Typo on "still searching" text ([2e88395](https://github.com/laravel/vapor-ui/commit/2e88395378163636fab171289e2b1fa400a4dae4))
+- Truncates exception classe names ([e592f44](https://github.com/laravel/vapor-ui/commit/e592f44ee9c13af4032fe347f196d9a9cc5d0782))
 
 
 ## [v0.0.3 (2020-09-03)](https://github.com/laravel/vapor-ui/compare/v0.0.2...v0.0.3)
