@@ -2,6 +2,14 @@
     <search>
         <template slot="filters" slot-scope="{ filters, loadEntries }"></template>
 
+        <template slot="troubleshooting">
+            <p>It looks like there was an error. Please check your application logs.</p>
+            <p class="mt-2">
+                This error is most likely happening because you haven't properly configured "failed jobs" in your
+                application.
+            </p>
+        </template>
+
         <template slot="row" slot-scope="{ entry }">
             <td class="max-w-0 w-full px-6 py-4 whitespace-no-wrap text-sm leading-5 text-cool-gray-900">
                 <div class="ml-4">

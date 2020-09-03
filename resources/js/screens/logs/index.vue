@@ -17,6 +17,14 @@
             </div>
         </template>
 
+        <template slot="troubleshooting">
+            <p>It looks like there was an error. Please check your application logs.</p>
+            <p class="mt-2">
+                Consider searching using a more recent "Starting from" date. The CloudWatch API can have long response
+                times while searching long in the past. Those requests may timeout, or lead to unexpected errors.
+            </p>
+        </template>
+
         <template slot="row" slot-scope="{ entry }">
             <td class="max-w-0 w-full px-6 py-4 whitespace-no-wrap text-sm leading-5 text-cool-gray-900">
                 <div class="ml-4">

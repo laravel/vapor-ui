@@ -105,13 +105,16 @@
                             </div>
                         </div>
 
-                        <div class="mt-3 max-w-2xl text-sm text-gray-700">
-                            It looks like there was an error. Please check your application logs.
+                        <div class="mt-3 text-sm text-gray-700">
+                            <slot name="troubleshooting"> </slot>
                         </div>
                     </div>
                 </template>
 
-                <div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
+                <div
+                    v-if="!troubleshooting"
+                    class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg"
+                >
                     <div class="bg-white min-w-full" v-if="entries.length > 0">
                         <div
                             class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
@@ -161,6 +164,7 @@ export default {
         return {
             entries: [],
             errors: [],
+            troubleshooting: false,
             minutesAgo: null,
             searching: true,
             cursor: null,
@@ -271,6 +275,8 @@ export default {
                 .catch(({ response }) => {
                     this.searching = false;
                     this.troubleshooting = true;
+
+                    throw 'Server error.';
                 })
                 .then((data) => {
                     this.troubleshooting = false;
