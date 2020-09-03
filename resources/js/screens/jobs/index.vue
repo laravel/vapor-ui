@@ -4,9 +4,9 @@
 
         <template slot="troubleshooting">
             <p>It looks like there was an error. Please check your application logs.</p>
+
             <p class="mt-2">
-                This error is most likely happening because you haven't properly configured "failed jobs" in your
-                application.
+                This error may occur if you haven't properly configured "failed jobs" in your application.
             </p>
         </template>
 

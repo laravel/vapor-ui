@@ -19,9 +19,10 @@
 
         <template slot="troubleshooting">
             <p>It looks like there was an error. Please check your application logs.</p>
+
             <p class="mt-2">
-                Consider searching using a more recent "Starting from" date. The CloudWatch API can have long response
-                times while searching long in the past. Those requests may timeout, or lead to unexpected errors.
+                Consider searching using a more recent "Starting from" date. The CloudWatch API may have long response
+                times while searching far into the past. These requests may timeout or lead to unexpected errors.
             </p>
         </template>
 
