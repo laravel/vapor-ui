@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v0.0.4...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v0.0.5...master)
+
+
+## [v0.0.5 (2020-09-03)](https://github.com/laravel/vapor-ui/compare/v0.0.4...v0.0.5)
+
+### Added
+- Improved troubleshooting messages on "Server Error" ([c27cbed](https://github.com/laravel/vapor-ui/commit/c27cbedcc300fdf5d0b26f895f7736c25929a21f))
 
 
 ## [v0.0.4 (2020-09-03)](https://github.com/laravel/vapor-ui/compare/v0.0.3...v0.0.4)
