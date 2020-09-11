@@ -72,7 +72,7 @@
 <script>
 import axios from 'axios';
 
-import ClipboardMixin from './../mixins/Clipboard';
+import ClipboardMixin from './../mixins/clipboard';
 
 export default {
     /**
