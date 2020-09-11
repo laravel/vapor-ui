@@ -1,8 +1,6 @@
 <?php
 
-beforeEach(function () {
-    mockFailedJobProvider();
-});
+beforeEach()->mockFailedJobProvider();
 
 test('query', function () {
     $response = $this->json('GET', '/vapor-ui/api/jobs/failed', [
