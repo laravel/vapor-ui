@@ -50,7 +50,6 @@
                                         v-on:change="loadEntries"
                                         id="start-time-input"
                                         class="form-input block w-full pl-10 sm:text-sm sm:leading-5"
-                                        placeholder="0.00"
                                     />
                                     <div class="absolute inset-y-0 right-0 flex items-center">
                                         <select
@@ -106,7 +105,7 @@
                         </div>
 
                         <div class="mt-3 text-sm text-gray-700">
-                            <slot name="troubleshooting"> </slot>
+                            <slot name="troubleshooting"></slot>
                         </div>
                     </div>
                 </template>
