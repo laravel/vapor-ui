@@ -23,6 +23,10 @@ trait ConfiguresVaporUi
             'secret' => $_ENV['AWS_SECRET_ACCESS_KEY'] ?? null,
             'region' => $_ENV['AWS_DEFAULT_REGION'] ?? 'us-east-1',
             'token' => $_ENV['AWS_SESSION_TOKEN'] ?? null,
+            'queue' => [
+                'prefix' => $_ENV['SQS_PREFIX'] ?? null,
+                'name' => $_ENV['SQS_QUEUE'] ?? null,
+            ],
         ], Config::get('vapor-ui') ?? []));
     }
 }

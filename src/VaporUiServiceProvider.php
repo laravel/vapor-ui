@@ -2,11 +2,12 @@
 
 namespace Laravel\VaporUi;
 
+use Aws\CloudWatch\CloudWatchClient;
 use Aws\CloudWatchLogs\CloudWatchLogsClient;
+use Aws\Sqs\SqsClient;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Laravel\VaporUi\Concerns\ConfiguresVaporUi;
-use Laravel\VaporUi\Repositories\LogsRepository;
 
 class VaporUiServiceProvider extends ServiceProvider
 {
@@ -48,23 +49,33 @@ class VaporUiServiceProvider extends ServiceProvider
             Console\PublishCommand::class,
         ]);
 
-        $this->app->singleton(LogsRepository::class, function () {
-            $config = config('vapor-ui');
+        $this->registerClients();
+    }
 
-            $cloudWatchConfig = [
-                'region' => $config['region'],
-                'version' => 'latest',
-            ];
+    /**
+     * Binds an implemention of the CloudWatch Client.
+     *
+     * @return void
+     */
+    public function registerClients()
+    {
+        collect([CloudWatchClient::class, CloudWatchLogsClient::class, SqsClient::class])->each(function ($client) {
+            $this->app->singleton($client, function () use ($client) {
+                $config = config('vapor-ui');
 
-            if ($config['key'] && $config['secret']) {
-                $cloudWatchConfig['credentials'] = Arr::only(
-                    $config, ['key', 'secret', 'token']
-                );
-            }
+                $cloudWatchConfig = [
+                    'region' => $config['region'],
+                    'version' => 'latest',
+                ];
 
-            return new LogsRepository(
-                new CloudWatchLogsClient($cloudWatchConfig)
-            );
+                if ($config['key'] && $config['secret']) {
+                    $cloudWatchConfig['credentials'] = Arr::only(
+                        $config, ['key', 'secret', 'token']
+                    );
+                }
+
+                return new $client($cloudWatchConfig);
+            });
         });
     }
 }

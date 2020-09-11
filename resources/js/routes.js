@@ -22,6 +22,16 @@ export default [
     },
 
     {
+        path: '/jobs/metrics',
+        name: 'jobs-metrics',
+        component: require('./screens/jobs/metrics').default,
+        meta: {
+            resource: 'jobs',
+            createTitle: () => 'Jobs Metrics',
+        },
+    },
+
+    {
         path: '/jobs/:group',
         name: 'jobs-index',
         component: require('./screens/jobs/index').default,

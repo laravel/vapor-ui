@@ -31,4 +31,20 @@ return [
     'key' => env('AWS_ACCESS_KEY_ID'),
     'secret' => env('AWS_SECRET_ACCESS_KEY'),
     'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | SQS Queue
+    |--------------------------------------------------------------------------
+    |
+    | Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+    | et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exerci
+    | tation ullamco laboris nisi ut aliquip ex ea commodo consequat du
+    |
+    */
+
+    'queue' => [
+        'prefix' => env('SQS_PREFIX'),
+        'name' => env('SQS_QUEUE'),
+    ],
 ];

@@ -34,13 +34,17 @@ Vue.component('vue-json-pretty', VueJsonPretty);
 
 // Components
 Vue.component('async-button', require('./components/AsyncButton.vue').default);
+Vue.component('bar-chart', require('./components/BarChart.vue').default);
 Vue.component('search', require('./components/Search.vue').default);
 Vue.component('search-details', require('./components/SearchDetails.vue').default);
 Vue.component('search-empty-results', require('./components/SearchEmptyResults.vue').default);
 Vue.component('loader', require('./components/Loader.vue').default);
+Vue.component('metric', require('./components/Metric.vue').default);
+Vue.component('popover', require('./components/Popover.vue').default);
 
 // Icons
-//
+Vue.component('icon-arrow-down', require('./components/icons/ArrowDown.vue').default);
+Vue.component('icon-arrow-up', require('./components/icons/ArrowUp.vue').default);
 Vue.component('icon-refresh', require('./components/icons/Refresh.vue').default);
 Vue.component('icon-search', require('./components/icons/Search.vue').default);
 Vue.component('icon-cloud', require('./components/icons/Cloud.vue').default);
@@ -54,8 +58,10 @@ Vue.component('icon-calendar', require('./components/icons/Calendar.vue').defaul
 Vue.component('icon-clipboard-copy', require('./components/icons/ClipboardCopy.vue').default);
 Vue.component('icon-chevron-right', require('./components/icons/ChevronRight.vue').default);
 Vue.component('icon-eye', require('./components/icons/Eye.vue').default);
+Vue.component('icon-chart-bar', require('./components/icons/ChartBar.vue').default);
 Vue.component('icon-terminal', require('./components/icons/Terminal.vue').default);
 Vue.component('icon-x-circle', require('./components/icons/XCircle.vue').default);
+Vue.component('icon-information-circle', require('./components/icons/InformationCircle.vue').default);
 
 Vue.mixin(Base);
 

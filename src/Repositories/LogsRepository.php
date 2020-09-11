@@ -40,7 +40,7 @@ class LogsRepository
      *
      * @return void
      */
-    public function __construct($client)
+    public function __construct(CloudWatchLogsClient $client)
     {
         $this->client = $client;
     }
