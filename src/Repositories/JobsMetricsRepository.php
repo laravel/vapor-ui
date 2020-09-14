@@ -4,6 +4,7 @@ namespace Laravel\VaporUi\Repositories;
 
 use Aws\CloudWatch\CloudWatchClient;
 use Aws\Sqs\SqsClient;
+use Illuminate\Database\QueryException;
 use Illuminate\Queue\Failed\FailedJobProviderInterface;
 use Illuminate\Support\Carbon;
 use Laravel\VaporUi\Support\Cloud;
@@ -218,7 +219,11 @@ class JobsMetricsRepository
     protected function failedJobs()
     {
         if ($this->failedJobsCollection === null) {
-            $this->failedJobsCollection = collect($this->failedJobs->all());
+            try {
+                $this->failedJobsCollection = collect($this->failedJobs->all());
+            } catch (QueryException $e) {
+                $this->failedJobsCollection = collect();
+            }
         }
 
         return $this->failedJobsCollection;
