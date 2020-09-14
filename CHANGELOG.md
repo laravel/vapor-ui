@@ -1,6 +1,9 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v0.0.5...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v0.0.6...master)
+
+
+## [v0.0.6 (2020-09-14)](https://github.com/laravel/vapor-ui/compare/v0.0.5...v0.0.6)
 
 ### Added
 - Jobs metrics tab ([18c0ab4](https://github.com/laravel/vapor-ui/commit/18c0ab4944adae359d0428da6a5f4b3219121453), [58547b5](https://github.com/laravel/vapor-ui/commit/58547b5e766ac6c1a1a6d5aeb78b1ca619a90088))
