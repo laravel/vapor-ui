@@ -11,18 +11,13 @@
          stopOnFailure="false"
 >
     <testsuites>
-        <testsuite name="Vapor UI Integration Test Suite">
-            <directory suffix=".php">./tests/Integration</directory>
-        </testsuite>
         <testsuite name="Vapor UI Unit Test Suite">
             <directory suffix=".php">./tests/Unit</directory>
         </testsuite>
+        <testsuite name="Vapor UI Integration Test Suite">
+            <directory suffix=".php">./tests/Integration</directory>
+        </testsuite>
     </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src/</directory>
-        </whitelist>
-    </filter>
     <php>
         <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF"/>
     </php>
