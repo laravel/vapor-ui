@@ -7,7 +7,7 @@ export default [
         component: require('./screens/logs/index').default,
         meta: {
             resource: 'logs',
-            createTitle: ({ group }) => group.toUpperCase() + ' Logs',
+            createTitle: ({ group }) => group.toLowerCase() + ' Logs',
         },
     },
 
@@ -17,7 +17,7 @@ export default [
         component: require('./screens/logs/show').default,
         meta: {
             resource: 'logs',
-            createTitle: ({ group }) => group.toUpperCase() + ' Logs - Details',
+            createTitle: ({ group }) => group.toLowerCase() + ' Logs - Details',
         },
     },
 
@@ -37,7 +37,7 @@ export default [
         component: require('./screens/jobs/index').default,
         meta: {
             resource: 'jobs',
-            createTitle: ({ group }) => group.toUpperCase() + ' Jobs',
+            createTitle: ({ group }) => group.toLowerCase() + ' Jobs',
         },
     },
 
@@ -47,7 +47,7 @@ export default [
         component: require('./screens/jobs/show').default,
         meta: {
             resource: 'jobs',
-            createTitle: ({ group }) => group.toUpperCase() + ' Jobs - Details',
+            createTitle: ({ group }) => group.toLowerCase() + ' Jobs - Details',
         },
     },
 ];
