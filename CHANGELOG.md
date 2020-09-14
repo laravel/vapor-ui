@@ -3,7 +3,7 @@
 ## [Unreleased](https://github.com/laravel/vapor-ui/compare/v0.0.5...master)
 
 ### Added
-- Jobs metrics tab ([18c0ab4](https://github.com/laravel/vapor-ui/commit/18c0ab4944adae359d0428da6a5f4b3219121453))
+- Jobs metrics tab ([18c0ab4](https://github.com/laravel/vapor-ui/commit/18c0ab4944adae359d0428da6a5f4b3219121453), [58547b5](https://github.com/laravel/vapor-ui/commit/58547b5e766ac6c1a1a6d5aeb78b1ca619a90088))
 
 ### Changed
 - Message on missing environment variables ([160c68b](https://github.com/laravel/vapor-ui/commit/160c68bd683c4edcf56a7699e69bb745afbbb0af))
