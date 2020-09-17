@@ -259,8 +259,7 @@ export default {
 
             let params = { ...this.filters };
             if (this.filters.startTime) {
-                params.startTime = moment(this.filters.startTime, 'YYYY-MM-DD LTS')
-                    .format('X');
+                params.startTime = moment(this.filters.startTime, 'YYYY-MM-DD LTS').format('X');
             }
 
             this.$router.push({ query: Object.assign({}, this.$route.query, params) }).catch(() => {});
