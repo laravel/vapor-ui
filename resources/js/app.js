@@ -14,8 +14,6 @@ if (token) {
 
 Vue.use(VueRouter);
 
-moment.tz.setDefault(App.timezone);
-
 const router = new VueRouter({
     routes: Routes,
     mode: 'history',
