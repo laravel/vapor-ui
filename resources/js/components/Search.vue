@@ -231,7 +231,7 @@ export default {
              * Next, we update some state like the minutes ago selector, and
              * the `searching` that will display the loader.
              */
-            const startTime = moment(this.filters.startTime, 'YYYY-MM-DD LTS').add(new Date().getTimezoneOffset(), 'm');
+            const startTime = moment(this.filters.startTime, 'YYYY-MM-DD LTS');
             this.minutesAgo = parseInt(moment.duration(moment().diff(startTime)).asMinutes());
             this.entries = [];
             this.cursor = null;
@@ -260,7 +260,6 @@ export default {
             let params = { ...this.filters };
             if (this.filters.startTime) {
                 params.startTime = moment(this.filters.startTime, 'YYYY-MM-DD LTS')
-                    .add(new Date().getTimezoneOffset(), 'm')
                     .format('X');
             }
 
