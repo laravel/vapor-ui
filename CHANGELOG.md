@@ -2,6 +2,12 @@
 
 ## [Unreleased](https://github.com/laravel/vapor-ui/compare/v0.0.7...master)
 
+## [v0.0.8 (2020-09-18)](https://github.com/laravel/vapor-ui/compare/v0.0.7...v0.0.8)
+
+### Fixed
+- Usage of dashboard with different backend timezone config ([3d7d269](https://github.com/laravel/vapor-ui/commit/3d7d269aa985e92480f0999ff4b91aff190926e0))
+
+
 ## [v0.0.7 (2020-09-18)](https://github.com/laravel/vapor-ui/compare/v0.0.6...v0.0.7)
 
 ### Changed
