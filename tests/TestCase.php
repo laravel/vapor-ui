@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
+use Illuminate\Support\Facades\Gate;
 use Laravel\VaporUi\VaporUiServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
@@ -31,6 +32,10 @@ abstract class TestCase extends OrchestraTestCase
     {
         $app->useEnvironmentPath(__DIR__.'/..');
         $app->bootstrapWith([LoadEnvironmentVariables::class]);
+
+        Gate::define('viewVaporUI', function ($user = null) {
+            return true;
+        });
 
         $app['config']->set('vapor-ui', require __DIR__.'./../config/vapor-ui.php');
 
