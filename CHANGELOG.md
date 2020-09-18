@@ -1,6 +1,11 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v0.0.6...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v0.0.7...master)
+
+## [v0.0.7 (2020-09-18)](https://github.com/laravel/vapor-ui/compare/v0.0.6...v0.0.7)
+
+### Changed
+- Removes "testing" environment from authorized environments by default ([482f23c](https://github.com/laravel/vapor-ui/commit/482f23c6ad5605cd4a247e148948998ed5c2b02b))
 
 
 ## [v0.0.6 (2020-09-14)](https://github.com/laravel/vapor-ui/compare/v0.0.5...v0.0.6)
