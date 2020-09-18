@@ -27,7 +27,15 @@ export default {
          * Formats the given label to a tooltip title.
          */
         formatTooltipTitle([{ label }]) {
-            return label + ' - ' + moment(label, 'LT').add(1, 'hours').format('LT');
+            return (
+                label +
+                ' - ' +
+                moment(label, 'LT')
+                    .add(1, 'hours')
+                    .local(true)
+                    .format('LT')
+                    .replace(/:[0-9]{2}/, '')
+            );
         },
 
         /**

@@ -14,7 +14,7 @@ if (token) {
 
 Vue.use(VueRouter);
 
-moment.tz.setDefault(App.timezone);
+moment.tz.setDefault('utc');
 
 const router = new VueRouter({
     routes: Routes,

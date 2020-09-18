@@ -115,11 +115,6 @@
             <router-view></router-view>
         </div>
 
-        <!-- Global App Object -->
-        <script>
-            window.App = @json($appVars);
-        </script>
-
         <script src="{{ asset(mix('app.js', 'vendor/vapor-ui')) }}"></script>
     </body>
 </html>
