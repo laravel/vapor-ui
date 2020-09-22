@@ -159,9 +159,9 @@ class JobsMetricsRepository
     public function processedTimeseries()
     {
         return collect($this->logs([
-            'StartTime' => now()->subHours(23)->setMinute(0),
+            'StartTime' => now()->subHours(23)->setMinute(0)->format('Y-m-d H:i:s'),
             'Period' => 60 * 60,
-            'EndTime' => now()->addDays(1),
+            'EndTime' => now()->addDays(1)->format('Y-m-d H:i:s'),
             'MetricName' => 'NumberOfMessagesReceived',
             'Statistics' => ['Sum'],
         ])['Datapoints'])->map(function ($result, $key) {
@@ -182,9 +182,9 @@ class JobsMetricsRepository
     public function processedSumByHoursAgo($hoursAgo)
     {
         return (int) collect($this->logs([
-            'StartTime' => now()->subHours($hoursAgo),
+            'StartTime' => now()->subHours($hoursAgo)->format('Y-m-d H:i:s'),
             'Period' => 60 * 60 * $hoursAgo,
-            'EndTime' => now()->addDays(1),
+            'EndTime' => now()->addDays(1)->format('Y-m-d H:i:s'),
             'MetricName' => 'NumberOfMessagesReceived',
             'Statistics' => ['Sum'],
         ])['Datapoints'])->pluck('Sum')->sum();
@@ -201,8 +201,8 @@ class JobsMetricsRepository
     public function processedAverageByHoursAgo($fromHoursAgo, $untilHoursAgo)
     {
         return (int) (collect($this->logs([
-            'StartTime' => now()->subHours($fromHoursAgo),
-            'EndTime' => now()->subHours($untilHoursAgo),
+            'StartTime' => now()->subHours($fromHoursAgo)->format('Y-m-d H:i:s'),
+            'EndTime' => now()->subHours($untilHoursAgo)->format('Y-m-d H:i:s'),
             'Period' => 60 * 60 * $fromHoursAgo,
             'MetricName' => 'NumberOfMessagesReceived',
             'Statistics' => ['Sum'],
