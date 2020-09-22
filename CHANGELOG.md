@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v0.0.7...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v0.0.9...master)
+
+## [v0.0.9 (2020-09-22)](https://github.com/laravel/vapor-ui/compare/v0.0.8...v0.0.9)
+
+### Fixed
+- Wrong serialization of date objects while using CloudWatch API ([#21](https://github.com/laravel/vapor-ui/pull/21))
+
 
 ## [v0.0.8 (2020-09-18)](https://github.com/laravel/vapor-ui/compare/v0.0.7...v0.0.8)
 
