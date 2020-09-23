@@ -66,6 +66,6 @@ return [
         'web',
         EnsureUserIsAuthorized::class,
         EnsureEnvironmentVariables::class,
-        EnsureUpToDateAssets::class
+        EnsureUpToDateAssets::class,
     ]
 ];
