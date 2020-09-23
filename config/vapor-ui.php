@@ -67,5 +67,5 @@ return [
         EnsureUserIsAuthorized::class,
         EnsureEnvironmentVariables::class,
         EnsureUpToDateAssets::class,
-    ]
+    ],
 ];
