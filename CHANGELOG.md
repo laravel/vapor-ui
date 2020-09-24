@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v0.0.9...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v0.0.10...master)
+
+## [v0.0.10 (2020-09-24)](https://github.com/laravel/vapor-ui/compare/v0.0.9...v0.0.10)
+
+### Added
+- Customizable Middleware stack ([#23](https://github.com/laravel/vapor-ui/pull/23))
+
 
 ## [v0.0.9 (2020-09-22)](https://github.com/laravel/vapor-ui/compare/v0.0.8...v0.0.9)
 
