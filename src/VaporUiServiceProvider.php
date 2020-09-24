@@ -6,6 +6,7 @@ use Aws\CloudWatch\CloudWatchClient;
 use Aws\CloudWatchLogs\CloudWatchLogsClient;
 use Aws\Sqs\SqsClient;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Laravel\VaporUi\Concerns\ConfiguresVaporUi;
 
@@ -20,10 +21,16 @@ class VaporUiServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Route::middlewareGroup('vapor-ui', config('vapor-ui.middleware', []));
+
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'vapor-ui');
 
         if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../config/vapor-ui.php' => config_path('vapor-ui.php'),
+            ], 'vapor-ui-config');
+
             $this->publishes([
                 __DIR__.'/../public' => public_path('vendor/vapor-ui'),
             ], 'vapor-ui-assets');
@@ -42,6 +49,8 @@ class VaporUiServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/vapor-ui.php', 'vapor-ui');
+        $this->mergeConfigFrom(__DIR__.'/../config/runtime.php', 'vapor-ui');
+
         $this->ensureVaporUiIsConfigured();
 
         $this->commands([

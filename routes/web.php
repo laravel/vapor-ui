@@ -5,17 +5,10 @@ use Laravel\VaporUi\Http\Controllers\HomeController;
 use Laravel\VaporUi\Http\Controllers\JobController;
 use Laravel\VaporUi\Http\Controllers\JobMetricController;
 use Laravel\VaporUi\Http\Controllers\LogController;
-use Laravel\VaporUi\Http\Middleware\EnsureEnvironmentVariables;
-use Laravel\VaporUi\Http\Middleware\EnsureUpToDateAssets;
-use Laravel\VaporUi\Http\Middleware\EnsureUserIsAuthorized;
 
 Route::prefix('vapor-ui')
-    ->middleware([
-        'web',
-        EnsureUserIsAuthorized::class,
-        EnsureEnvironmentVariables::class,
-        EnsureUpToDateAssets::class,
-    ])->group(function () {
+    ->middleware('vapor-ui')
+    ->group(function () {
         Route::get('/api/logs/{group}', [LogController::class, 'index']);
         Route::get('/api/logs/{group}/{id}', [LogController::class, 'show']);
 

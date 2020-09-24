@@ -10,6 +10,18 @@ use Orchestra\Testbench\TestCase as OrchestraTestCase;
 abstract class TestCase extends OrchestraTestCase
 {
     /**
+     * Setup the test environment.
+     *
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->artisan('vapor-ui:publish', ['--force' => true])->run();
+    }
+
+    /**
      * Get package providers.
      *
      * @param \Illuminate\Foundation\Application $app
@@ -18,6 +30,9 @@ abstract class TestCase extends OrchestraTestCase
      */
     protected function getPackageProviders($app)
     {
+        $app->useEnvironmentPath(__DIR__.'/..');
+        $app->bootstrapWith([LoadEnvironmentVariables::class]);
+
         return [VaporUiServiceProvider::class];
     }
 
@@ -30,14 +45,9 @@ abstract class TestCase extends OrchestraTestCase
      */
     protected function getEnvironmentSetUp($app)
     {
-        $app->useEnvironmentPath(__DIR__.'/..');
-        $app->bootstrapWith([LoadEnvironmentVariables::class]);
-
         Gate::define('viewVaporUI', function ($user = null) {
             return true;
         });
-
-        $app['config']->set('vapor-ui', require __DIR__.'./../config/vapor-ui.php');
 
         parent::getEnvironmentSetUp($app);
     }
