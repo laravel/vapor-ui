@@ -5,6 +5,7 @@ use Laravel\VaporUi\Http\Middleware\EnsureUpToDateAssets;
 use Laravel\VaporUi\Http\Middleware\EnsureUserIsAuthorized;
 
 return [
+
     /*
     |--------------------------------------------------------------------------
     | Vapor UI Route Middleware
@@ -22,4 +23,5 @@ return [
         EnsureEnvironmentVariables::class,
         EnsureUpToDateAssets::class,
     ],
+
 ];
