@@ -28,6 +28,10 @@ class VaporUiServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
+                __DIR__.'/../config/vapor-ui.php' => config_path('vapor-ui.php'),
+            ], 'vapor-ui-config');
+
+            $this->publishes([
                 __DIR__.'/../public' => public_path('vendor/vapor-ui'),
             ], 'vapor-ui-assets');
 
@@ -45,6 +49,8 @@ class VaporUiServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/vapor-ui.php', 'vapor-ui');
+        $this->mergeConfigFrom(__DIR__.'/../config/runtime.php', 'vapor-ui');
+
         $this->ensureVaporUiIsConfigured();
 
         $this->commands([

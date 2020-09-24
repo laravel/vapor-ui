@@ -4,4 +4,6 @@ uses(Tests\TestCase::class)
     ->group('integration')
     ->in('Integration');
 
-uses()->group('unit')->in('Unit');
+uses(Tests\TestCase::class)
+    ->group('unit')
+    ->in('Unit');
