@@ -38,6 +38,8 @@ class LogsRepository
         'Caching Laravel configuration',
         'NOTICE: exiting, bye-bye!',
         'NOTICE: Terminating',
+        'Injecting secret',
+        'Killing container. Container has processed',
     ];
 
     /**
