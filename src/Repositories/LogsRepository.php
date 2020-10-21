@@ -36,6 +36,8 @@ class LogsRepository
         'NOTICE: fpm is running,',
         'NOTICE: ready to handle connections',
         'Caching Laravel configuration',
+        'NOTICE: exiting, bye-bye!',
+        'NOTICE: Terminating',
     ];
 
     /**

@@ -31,7 +31,15 @@
                 <div class="ml-4">
                     <div class="text-sm leading-5 font-medium text-gray-900 truncate">
                         <p class="truncate">
-                            {{ entry.content.message.message ? entry.content.message.message : entry.content.message }}
+                            <template v-if="entry.content.message.message">
+                                {{ entry.content.message.message }}
+                            </template>
+                            <template v-else-if="entry.content.message.output">
+                                {{ entry.content.message.output }}
+                            </template>
+                            <template v-else>
+                                {{ entry.content.message }}
+                            </template>
                         </p>
                     </div>
                     <div
