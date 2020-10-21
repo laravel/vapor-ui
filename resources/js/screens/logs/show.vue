@@ -63,7 +63,10 @@
                 </dd>
             </div>
 
-            <div v-if="! entry.content.message.output" class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+            <div
+                v-if="!entry.content.message.output"
+                class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
+            >
                 <dt class="text-sm leading-5 font-medium text-gray-500">Message</dt>
                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
                     {{ entry.content.message.message ? entry.content.message.message : entry.content.message }}
