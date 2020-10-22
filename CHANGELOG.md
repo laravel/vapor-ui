@@ -2,6 +2,12 @@
 
 ## [Unreleased](https://github.com/laravel/vapor-ui/compare/v0.0.10...master)
 
+## [v0.0.11 (2020-10-22)](https://github.com/laravel/vapor-ui/compare/v0.0.10...v0.0.11)
+
+### Added
+- Support for log records "output" key ([#30](https://github.com/laravel/vapor-ui/pull/30))
+
+
 ## [v0.0.10 (2020-09-24)](https://github.com/laravel/vapor-ui/compare/v0.0.9...v0.0.10)
 
 ### Added
