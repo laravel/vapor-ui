@@ -23,14 +23,23 @@ class LogsRepository
      * @var array
      */
     protected $ignore = [
+        'Creating storage directory',
         'START RequestId',
         'REPORT RequestId',
         'END RequestId',
         'Executing warming requests',
-        'Loaded Composer autoload filePreparing to add secrets to runtimePreparing to boot FPMEnsuring ready to start FPMStarting FPM Process',
+        'Loaded Composer autoload file',
+        'Preparing to add secrets to runtime',
+        'Preparing to boot FPM',
+        'Ensuring ready to start FPM',
+        'Starting FPM Process',
         'NOTICE: fpm is running,',
         'NOTICE: ready to handle connections',
         'Caching Laravel configuration',
+        'NOTICE: exiting, bye-bye!',
+        'NOTICE: Terminating',
+        'Injecting secret',
+        'Killing container. Container has processed',
     ];
 
     /**

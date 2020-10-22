@@ -53,7 +53,20 @@
                 </dd>
             </div>
 
-            <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+            <div
+                v-if="entry.content.message.context && entry.content.message.context.command"
+                class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
+            >
+                <dt class="text-sm leading-5 font-medium text-gray-500">Command</dt>
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                    {{ entry.content.message.context.command }}
+                </dd>
+            </div>
+
+            <div
+                v-if="!entry.content.message.output"
+                class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5"
+            >
                 <dt class="text-sm leading-5 font-medium text-gray-500">Message</dt>
                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
                     {{ entry.content.message.message ? entry.content.message.message : entry.content.message }}
@@ -65,7 +78,12 @@
             >
                 <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
                     <div class="border border-gray-200 rounded-md bg-gray-900 text-white overflow-x-auto">
+                        <pre v-if="entry.content.message.output" class="m-4 3rem">
+                            {{ entry.content.message.output.trim() }}
+                        </pre>
+
                         <vue-json-pretty
+                            v-else
                             class="m-4 3rem"
                             :showLine="false"
                             :deep="4"
