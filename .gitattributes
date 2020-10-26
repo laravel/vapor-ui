@@ -1,5 +1,11 @@
 * text=auto
 
+*.blade.php diff=html
+*.css diff=css
+*.html diff=html
+*.md diff=markdown
+*.php diff=php
+
 /.github export-ignore
 /tests export-ignore
 .env.example export-ignore
@@ -10,4 +16,4 @@
 CHANGELOG.md export-ignore
 phpunit.xml export-ignore
 phpstan.neon export-ignore
-UPGRADE.md
+UPGRADE.md export-ignore
