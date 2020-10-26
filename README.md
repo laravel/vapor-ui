@@ -4,13 +4,13 @@
     <img src="https://github.com/laravel/vapor-ui/workflows/tests/badge.svg" alt="Build Status">
 </a>
 <a href="https://packagist.org/packages/laravel/vapor-ui">
-    <img src="https://poser.pugx.org/laravel/vapor-ui/d/total.svg" alt="Total Downloads">
+    <img src="https://img.shields.io/packagist/dt/laravel/vapor-ui" alt="Total Downloads">
 </a>
 <a href="https://packagist.org/packages/laravel/vapor-ui">
-    <img src="https://poser.pugx.org/laravel/vapor-ui/v/stable.svg" alt="Latest Stable Version">
+    <img src="https://img.shields.io/packagist/v/laravel/vapor-ui" alt="Latest Stable Version">
 </a>
 <a href="https://packagist.org/packages/laravel/vapor-ui">
-    <img src="https://poser.pugx.org/laravel/vapor-ui/license.svg" alt="License">
+    <img src="https://img.shields.io/packagist/l/laravel/vapor-ui" alt="License">
 </a>
 
 ![image](https://laravel-blog-assets.s3.amazonaws.com/Pt7UBx57HxsGR5Qlga9cLSoAvkAukMT5BMkcLK9N.png "image")
