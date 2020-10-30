@@ -22,7 +22,7 @@
         }
     ],
     "require": {
-        "php": "^7.3",
+        "php": "^7.3|^8.0",
         "aws/aws-sdk-php": "^3.148.3",
         "laravel/framework": "^6.0|^7.0|^8.0"
     },
@@ -38,8 +38,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/",
-            "App\\": "stubs/app/"
+            "Tests\\": "tests/"
         }
     },
     "extra": {
