@@ -38,8 +38,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/",
-            "App\\": "stubs/app/"
+            "Tests\\": "tests/"
         }
     },
     "extra": {
