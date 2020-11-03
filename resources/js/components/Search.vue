@@ -89,7 +89,19 @@
 
                 <!-- No Search Results -->
                 <search-empty-results v-if="!searching && !troubleshooting && entries.length == 0">
-                    No entries were found for the given search criteria.
+                    <template v-if="cursor">
+                        <p class="mb-2">No entries have been found close to the given "Starting from" date.</p>
+                        <p>
+                            Please adjust the "Starting from" date, or
+                            <a
+                                href="#"
+                                class="no-underline text-indigo-600 font-semibold hover:text-indigo-900"
+                                v-on:click.prevent="loadMore"
+                                >click here to keep searching</a
+                            >.
+                        </p>
+                    </template>
+                    <template v-else> No entries were found for the given search criteria. </template>
                 </search-empty-results>
 
                 <!-- Troubleshooting -->
@@ -132,7 +144,7 @@
                                     v-on:click.prevent="loadMore"
                                     class="no-underline hover:underline text-blue-500 text-sm"
                                 >
-                                    Load newer entries
+                                    Search newer entries
                                 </a>
                             </p>
                         </div>
@@ -166,6 +178,7 @@ export default {
             troubleshooting: false,
             minutesAgo: null,
             searching: true,
+            page: 0,
             cursor: null,
             filters: {},
         };
@@ -234,6 +247,7 @@ export default {
             const startTime = moment(this.filters.startTime, 'YYYY-MM-DD LTS').add(new Date().getTimezoneOffset(), 'm');
             this.minutesAgo = parseInt(moment.duration(moment().diff(startTime)).asMinutes());
             this.entries = [];
+            this.page = 0;
             this.cursor = null;
 
             /**
@@ -305,7 +319,9 @@ export default {
                 this.entries = data.entries.concat(this.entries).sort((a, b) => b.timestamp - a.timestamp);
 
                 this.cursor = data.cursor;
-                if (this.entries.length < 50 && this.cursor) {
+                this.page++;
+
+                if (this.entries.length < 50 && this.cursor && this.page < 3) {
                     this.loadMore();
                 }
             });
