@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v0.0.12...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.0.0...master)
+
+## [v1.0.0 (2020-11-03)](https://github.com/laravel/vapor-ui/compare/v0.0.12...v1.0.0)
+
+### Fixed
+- Endless searching for non-existing entries ([#33](https://github.com/laravel/vapor-ui/pull/33))
+
 
 ## [v0.0.12 (2020-10-30)](https://github.com/laravel/vapor-ui/compare/v0.0.11...v0.0.12)
 
