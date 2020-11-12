@@ -24,4 +24,14 @@ return [
         EnsureUpToDateAssets::class,
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Vapor UI Path
+    |--------------------------------------------------------------------------
+    |
+    | This is the URI path where Vapor UI will be accessible from. Feel free
+    | to change this path to anything you like.
+    |
+    */
+    'path' => env('VAPOR_UI_PATH', 'vapor-ui'),
 ];

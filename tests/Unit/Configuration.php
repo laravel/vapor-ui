@@ -14,3 +14,7 @@ test('runtime', function () {
 test('middleware', function () {
     expect(config('vapor-ui.middleware'))->toBeArray();
 });
+
+test('path', function () {
+    expect(config('vapor-ui.path'))->toBeString();
+});
