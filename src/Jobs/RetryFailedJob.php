@@ -2,6 +2,7 @@
 
 namespace Laravel\VaporUi\Jobs;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Queue\Factory;
 use Illuminate\Queue\Failed\FailedJobProviderInterface;
 
@@ -58,6 +59,13 @@ class RetryFailedJob
 
         if (isset($payload['attempts'])) {
             $payload['attempts'] = 0;
+        }
+
+        $retryUntil = $payload['retryUntil'] ?? $payload['timeoutAt'] ?? null;
+        if ($retryUntil) {
+            $payload['retryUntil'] = CarbonImmutable::now()->addSeconds(ceil(
+                    isset($payload['pushedAt']) ? $retryUntil - $payload['pushedAt'] : config('vapor-ui.retry_until', 3600);
+                ))->getTimestamp();
         }
 
         return json_encode($payload);
