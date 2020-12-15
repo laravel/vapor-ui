@@ -64,7 +64,7 @@ class RetryFailedJob
         $retryUntil = $payload['retryUntil'] ?? $payload['timeoutAt'] ?? null;
         if ($retryUntil) {
             $payload['retryUntil'] = CarbonImmutable::now()->addSeconds(ceil(
-                    isset($payload['pushedAt']) ? $retryUntil - $payload['pushedAt'] : config('vapor-ui.retry_until', 3600);
+                    isset($payload['pushedAt']) ? $retryUntil - $payload['pushedAt'] : config('vapor-ui.retry_until', 3600)
                 ))->getTimestamp();
         }
 
