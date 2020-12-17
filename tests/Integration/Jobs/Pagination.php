@@ -37,13 +37,13 @@ test('hits per page', function () {
             'exception' => "Illuminate\Queue\ManuallyFailedException in /",
             'failed_at' => '2020-08-26 14:11:21',
         ],
-      'group' => 'cli',
-      'filters' => [
-          'startTime' => $this->startTime,
-      ],
-      'id' => 36,
-      'timestamp' => 1598451081000,
-      'exception' => "Illuminate\Queue\ManuallyFailedException",
-      'message' => 'Manually failed',
+        'group' => 'cli',
+        'filters' => [
+            'startTime' => $this->startTime,
+        ],
+        'id' => 36,
+        'timestamp' => 1598451081000,
+        'exception' => "Illuminate\Queue\ManuallyFailedException",
+        'message' => 'Manually failed',
     ]);
 });
