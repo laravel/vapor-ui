@@ -1,6 +1,13 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.0.0...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.0.1...master)
+
+
+## [v1.0.1 (2020-12-22)](https://github.com/laravel/vapor-ui/compare/v1.0.0...v1.0.1)
+
+### Fixed
+- Retrying failed jobs with retryUntil ([#39](https://github.com/laravel/vapor-ui/pull/39))
+
 
 ## [v1.0.0 (2020-11-03)](https://github.com/laravel/vapor-ui/compare/v0.0.12...v1.0.0)
 
