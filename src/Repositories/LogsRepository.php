@@ -127,10 +127,18 @@ class LogsRepository
     {
         $vaporUi = config('vapor-ui');
 
+        $environment = $vaporUi['environment'];
+
+        $usingDockerRuntime = Str::endsWith(
+            $_ENV['AWS_LAMBDA_FUNCTION_NAME'] ?? '',
+            "$environment-d"
+        );
+
         return sprintf(
-            '/aws/lambda/vapor-%s-%s%s',
+            '/aws/lambda/vapor-%s-%s%s%s',
             $vaporUi['project'],
-            $vaporUi['environment'],
+            $environment,
+            $usingDockerRuntime ? '-d' : '',
             in_array($group, ['cli', 'queue']) ? "-$group" : ''
         );
     }
@@ -179,6 +187,7 @@ class LogsRepository
         }
 
         $query = $filters['query'] ?? '';
+
         $exclude = $this->ignore
             ? '- "'.collect($this->ignore)->implode('" - "').'"'
             : '';
