@@ -126,9 +126,10 @@ class LogsRepository
     protected function logGroupName($group)
     {
         $vaporUi = config('vapor-ui');
+
         $environment = $vaporUi['environment'];
 
-        $switchedToDockerRuntime = Str::endsWith(
+        $usingDockerRuntime = Str::endsWith(
             $_ENV['AWS_LAMBDA_FUNCTION_NAME'] ?? '',
             "$environment-d"
         );
@@ -137,7 +138,7 @@ class LogsRepository
             '/aws/lambda/vapor-%s-%s%s%s',
             $vaporUi['project'],
             $environment,
-            $switchedToDockerRuntime ? '-d' : '',
+            $usingDockerRuntime ? '-d' : '',
             in_array($group, ['cli', 'queue']) ? "-$group" : ''
         );
     }
@@ -186,6 +187,7 @@ class LogsRepository
         }
 
         $query = $filters['query'] ?? '';
+
         $exclude = $this->ignore
             ? '- "'.collect($this->ignore)->implode('" - "').'"'
             : '';
