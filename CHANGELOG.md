@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.0.1...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.0.2...master)
+
+
+## [v1.0.2 (2021-01-05)](https://github.com/laravel/vapor-ui/compare/v1.0.1...v1.0.2)
+
+### Changed
+- Supports environments that switched to docker runtime ([#42](https://github.com/laravel/vapor-ui/pull/42))
 
 
 ## [v1.0.1 (2020-12-22)](https://github.com/laravel/vapor-ui/compare/v1.0.0...v1.0.1)
