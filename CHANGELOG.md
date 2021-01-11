@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.0.2...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.0.3...master)
+
+
+## [v1.0.3 (2021-01-11)](https://github.com/laravel/vapor-ui/compare/v1.0.2...v1.0.3)
+
+### Fixed
+- Ignores Vapor internal message from logs tab ([7c5a8e4](https://github.com/laravel/vapor-ui/commit/7c5a8e42014099f9ba70c3f99e0905141dd311df))
 
 
 ## [v1.0.2 (2021-01-05)](https://github.com/laravel/vapor-ui/compare/v1.0.1...v1.0.2)
