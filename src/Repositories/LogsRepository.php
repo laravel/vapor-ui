@@ -40,6 +40,7 @@ class LogsRepository
         'NOTICE: Terminating',
         'Injecting secret',
         'Killing container. Container has processed',
+        'Downloading the application vendor archive',
     ];
 
     /**
