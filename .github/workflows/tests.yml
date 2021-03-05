@@ -1,17 +1,21 @@
 name: tests
 
-on: ['push', 'pull_request']
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   linux_tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
+
     strategy:
       fail-fast: true
       matrix:
         php: [7.3, 7.4, 8.0]
-        stability: [prefer-stable]
 
-    name: PHP ${{ matrix.php }} - ${{ matrix.stability }}
+    name: PHP ${{ matrix.php }}
 
     steps:
       - name: Checkout code
@@ -30,7 +34,7 @@ jobs:
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
       - name: Install PHP dependencies
-        run: composer update --${{ matrix.stability }} --no-interaction --no-progress
+        run: composer update --prefer-stable --no-interaction --no-progress
 
       - name: Execute static analysis
         run: vendor/bin/phpstan analyse
