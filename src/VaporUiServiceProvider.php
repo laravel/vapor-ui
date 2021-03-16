@@ -38,6 +38,11 @@ class VaporUiServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../stubs/VaporUiServiceProvider.stub' => app_path('Providers/VaporUiServiceProvider.php'),
             ], 'vapor-ui-provider');
+
+            $this->commands([
+                Console\InstallCommand::class,
+                Console\PublishCommand::class,
+            ]);
         }
     }
 
@@ -53,16 +58,11 @@ class VaporUiServiceProvider extends ServiceProvider
 
         $this->ensureVaporUiIsConfigured();
 
-        $this->commands([
-            Console\InstallCommand::class,
-            Console\PublishCommand::class,
-        ]);
-
         $this->registerClients();
     }
 
     /**
-     * Binds an implemention of the CloudWatch Client.
+     * Binds an implementation of the CloudWatch Client.
      *
      * @return void
      */
