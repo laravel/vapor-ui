@@ -1,10 +1,7 @@
 {
     "name": "laravel/vapor-ui",
     "description": "The Laravel Vapor UI.",
-    "keywords": [
-        "laravel",
-        "vapor"
-    ],
+    "keywords": ["laravel", "vapor"],
     "homepage": "https://github.com/laravel/vapor-ui",
     "license": "MIT",
     "support": {
@@ -18,7 +15,7 @@
         },
         {
             "name": "Nuno Maduro",
-            "email": "enunomaduro@gmail.com"
+            "email": "nuno@laravel.com"
         }
     ],
     "require": {
