@@ -2,7 +2,6 @@
     "name": "laravel/vapor-ui",
     "description": "The Laravel Vapor UI.",
     "keywords": ["laravel", "vapor"],
-    "homepage": "https://github.com/laravel/vapor-ui",
     "license": "MIT",
     "support": {
         "issues": "https://github.com/laravel/vapor-ui/issues",
