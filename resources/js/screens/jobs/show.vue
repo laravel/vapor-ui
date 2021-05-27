@@ -4,7 +4,27 @@
             <span class="order-0 sm:order-1 sm:ml-3 shadow-sm rounded-md">
                 <async-button
                     type="button"
-                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150"
+                    class="
+                        inline-flex
+                        items-center
+                        px-4
+                        py-2
+                        border border-transparent
+                        text-sm
+                        leading-5
+                        font-medium
+                        rounded-md
+                        text-white
+                        bg-indigo-600
+                        hover:bg-indigo-500
+                        focus:outline-none
+                        focus:border-indigo-700
+                        focus:shadow-outline-indigo
+                        active:bg-indigo-700
+                        transition
+                        ease-in-out
+                        duration-150
+                    "
                     :loading="running"
                     :disabled="running"
                     @click.native.prevent="run('retry', entry)"
@@ -15,7 +35,27 @@
             <span class="order-0 sm:order-1 sm:ml-3 shadow-sm rounded-md">
                 <async-button
                     type="button"
-                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-700 transition ease-in-out duration-150"
+                    class="
+                        inline-flex
+                        items-center
+                        px-4
+                        py-2
+                        border border-transparent
+                        text-sm
+                        leading-5
+                        font-medium
+                        rounded-md
+                        text-white
+                        bg-red-600
+                        hover:bg-red-500
+                        focus:outline-none
+                        focus:border-red-700
+                        focus:shadow-outline-red
+                        active:bg-red-700
+                        transition
+                        ease-in-out
+                        duration-150
+                    "
                     :loading="running"
                     :disabled="running"
                     @click.native.prevent="run('forget', entry)"
