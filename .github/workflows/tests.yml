@@ -36,8 +36,5 @@ jobs:
       - name: Install PHP dependencies
         run: composer update --prefer-stable --no-interaction --no-progress
 
-      - name: Execute static analysis
-        run: vendor/bin/phpstan analyse
-
       - name: Execute unit tests
         run: vendor/bin/pest --colors=always --verbose --group="unit"
