@@ -36,7 +36,18 @@
                     </div>
                     <div
                         v-if="percentage() != 0.0"
-                        class="inline-flex items-baseline px-2.5 py-0.5 rounded-full text-sm font-medium leading-5 md:mt-2 lg:mt-0"
+                        class="
+                            inline-flex
+                            items-baseline
+                            px-2.5
+                            py-0.5
+                            rounded-full
+                            text-sm
+                            font-medium
+                            leading-5
+                            md:mt-2
+                            lg:mt-0
+                        "
                         :class="
                             percentage() > 0.0
                                 ? `bg-${increaseColor}-100 text-${increaseColor}-800`

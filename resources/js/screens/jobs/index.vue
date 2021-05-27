@@ -47,7 +47,23 @@
                         }"
                         tag="button"
                         href="#"
-                        class="w-8 h-8 inline-flex items-center justify-center text-gray-400 rounded-full bg-transparent hover:text-gray-500 focus:outline-none focus:text-gray-500 focus:bg-gray-100 transition ease-in-out duration-150"
+                        class="
+                            w-8
+                            h-8
+                            inline-flex
+                            items-center
+                            justify-center
+                            text-gray-400
+                            rounded-full
+                            bg-transparent
+                            hover:text-gray-500
+                            focus:outline-none
+                            focus:text-gray-500
+                            focus:bg-gray-100
+                            transition
+                            ease-in-out
+                            duration-150
+                        "
                     >
                         <icon-eye
                             size="5"
