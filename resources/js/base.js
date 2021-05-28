@@ -7,16 +7,7 @@ export default {
          * Returns an moment instance.
          */
         moment() {
-            // moment.updateLocale('en');
-
             return moment;
-        },
-
-        /**
-         * Returns the list of the log types.
-         */
-        logTypes() {
-            return App.logTypes;
         },
 
         /**
