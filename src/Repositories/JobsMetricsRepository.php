@@ -40,11 +40,18 @@ class JobsMetricsRepository
     protected $failedJobsCollection;
 
     /**
+     * The queue name resolver.
+     *
+     * @var callable|null
+     */
+    protected $queueResolver;
+
+    /**
      * Creates a new instance of the metrics repository.
      *
      * @param CloudWatchClient $cloudWatch
-     * @param SqsClient $sqs
      * @param FailedJobProviderInterface $failedJobs
+     * @param SqsClient $sqs
      *
      * @return void
      */
@@ -53,6 +60,10 @@ class JobsMetricsRepository
         $this->cloudWatch = $cloudWatch;
         $this->failedJobs = $failedJobs;
         $this->sqs = $sqs;
+
+        $this->queueResolver = function () {
+            return config('vapor-ui.queue.name');
+        };
     }
 
     /**
@@ -62,12 +73,13 @@ class JobsMetricsRepository
      */
     public function pending()
     {
-        $config = config('vapor-ui.queue');
-        if (empty($config['prefix']) || empty($config['name'])) {
+        $prefix = config('vapor-ui.queue.prefix');
+
+        if (empty($prefix)) {
             return 0;
         }
 
-        $queueUrl = collect($config)->implode('/');
+        $queue = $this->queueResolver->__invoke();
 
         return collect($this->sqs->getQueueAttributes([
             'AttributeNames' => [
@@ -75,7 +87,7 @@ class JobsMetricsRepository
                 'ApproximateNumberOfMessagesNotVisible',
                 'ApproximateNumberOfMessagesDelayed',
             ],
-            'QueueUrl' => $queueUrl,
+            'QueueUrl' => "$prefix/$queue",
         ])['Attributes'])->sum();
     }
 
@@ -210,6 +222,17 @@ class JobsMetricsRepository
     }
 
     /**
+     * Sets the queue resolver.
+     *
+     * @param  callable $callback
+     * @return void
+     */
+    public function resolveQueueUsing($callback)
+    {
+        $this->queueResolver = $callback;
+    }
+
+    /**
      * Gets the failed jobs.
      *
      * It memoizes the the `all` call to failed jobs provider.
@@ -220,7 +243,10 @@ class JobsMetricsRepository
     {
         if ($this->failedJobsCollection === null) {
             try {
-                $this->failedJobsCollection = collect($this->failedJobs->all());
+                $this->failedJobsCollection = collect($this->failedJobs->all())
+                    ->filter(function ($content) {
+                        return $this->queueResolver->__invoke() == ((array) $content)['queue'];
+                    });
             } catch (QueryException $e) {
                 $this->failedJobsCollection = collect();
             }
@@ -240,7 +266,7 @@ class JobsMetricsRepository
     {
         return $this->cloudWatch->getMetricStatistics(array_merge_recursive([
             'Dimensions' => [[
-                'Name' => 'QueueName', 'Value' => config('vapor-ui.queue.name'),
+                'Name' => 'QueueName', 'Value' => $this->queueResolver->__invoke(),
             ]],
             'Namespace' => 'AWS/SQS',
         ], $payload))->toArray();

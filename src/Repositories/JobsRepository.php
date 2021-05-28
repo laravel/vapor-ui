@@ -64,7 +64,9 @@ class JobsRepository
 
         $entries = $all
             ->reverse()
-            ->filter(function ($content) use ($queryTerms, $startTime) {
+            ->filter(function ($content) use ($filters) {
+                return empty($filters['queue']) || $filters['queue'] == ((array) $content)['queue'];
+            })->filter(function ($content) use ($queryTerms, $startTime) {
                 foreach ($queryTerms as $term) {
                     if (! Str::contains(json_encode($content), $term)) {
                         return false;
