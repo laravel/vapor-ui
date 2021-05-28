@@ -4,11 +4,12 @@
             <div class="bg-white shadow">
                 <div class="px-4 sm:px-6 lg:max-w-6xl lg:mx-auto lg:px-8">
                     <div class="py-6 md:flex md:items-center md:justify-between lg:border-t lg:border-cool-gray-200">
-                    <div class="flex-1 min-w-0">
-                    </div>
+                        <div class="flex-1 min-w-0"></div>
                         <div class="mt-6 flex space-x-3 md:mt-0 md:ml-4">
                             <div>
-                                <label for="queue-input" class="block text-sm font-medium leading-5 text-gray-700"> Queue name </label>
+                                <label for="queue-input" class="block text-sm font-medium leading-5 text-gray-700">
+                                    Queue name
+                                </label>
                                 <select
                                     id="queue-input"
                                     v-model="filters.queue"
@@ -202,9 +203,11 @@ export default {
             return axios
                 .get('/vapor-ui/api/jobs/metrics', {
                     params: this.filters,
-                }).then(({ data }) => {
+                })
+                .then(({ data }) => {
                     this.metrics = data;
-                }).catch(() => {
+                })
+                .catch(() => {
                     this.troubleshooting = true;
 
                     throw 'Server error.';
