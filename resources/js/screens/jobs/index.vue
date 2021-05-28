@@ -3,7 +3,9 @@
         <template slot="filters" slot-scope="{ filters, loadEntries }">
             <div class="mt-6 flex space-x-3 md:mt-0 md:ml-4">
                 <div>
-                    <label for="queue-input" class="block text-sm font-medium leading-5 text-gray-700"> Queue name </label>
+                    <label for="queue-input" class="block text-sm font-medium leading-5 text-gray-700">
+                        Queue name
+                    </label>
                     <select
                         id="queue-input"
                         v-model="filters.queue"

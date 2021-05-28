@@ -13,9 +13,7 @@ export default {
         queues() {
             let queues = {};
 
-            VaporUi.queues.forEach(
-                (queue) => queues[queue] = queue,
-            );
+            VaporUi.queues.forEach((queue) => (queues[queue] = queue));
 
             return queues;
         },
