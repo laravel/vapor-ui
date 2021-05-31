@@ -3,7 +3,6 @@
 namespace Laravel\VaporUi\Http\Controllers;
 
 use Illuminate\View\View;
-use Laravel\VaporUi\Repositories\QueuesRepository;
 use Laravel\VaporUi\Support\Cloud;
 
 class HomeController
