@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.0.3...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.1.0...master)
+
+
+## [v1.1.0 (2021-01-11)](https://github.com/laravel/vapor-ui/compare/v1.0.3...v1.1.0)
+
+### Added
+- Support for multiple queues ([#50](https://github.com/laravel/vapor-ui/pull/50))
 
 
 ## [v1.0.3 (2021-01-11)](https://github.com/laravel/vapor-ui/compare/v1.0.2...v1.0.3)
