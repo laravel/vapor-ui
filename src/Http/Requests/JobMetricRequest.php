@@ -14,7 +14,7 @@ class JobMetricRequest extends FormRequest
     public function rules()
     {
         return [
-            'queue' => ['nullable', 'string'],
+            'queue' => ['string'],
         ];
     }
 }

@@ -17,7 +17,7 @@ class JobRequest extends FormRequest
             'query' => ['nullable', 'string'],
             'startTime' => ['required', 'integer'],
             'cursor' => ['nullable', 'string'],
-            'queue' => ['nullable', 'string'],
+            'queue' => ['string'],
         ];
     }
 }
