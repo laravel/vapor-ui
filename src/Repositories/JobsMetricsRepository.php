@@ -245,7 +245,10 @@ class JobsMetricsRepository
             try {
                 $this->failedJobsCollection = collect($this->failedJobs->all())
                     ->filter(function ($content) {
-                        return $this->queueResolver->__invoke() == ((array) $content)['queue'];
+                        $queue = $this->queueResolver->__invoke();
+                        $prefix = config('vapor-ui.queue.prefix');
+
+                        return "$prefix/$queue" == ((array) $content)['queue'];
                     });
             } catch (QueryException $e) {
                 $this->failedJobsCollection = collect();
