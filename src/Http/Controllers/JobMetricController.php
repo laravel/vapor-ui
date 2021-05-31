@@ -2,6 +2,7 @@
 
 namespace Laravel\VaporUi\Http\Controllers;
 
+use Laravel\VaporUi\Http\Requests\JobMetricRequest;
 use Laravel\VaporUi\Repositories\JobsMetricsRepository;
 
 class JobMetricController
@@ -30,8 +31,16 @@ class JobMetricController
      *
      * @return array
      */
-    public function index()
+    public function index(JobMetricRequest $request)
     {
+        tap($request->get('queue'), function ($queue) {
+            if ($queue) {
+                $this->metrics->resolveQueueUsing(function () use ($queue) {
+                    return $queue;
+                });
+            }
+        });
+
         return [
             'failed' => [
                 'timeseries' => $this->metrics->failedTimeseries(),

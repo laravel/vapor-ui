@@ -2,6 +2,9 @@
 
 namespace Laravel\VaporUi\Support;
 
+use Illuminate\Support\Arr;
+use Symfony\Component\Yaml\Parser;
+
 class Cloud
 {
     /**
@@ -35,6 +38,34 @@ class Cloud
         array_pop($parts);
 
         return implode('-', $parts);
+    }
+
+    /**
+     * Guesses the queues from the cloud environment.
+     *
+     * @return array
+     */
+    public static function queues()
+    {
+        $prefix = config('vapor-ui.queue.prefix');
+
+        if (empty($prefix)) {
+            return [];
+        }
+
+        $vapor = (new Parser)->parse(file_get_contents(base_path('vapor.yml')));
+
+        $environment = config('vapor-ui.environment');
+
+        $queues = Arr::get(
+            $vapor,
+            "environments.$environment.queues",
+            [config('vapor-ui.queue.name')]
+        );
+
+        return collect($queues)->map(function ($queue) use ($prefix) {
+            return str_replace("$prefix/", '', $queue);
+        })->unique()->values()->all();
     }
 
     /**

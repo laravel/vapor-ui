@@ -219,8 +219,14 @@
 <script>
 import axios from 'axios';
 import moment from 'moment';
+import JobMixin from './../mixins/job';
 
 export default {
+    /**
+     * The component's mixins.
+     */
+    mixins: [JobMixin],
+
     /**
      * The component's data.
      */
@@ -302,6 +308,10 @@ export default {
             this.entries = [];
             this.page = 0;
             this.cursor = null;
+
+            if (this.$route.meta.resource === 'jobs' && this.filters.queue == undefined) {
+                this.filters.queue = Object.keys(this.queues())[0];
+            }
 
             /**
              * Finally, we perform the request.

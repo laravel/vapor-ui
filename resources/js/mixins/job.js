@@ -6,5 +6,16 @@ export default {
         jobColor(displayName) {
             return 'red';
         },
+
+        /**
+         * Returns the queue names.
+         */
+        queues() {
+            let queues = {};
+
+            VaporUi.queues.forEach((queue) => (queues[queue] = queue));
+
+            return queues;
+        },
     },
 };

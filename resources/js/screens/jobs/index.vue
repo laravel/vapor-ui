@@ -1,7 +1,38 @@
 <template>
     <search>
-        <template slot="filters" slot-scope="{ filters, loadEntries }"></template>
-
+        <template slot="filters" slot-scope="{ filters, loadEntries }">
+            <div class="mt-6 flex space-x-3 md:mt-0 md:ml-4">
+                <div>
+                    <label for="queue-input" class="block text-sm font-medium leading-5 text-gray-700">
+                        Queue name
+                    </label>
+                    <select
+                        id="queue-input"
+                        v-model="filters.queue"
+                        v-on:change="loadEntries"
+                        class="
+                            mt-1
+                            form-select
+                            block
+                            w-full
+                            pl-3
+                            pr-10
+                            py-2
+                            text-base
+                            leading-6
+                            border-gray-300
+                            focus:outline-none
+                            focus:shadow-outline-blue
+                            focus:border-blue-300
+                            sm:text-sm
+                            sm:leading-5
+                        "
+                    >
+                        <option v-for="(label, value) in queues()" :value="value">{{ label }}</option>
+                    </select>
+                </div>
+            </div>
+        </template>
         <template slot="troubleshooting">
             <p>It looks like there was an error. Please check your application logs.</p>
 

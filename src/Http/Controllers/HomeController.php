@@ -3,6 +3,7 @@
 namespace Laravel\VaporUi\Http\Controllers;
 
 use Illuminate\View\View;
+use Laravel\VaporUi\Support\Cloud;
 
 class HomeController
 {
@@ -13,6 +14,8 @@ class HomeController
      */
     public function __invoke()
     {
-        return view('vapor-ui::layout');
+        return view('vapor-ui::layout', [
+            'queues' => Cloud::queues(),
+        ]);
     }
 }

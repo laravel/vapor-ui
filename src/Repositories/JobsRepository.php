@@ -58,13 +58,16 @@ class JobsRepository
         $limit = 50;
         $offset = $this->offset($filters);
         $startTime = $this->startTime($filters);
+        $queue = $this->queue($filters);
         $queryTerms = $this->queryTerms($filters);
 
         $all = collect($this->provider->all());
 
         $entries = $all
             ->reverse()
-            ->filter(function ($content) use ($queryTerms, $startTime) {
+            ->filter(function ($content) use ($queue) {
+                return $queue == ((array) $content)['queue'];
+            })->filter(function ($content) use ($queryTerms, $startTime) {
                 foreach ($queryTerms as $term) {
                     if (! Str::contains(json_encode($content), $term)) {
                         return false;
@@ -97,6 +100,21 @@ class JobsRepository
     protected function startTime($filters)
     {
         return isset($filters['startTime']) ? (int) $filters['startTime'] * 1000 : null;
+    }
+
+    /**
+     * Gets the queue from the given $filters.
+     *
+     * @param array $filters
+     *
+     * @return string
+     */
+    protected function queue($filters)
+    {
+        $queue = $filters['queue'];
+        $prefix = config('vapor-ui.queue.prefix');
+
+        return "$prefix/$queue";
     }
 
     /**

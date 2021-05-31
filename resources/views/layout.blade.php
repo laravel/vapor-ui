@@ -115,6 +115,13 @@
             <router-view></router-view>
         </div>
 
+        <!-- Global Telescope Object -->
+        <script>
+            window.VaporUi = @json([
+                'queues' => $queues,
+            ]);
+        </script>
+
         <script src="{{ asset(mix('app.js', 'vendor/vapor-ui')) }}"></script>
     </body>
 </html>
