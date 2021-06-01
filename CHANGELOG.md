@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.1.0...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.1.1...master)
+
+
+## [v1.1.1 (2021-06-01)](https://github.com/laravel/vapor-ui/compare/v1.1.0...v1.1.1)
+
+### Fixed
+- Add symfony/yaml ([7d77dd4](https://github.com/laravel/vapor-ui/commit/7d77dd4cf08f2952eab22468c2d49ae164c67a13))
 
 
 ## [v1.1.0 (2021-06-01)](https://github.com/laravel/vapor-ui/compare/v1.0.3...v1.1.0)
