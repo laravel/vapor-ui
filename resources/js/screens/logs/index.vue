@@ -20,8 +20,7 @@
                             leading-6
                             border-gray-300
                             focus:outline-none focus:shadow-outline-blue focus:border-blue-300
-                            sm:text-sm
-                            sm:leading-5
+                            sm:text-sm sm:leading-5
                         "
                     >
                         <option :value="undefined" selected>All</option>
