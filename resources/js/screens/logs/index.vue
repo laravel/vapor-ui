@@ -91,8 +91,6 @@
                             params: { id: entry.id, group: entry.group },
                             query: entry.filters,
                         }"
-                        tag="button"
-                        href="#"
                         class="
                             w-8
                             h-8
