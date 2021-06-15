@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.1.1...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.1.2...master)
+
+
+## [v1.1.2 (2021-06-15)](https://github.com/laravel/vapor-ui/compare/v1.1.1...v1.1.2)
+
+### Fixed
+- Logs/Show link should be a <a>, not a <button> ([#55](https://github.com/laravel/vapor-ui/pull/55))
 
 
 ## [v1.1.1 (2021-06-01)](https://github.com/laravel/vapor-ui/compare/v1.1.0...v1.1.1)
