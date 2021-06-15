@@ -19,11 +19,8 @@
                             text-base
                             leading-6
                             border-gray-300
-                            focus:outline-none
-                            focus:shadow-outline-blue
-                            focus:border-blue-300
-                            sm:text-sm
-                            sm:leading-5
+                            focus:outline-none focus:shadow-outline-blue focus:border-blue-300
+                            sm:text-sm sm:leading-5
                         "
                     >
                         <option :value="undefined" selected>All</option>
@@ -91,8 +88,6 @@
                             params: { id: entry.id, group: entry.group },
                             query: entry.filters,
                         }"
-                        tag="button"
-                        href="#"
                         class="
                             w-8
                             h-8
@@ -103,9 +98,7 @@
                             rounded-full
                             bg-transparent
                             hover:text-gray-500
-                            focus:outline-none
-                            focus:text-gray-500
-                            focus:bg-gray-100
+                            focus:outline-none focus:text-gray-500 focus:bg-gray-100
                             transition
                             ease-in-out
                             duration-150
