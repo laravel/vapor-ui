@@ -23,8 +23,7 @@
                                     rounded-md
                                     text-gray-900
                                     placeholder-gray-500
-                                    focus:outline-none
-                                    focus:placeholder-gray-400
+                                    focus:outline-none focus:placeholder-gray-400
                                     sm:text-sm
                                 "
                                 placeholder="Search"
@@ -39,11 +38,8 @@
                             p-1
                             text-gray-400
                             rounded-full
-                            hover:bg-gray-100
-                            hover:text-gray-500
-                            focus:outline-none
-                            focus:shadow-outline
-                            focus:text-gray-500
+                            hover:bg-gray-100 hover:text-gray-500
+                            focus:outline-none focus:shadow-outline focus:text-gray-500
                         "
                         aria-label="Refresh"
                         v-on:click="loadEntries"
@@ -87,8 +83,7 @@
                                                 border-transparent
                                                 bg-transparent
                                                 text-gray-500
-                                                sm:text-sm
-                                                sm:leading-5
+                                                sm:text-sm sm:leading-5
                                             "
                                         >
                                             <option

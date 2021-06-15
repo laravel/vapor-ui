@@ -17,9 +17,7 @@
                         text-white
                         bg-indigo-600
                         hover:bg-indigo-500
-                        focus:outline-none
-                        focus:border-indigo-700
-                        focus:shadow-outline-indigo
+                        focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo
                         active:bg-indigo-700
                         transition
                         ease-in-out
@@ -48,9 +46,7 @@
                         text-white
                         bg-red-600
                         hover:bg-red-500
-                        focus:outline-none
-                        focus:border-red-700
-                        focus:shadow-outline-red
+                        focus:outline-none focus:border-red-700 focus:shadow-outline-red
                         active:bg-red-700
                         transition
                         ease-in-out
