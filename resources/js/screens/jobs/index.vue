@@ -21,11 +21,8 @@
                             text-base
                             leading-6
                             border-gray-300
-                            focus:outline-none
-                            focus:shadow-outline-blue
-                            focus:border-blue-300
-                            sm:text-sm
-                            sm:leading-5
+                            focus:outline-none focus:shadow-outline-blue focus:border-blue-300
+                            sm:text-sm sm:leading-5
                         "
                     >
                         <option v-for="(label, value) in queues()" :value="value">{{ label }}</option>
@@ -88,9 +85,7 @@
                             rounded-full
                             bg-transparent
                             hover:text-gray-500
-                            focus:outline-none
-                            focus:text-gray-500
-                            focus:bg-gray-100
+                            focus:outline-none focus:text-gray-500 focus:bg-gray-100
                             transition
                             ease-in-out
                             duration-150

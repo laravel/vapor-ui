@@ -25,11 +25,8 @@
                                         text-base
                                         leading-6
                                         border-gray-300
-                                        focus:outline-none
-                                        focus:shadow-outline-blue
-                                        focus:border-blue-300
-                                        sm:text-sm
-                                        sm:leading-5
+                                        focus:outline-none focus:shadow-outline-blue focus:border-blue-300
+                                        sm:text-sm sm:leading-5
                                     "
                                 >
                                     <option v-for="(label, value) in queues()" :value="value">{{ label }}</option>
