@@ -41,7 +41,7 @@ class Cloud
     }
 
     /**
-     * Get the queue names
+     * Get the queue names to monitor.
      *
      * @return array
      */
