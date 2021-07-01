@@ -41,11 +41,21 @@ class Cloud
     }
 
     /**
-     * Guesses the queues from the cloud environment.
+     * Get the queue names
      *
      * @return array
      */
     public static function queues()
+    {
+        return array_merge(self::guessQueues(), config('vapor-ui.queues'));
+    }
+
+    /**
+     * Guesses the queues from the cloud environment.
+     *
+     * @return array
+     */
+    public static function guessQueues()
     {
         $prefix = config('vapor-ui.queue.prefix');
 
