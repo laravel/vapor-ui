@@ -47,7 +47,7 @@ class Cloud
      */
     public static function queues()
     {
-        return array_merge(self::guessQueues(), config('vapor-ui.queues'));
+        return array_merge(self::guessQueues(), config('vapor-ui.queues', []));
     }
 
     /**
