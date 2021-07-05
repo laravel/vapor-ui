@@ -51,7 +51,7 @@ class Cloud
     }
 
     /**
-     * Guesses the queues from the cloud environment.
+     * Guess the queues for the cloud environment.
      *
      * @return array
      */

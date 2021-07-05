@@ -29,13 +29,14 @@ return [
     | Vapor UI Queues
     |--------------------------------------------------------------------------
     |
-    | Queue names will be automatically guessed from your vapor.yml config but
-    | you can specify any additional vapor queues in the array below to be
-    | monitored.
+    | Typically, queues that should be monitored will be determined for you
+    | by Vapor UI. However, you are free to add additional queues to the
+    | list below in order to monitor queues that Vapor doesn't manage.
     |
     */
 
     'queues' => [
 
     ],
+
 ];
