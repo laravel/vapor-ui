@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.1.2...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.2.0...master)
+
+
+## [v1.2.0 (2021-07-06)](https://github.com/laravel/vapor-ui/compare/v1.1.2...v1.2.0)
+
+### Added
+- Custom queue monitoring ([#58](https://github.com/laravel/vapor-ui/pull/58), [78b606b](https://github.com/laravel/vapor-ui/commit/78b606be2dd45d2a393591d5d2c0fa170a00c484))
 
 
 ## [v1.1.2 (2021-06-15)](https://github.com/laravel/vapor-ui/compare/v1.1.1...v1.1.2)
