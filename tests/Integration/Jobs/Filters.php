@@ -6,6 +6,7 @@ test('query', function () {
     $response = $this->json('GET', '/vapor-ui/api/jobs/failed', [
         'startTime' => $this->startTime,
         'query' => 'This query do not exist for sure',
+        'queue' => $_ENV['SQS_QUEUE'],
     ]);
 
     expect($response['entries'])->toHaveCount(0);
@@ -23,6 +24,7 @@ test('start date', function () {
 
     $response = $this->json('GET', '/vapor-ui/api/jobs/failed', [
         'startTime' => $startTime,
+        'queue' => $_ENV['SQS_QUEUE'],
     ]);
 
     expect($response['entries'])->toHaveCount(0);
