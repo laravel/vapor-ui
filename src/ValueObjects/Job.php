@@ -61,10 +61,9 @@ class Job implements JsonSerializable
     /**
      * Creates a new job.
      *
-     * @param string $group
-     * @param array $filters
-     * @param array $content
-     *
+     * @param  string  $group
+     * @param  array  $filters
+     * @param  array  $content
      * @return void
      */
     public function __construct($content, $group, $filters)

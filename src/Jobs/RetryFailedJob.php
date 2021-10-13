@@ -29,9 +29,8 @@ class RetryFailedJob
     /**
      * Execute the job.
      *
-     * @param Factory $queueFactory
-     * @param FailedJobProviderInterface $provider
-     *
+     * @param  Factory  $queueFactory
+     * @param  FailedJobProviderInterface  $provider
      * @return void
      */
     public function handle(Factory $queueFactory, FailedJobProviderInterface $provider)

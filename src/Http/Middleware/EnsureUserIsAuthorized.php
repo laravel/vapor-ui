@@ -11,9 +11,9 @@ class EnsureUserIsAuthorized
     /**
      * Ensures the user is authorized to visit Vapor UI Dashboard.
      *
-     * @param Request $request
-     * @param Closure $next
-     * @param string|null $guard
+     * @param  Request  $request
+     * @param  Closure  $next
+     * @param  string|null  $guard
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)

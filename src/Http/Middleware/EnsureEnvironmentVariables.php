@@ -25,9 +25,9 @@ class EnsureEnvironmentVariables
     /**
      * Ensures environment variables are properly configured.
      *
-     * @param Request $request
-     * @param Closure $next
-     * @param string|null $guard
+     * @param  Request  $request
+     * @param  Closure  $next
+     * @param  string|null  $guard
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)

@@ -19,8 +19,7 @@ class LogController
     /**
      * Creates a new instance of the log controller.
      *
-     * @param LogsRepository $repository
-     *
+     * @param  LogsRepository  $repository
      * @return void
      */
     public function __construct(LogsRepository $repository)
@@ -31,9 +30,8 @@ class LogController
     /**
      * Gets the log results by the given request filters.
      *
-     * @param string $group
-     * @param LogRequest $request
-     *
+     * @param  string  $group
+     * @param  LogRequest  $request
      * @return SearchResult
      */
     public function index($group, LogRequest $request)
@@ -44,10 +42,9 @@ class LogController
     /**
      * Gets a log by the given request filters.
      *
-     * @param string $group
-     * @param string $id
-     * @param LogRequest $request
-     *
+     * @param  string  $group
+     * @param  string  $id
+     * @param  LogRequest  $request
      * @return Log|null
      */
     public function show($group, $id, LogRequest $request)

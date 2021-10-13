@@ -21,8 +21,7 @@ class JobController
     /**
      * Creates a new instance of the job controller.
      *
-     * @param JobsRepository $repository
-     *
+     * @param  JobsRepository  $repository
      * @return void
      */
     public function __construct(JobsRepository $repository)
@@ -33,9 +32,8 @@ class JobController
     /**
      * Gets the job results by the given request filters.
      *
-     * @param string $group
-     * @param JobRequest $request
-     *
+     * @param  string  $group
+     * @param  JobRequest  $request
      * @return SearchResult
      */
     public function index($group, JobRequest $request)
@@ -46,10 +44,9 @@ class JobController
     /**
      * Gets a job by the given request filters.
      *
-     * @param string $group
-     * @param string $id
-     * @param JobRequest $request
-     *
+     * @param  string  $group
+     * @param  string  $id
+     * @param  JobRequest  $request
      * @return Job|null
      */
     public function show($group, $id, JobRequest $request)
@@ -60,8 +57,7 @@ class JobController
     /**
      * Retry a job by the given id.
      *
-     * @param string $id
-     *
+     * @param  string  $id
      * @return void
      */
     public function retry($id)
@@ -72,8 +68,7 @@ class JobController
     /**
      * Forget a job by the given id.
      *
-     * @param string $id
-     *
+     * @param  string  $id
      * @return void
      */
     public function forget($id)

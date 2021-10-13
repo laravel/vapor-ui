@@ -49,10 +49,9 @@ class JobsMetricsRepository
     /**
      * Creates a new instance of the metrics repository.
      *
-     * @param CloudWatchClient $cloudWatch
-     * @param FailedJobProviderInterface $failedJobs
-     * @param SqsClient $sqs
-     *
+     * @param  CloudWatchClient  $cloudWatch
+     * @param  FailedJobProviderInterface  $failedJobs
+     * @param  SqsClient  $sqs
      * @return void
      */
     public function __construct(CloudWatchClient $cloudWatch, FailedJobProviderInterface $failedJobs, SqsClient $sqs)
@@ -130,8 +129,7 @@ class JobsMetricsRepository
     /**
      * The total of failed jobs in past given hours ago.
      *
-     * @param  int $hoursAgo
-     *
+     * @param  int  $hoursAgo
      * @return int
      */
     public function failedSumByHoursAgo($hoursAgo)
@@ -146,9 +144,8 @@ class JobsMetricsRepository
     /**
      * Gets the average of failed jobs from the given period.
      *
-     * @param  int $fromHoursAgo
-     * @param  int $untilHoursAgo
-     *
+     * @param  int  $fromHoursAgo
+     * @param  int  $untilHoursAgo
      * @return int
      */
     public function failedAverageByHoursAgo($fromHoursAgo, $untilHoursAgo)
@@ -187,8 +184,7 @@ class JobsMetricsRepository
     /**
      * The total of processed jobs in past given hours ago.
      *
-     * @param  int $hoursAgo
-     *
+     * @param  int  $hoursAgo
      * @return int
      */
     public function processedSumByHoursAgo($hoursAgo)
@@ -205,9 +201,8 @@ class JobsMetricsRepository
     /**
      * Gets the average of processed jobs from the given period.
      *
-     * @param  int $fromHoursAgo
-     * @param  int $untilHoursAgo
-     *
+     * @param  int  $fromHoursAgo
+     * @param  int  $untilHoursAgo
      * @return int
      */
     public function processedAverageByHoursAgo($fromHoursAgo, $untilHoursAgo)
@@ -224,7 +219,7 @@ class JobsMetricsRepository
     /**
      * Sets the queue resolver.
      *
-     * @param  callable $callback
+     * @param  callable  $callback
      * @return void
      */
     public function resolveQueueUsing($callback)
@@ -262,7 +257,6 @@ class JobsMetricsRepository
      * Performs a request to the Cloud Watch Logs API.
      *
      * @param  array  $payload
-     *
      * @return array
      */
     protected function logs($payload)

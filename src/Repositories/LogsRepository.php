@@ -20,7 +20,7 @@ class LogsRepository
     /**
      * The list of log messages that should be ignored.
      *
-     * @var  array
+     * @var array
      */
     protected $ignore = [
         'Creating storage directory',
@@ -46,8 +46,7 @@ class LogsRepository
     /**
      * Creates a new instance of the logs repository.
      *
-     * @param CloudWatchLogsClient $client
-     *
+     * @param  CloudWatchLogsClient  $client
      * @return void
      */
     public function __construct(CloudWatchLogsClient $client)
@@ -58,10 +57,9 @@ class LogsRepository
     /**
      * Gets the log by the given id.
      *
-     * @param string $group
-     * @param string $id
-     * @param array $filters
-     *
+     * @param  string  $group
+     * @param  string  $id
+     * @param  array  $filters
      * @return Log|null
      */
     public function get($group, $id, $filters = [])
@@ -74,9 +72,8 @@ class LogsRepository
     /**
      * Search for the logs by the given filters.
      *
-     * @param string $group
-     * @param array $filters
-     *
+     * @param  string  $group
+     * @param  array  $filters
      * @return SearchResult
      */
     public function search($group, $filters = [])
@@ -120,8 +117,7 @@ class LogsRepository
     /**
      * Returns the log group name from the given $group.
      *
-     * @param string $group
-     *
+     * @param  string  $group
      * @return string
      */
     protected function logGroupName($group)
@@ -147,8 +143,7 @@ class LogsRepository
     /**
      * Gets the next token from the given $filters.
      *
-     * @param array $filters
-     *
+     * @param  array  $filters
      * @return string|null
      */
     protected function nextToken($filters)
@@ -159,8 +154,7 @@ class LogsRepository
     /**
      * Gets the start time from the given $filters.
      *
-     * @param array $filters
-     *
+     * @param  array  $filters
      * @return int|null
      */
     protected function startTime($filters)
@@ -171,8 +165,7 @@ class LogsRepository
     /**
      * Gets the filter pattern from the given $filters.
      *
-     * @param array $filters
-     *
+     * @param  array  $filters
      * @return string
      */
     protected function filterPattern($filters)

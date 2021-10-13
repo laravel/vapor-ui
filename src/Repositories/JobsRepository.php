@@ -20,8 +20,7 @@ class JobsRepository
     /**
      * Creates a new instance of the jobs repository.
      *
-     * @param FailedJobProviderInterface $provider
-     *
+     * @param  FailedJobProviderInterface  $provider
      * @return void
      */
     public function __construct(FailedJobProviderInterface $provider)
@@ -32,10 +31,9 @@ class JobsRepository
     /**
      * Gets the job by the given id.
      *
-     * @param string $group
-     * @param string $id
-     * @param array $filters
-     *
+     * @param  string  $group
+     * @param  string  $id
+     * @param  array  $filters
      * @return Job|null
      */
     public function get($group, $id, $filters = [])
@@ -48,9 +46,8 @@ class JobsRepository
     /**
      * Search for the jobs by the given filters.
      *
-     * @param string $group
-     * @param array $filters
-     *
+     * @param  string  $group
+     * @param  array  $filters
      * @return SearchResult
      */
     public function search($group, $filters)
@@ -93,8 +90,7 @@ class JobsRepository
     /**
      * Gets the start time from the given $filters.
      *
-     * @param array $filters
-     *
+     * @param  array  $filters
      * @return int|null
      */
     protected function startTime($filters)
@@ -105,8 +101,7 @@ class JobsRepository
     /**
      * Gets the queue from the given $filters.
      *
-     * @param array $filters
-     *
+     * @param  array  $filters
      * @return string
      */
     protected function queue($filters)
@@ -120,8 +115,7 @@ class JobsRepository
     /**
      * Gets the query from the given $filters.
      *
-     * @param array $filters
-     *
+     * @param  array  $filters
      * @return array
      */
     protected function queryTerms($filters)
@@ -132,8 +126,7 @@ class JobsRepository
     /**
      * Gets the offset from the given $filters.
      *
-     * @param array $filters
-     *
+     * @param  array  $filters
      * @return int|null
      */
     protected function offset($filters)

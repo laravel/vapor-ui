@@ -27,8 +27,7 @@ class ForgetFailedJob
     /**
      * Execute the job.
      *
-     * @param FailedJobProviderInterface $provider
-     *
+     * @param  FailedJobProviderInterface  $provider
      * @return void
      */
     public function handle(FailedJobProviderInterface $provider)

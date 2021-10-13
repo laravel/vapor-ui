@@ -67,10 +67,9 @@ class Log implements JsonSerializable
     /**
      * Creates a new log.
      *
-     * @param string $group
-     * @param array $filters
-     * @param array $content
-     *
+     * @param  string  $group
+     * @param  array  $filters
+     * @param  array  $content
      * @return void
      */
     public function __construct($content, $group, $filters)

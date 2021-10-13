@@ -17,8 +17,7 @@ class JobMetricController
     /**
      * Creates a new instance of the job metric controller.
      *
-     * @param JobsMetricsRepository $metrics
-     *
+     * @param  JobsMetricsRepository  $metrics
      * @return void
      */
     public function __construct(JobsMetricsRepository $metrics)
