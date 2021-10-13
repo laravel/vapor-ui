@@ -39,6 +39,7 @@ class SearchResult implements JsonSerializable
      *
      * @return array
      */
+    #[\\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return (array) $this;
