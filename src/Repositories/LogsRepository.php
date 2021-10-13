@@ -20,7 +20,7 @@ class LogsRepository
     /**
      * The list of log messages that should be ignored.
      *
-     * @var array
+     * @var  array
      */
     protected $ignore = [
         'Creating storage directory',
