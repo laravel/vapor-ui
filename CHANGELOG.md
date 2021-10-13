@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.2.0...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.3.0...master)
+
+
+## [v1.3.0 (2021-10-13)](https://github.com/laravel/vapor-ui/compare/v1.2.0...v1.3.0)
+
+### Added
+- PHP 8.1 support ([#60](https://github.com/laravel/vapor-ui/pull/60))
 
 
 ## [v1.2.0 (2021-07-06)](https://github.com/laravel/vapor-ui/compare/v1.1.2...v1.2.0)
