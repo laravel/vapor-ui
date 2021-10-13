@@ -7,6 +7,7 @@ beforeEach(function () {
 test('cursor based', function () {
     $response = $this->json('GET', '/vapor-ui/api/jobs/failed', [
         'startTime' => $this->startTime,
+        'queue' => $_ENV['SQS_QUEUE'],
     ]);
 
     expect($response['entries'])->toBeIterable()->toHaveCount(50);
@@ -26,6 +27,7 @@ test('cursor based', function () {
 test('hits per page', function () {
     $response = $this->json('GET', '/vapor-ui/api/jobs/cli', [
         'startTime' => $this->startTime,
+        'queue' => $_ENV['SQS_QUEUE'],
     ]);
 
     expect($response['entries'][0])->toEqual([

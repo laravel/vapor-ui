@@ -130,11 +130,15 @@ class Log implements JsonSerializable
      */
     protected function pullLocation()
     {
-        $this->location = Str::replaceFirst(
-            '/var/task/',
-            '',
-            Arr::get($this->content, 'message.context.exception.file')
-        );
+        $location = Arr::get($this->content, 'message.context.exception.file');
+
+        if ($location) {
+            $this->location = Str::replaceFirst(
+                '/var/task/',
+                '',
+                $location
+            );
+        }
 
         return $this;
     }
