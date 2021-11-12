@@ -23,7 +23,7 @@ class VaporUiServiceProvider extends ServiceProvider
     {
         Route::middlewareGroup('vapor-ui', config('vapor-ui.middleware', []));
 
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        $this->registerRoutes();
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'vapor-ui');
 
         if ($this->app->runningInConsole()) {
@@ -85,6 +85,21 @@ class VaporUiServiceProvider extends ServiceProvider
 
                 return new $client($cloudWatchConfig);
             });
+        });
+    }
+
+    /**
+     * Register the Vapor UI routes.
+     *
+     * @return void
+     */
+    protected function registerRoutes()
+    {
+        Route::group([
+            'domain' => config('vapor-ui.domain', null),
+            'prefix' => config('vapor-ui.path', 'vapor-ui'),
+        ], function () {
+            $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         });
     }
 }

@@ -19,7 +19,7 @@ moment.tz.setDefault('utc');
 const router = new VueRouter({
     routes: Routes,
     mode: 'history',
-    base: '/vapor-ui',
+    base: '/' + window.VaporUi.path,
 });
 
 router.beforeEach((to, from, next) => {

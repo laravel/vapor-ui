@@ -218,7 +218,7 @@ export default {
                 1000
             );
 
-            axios.post(`/vapor-ui/api/jobs/failed/${action}/${entry.id}`).then(then);
+            axios.post(`/${window.VaporUi.path}/api/jobs/failed/${action}/${entry.id}`).then(then);
         },
     },
 };

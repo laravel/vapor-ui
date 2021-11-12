@@ -198,7 +198,7 @@ export default {
             this.$router.push({ query: Object.assign({}, this.$route.query, this.filters) }).catch(() => {});
 
             return axios
-                .get('/vapor-ui/api/jobs/metrics', {
+                .get(`/${window.VaporUi.path}/api/jobs/metrics`, {
                     params: this.filters,
                 })
                 .then(({ data }) => {

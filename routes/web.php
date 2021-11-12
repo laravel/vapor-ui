@@ -6,8 +6,7 @@ use Laravel\VaporUi\Http\Controllers\JobController;
 use Laravel\VaporUi\Http\Controllers\JobMetricController;
 use Laravel\VaporUi\Http\Controllers\LogController;
 
-Route::prefix('vapor-ui')
-    ->middleware('vapor-ui')
+Route::middleware('vapor-ui')
     ->group(function () {
         Route::get('/api/logs/{group}', [LogController::class, 'index']);
         Route::get('/api/logs/{group}/{id}', [LogController::class, 'show']);

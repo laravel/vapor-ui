@@ -342,7 +342,7 @@ export default {
 
             this.searching = true;
             return axios
-                .get(`/vapor-ui/api/${this.$route.meta.resource}/${this.group}`, { params })
+                .get(`/${window.VaporUi.path}/api/${this.$route.meta.resource}/${this.group}`, { params })
                 .catch(({ response }) => {
                     this.searching = false;
                     this.troubleshooting = true;

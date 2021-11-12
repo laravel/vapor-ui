@@ -15,6 +15,7 @@ class HomeController
     public function __invoke()
     {
         return view('vapor-ui::layout', [
+            'path' => config('vapor-ui.path', 'vapor-ui'),
             'queues' => Cloud::queues(),
         ]);
     }
