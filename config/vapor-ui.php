@@ -31,7 +31,7 @@ return [
     |
     | This is the subdomain where Vapor UI will be accessible from. If this
     | setting is null, Vapor UI will reside under the same domain as the
-    | application. Otherwise, this value will serve as the subdomain.
+    | application. Otherwise this value should serve as the subdomain.
     |
     */
 
@@ -43,8 +43,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | This is the URI path where Vapor UI will be accessible from. Feel free
-    | to change this path to anything you like. Note that the URI will not
-    | affect the paths of its internal API that aren't exposed to users.
+    | to change the path to anything you like. Note that the URI will not
+    | affect the paths of its internal API that isn't exposed to users.
     |
     */
 
