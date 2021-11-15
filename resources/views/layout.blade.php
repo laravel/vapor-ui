@@ -118,6 +118,7 @@
         <!-- Global Telescope Object -->
         <script>
             window.VaporUi = @json([
+                'path' => $path,
                 'queues' => $queues,
             ]);
         </script>

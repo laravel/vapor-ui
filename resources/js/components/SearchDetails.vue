@@ -114,10 +114,13 @@ export default {
      */
     mounted() {
         axios
-            .get(`/vapor-ui/api/${this.$route.meta.resource}/${this.$route.params.group}/${this.$route.params.id}`, {
-                params: this.$route.query,
-                validateStatus: false,
-            })
+            .get(
+                `/${window.VaporUi.path}/api/${this.$route.meta.resource}/${this.$route.params.group}/${this.$route.params.id}`,
+                {
+                    params: this.$route.query,
+                    validateStatus: false,
+                }
+            )
             .then(({ data }) => {
                 this.ready = true;
                 this.entry = data;
