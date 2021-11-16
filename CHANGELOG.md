@@ -3,7 +3,7 @@
 ## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.4.0...master)
 
 
-## [v1.3.0 (2021-11-16)](https://github.com/laravel/vapor-ui/compare/v1.3.0...v1.4.0)
+## [v1.4.0 (2021-11-16)](https://github.com/laravel/vapor-ui/compare/v1.3.0...v1.4.0)
 
 ### Added
 - Add flexible route configuration ([#63](https://github.com/laravel/vapor-ui/pull/63))
