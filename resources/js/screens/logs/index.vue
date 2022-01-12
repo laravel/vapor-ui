@@ -8,20 +8,7 @@
                         id="type-input"
                         v-model="filters.type"
                         v-on:change="loadEntries"
-                        class="
-                            mt-1
-                            form-select
-                            block
-                            w-full
-                            pl-3
-                            pr-10
-                            py-2
-                            text-base
-                            leading-6
-                            border-gray-300
-                            focus:outline-none focus:shadow-outline-blue focus:border-blue-300
-                            sm:text-sm sm:leading-5
-                        "
+                        class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                     >
                         <option :value="undefined" selected>All</option>
                         <option v-for="(label, value) in logTypes()" :value="value">{{ label }}</option>
@@ -88,21 +75,7 @@
                             params: { id: entry.id, group: entry.group },
                             query: entry.filters,
                         }"
-                        class="
-                            w-8
-                            h-8
-                            inline-flex
-                            items-center
-                            justify-center
-                            text-gray-400
-                            rounded-full
-                            bg-transparent
-                            hover:text-gray-500
-                            focus:outline-none focus:text-gray-500 focus:bg-gray-100
-                            transition
-                            ease-in-out
-                            duration-150
-                        "
+                        class="w-8 h-8 inline-flex items-center justify-center text-gray-400 rounded-full bg-transparent hover:text-gray-500 focus:outline-none focus:text-gray-500 focus:bg-gray-100 transition ease-in-out duration-150"
                     >
                         <icon-eye
                             size="5"
