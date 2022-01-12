@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.4.0...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.5.0...master)
+
+
+## [v1.5.0 (2022-01-12)](https://github.com/laravel/vapor-ui/compare/v1.4.0...v1.5.0)
+
+### Changed
+- Laravel 9 support ([#65](https://github.com/laravel/vapor-ui/pull/65))
 
 
 ## [v1.4.0 (2021-11-16)](https://github.com/laravel/vapor-ui/compare/v1.3.0...v1.4.0)
