@@ -13,19 +13,7 @@
                                 id="search-input"
                                 v-model="filters.query"
                                 @input.stop="search"
-                                class="
-                                    block
-                                    w-full
-                                    h-full
-                                    pl-8
-                                    pr-3
-                                    py-2
-                                    rounded-md
-                                    text-gray-900
-                                    placeholder-gray-500
-                                    focus:outline-none focus:placeholder-gray-400
-                                    sm:text-sm
-                                "
+                                class="block w-full h-full pl-8 pr-3 py-2 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 sm:text-sm"
                                 placeholder="Search"
                                 type="search"
                             />
@@ -34,13 +22,7 @@
                 </div>
                 <div class="ml-4 flex items-center md:ml-6">
                     <button
-                        class="
-                            p-1
-                            text-gray-400
-                            rounded-full
-                            hover:bg-gray-100 hover:text-gray-500
-                            focus:outline-none focus:shadow-outline focus:text-gray-500
-                        "
+                        class="p-1 text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:shadow-outline focus:text-gray-500"
                         aria-label="Refresh"
                         v-on:click="loadEntries"
                     >
@@ -74,17 +56,7 @@
                                             v-model="minutesAgo"
                                             v-on:change="onMinutesAgoChange()"
                                             aria-label="Currency"
-                                            class="
-                                                form-select
-                                                h-full
-                                                py-0
-                                                pl-2
-                                                pr-7
-                                                border-transparent
-                                                bg-transparent
-                                                text-gray-500
-                                                sm:text-sm sm:leading-5
-                                            "
+                                            class="form-select h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm sm:leading-5"
                                         >
                                             <option
                                                 v-for="[option, label] in getMinutesAgoOptions()"
@@ -156,34 +128,14 @@
                 >
                     <div class="bg-white min-w-full" v-if="entries.length > 0">
                         <div
-                            class="
-                                px-6
-                                py-3
-                                border-b border-gray-200
-                                bg-gray-50
-                                text-left text-xs
-                                leading-4
-                                font-medium
-                                text-gray-500
-                                uppercase
-                                tracking-wider
-                            "
+                            class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                         >
                             {{ this.title }}
                         </div>
 
                         <div
                             v-if="cursor"
-                            class="
-                                flex
-                                w-full
-                                py-4
-                                whitespace-no-wrap
-                                text-sm
-                                leading-5
-                                text-cool-gray-900 text-center
-                                border-b border-gray-200
-                            "
+                            class="flex w-full py-4 whitespace-no-wrap text-sm leading-5 text-cool-gray-900 text-center border-b border-gray-200"
                         >
                             <icon-loader v-if="searching" class="flex-1 mt-2" size="3" />
                             <p v-else class="flex-1 text-sm">
