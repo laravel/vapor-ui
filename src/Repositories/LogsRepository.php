@@ -31,6 +31,7 @@ class LogsRepository
         'Loaded Composer autoload file',
         'Preparing to add secrets to runtime',
         'Preparing to boot FPM',
+        'Preparing to boot Octane',
         'Ensuring ready to start FPM',
         'Starting FPM Process',
         'NOTICE: fpm is running,',
