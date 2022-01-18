@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.5.0...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.5.1...master)
+
+
+## [v1.5.1 (2022-01-18)](https://github.com/laravel/vapor-ui/compare/v1.5.0...v1.5.1)
+
+### Fixed
+- Remove Preparing to boot Octane message ([#66](https://github.com/laravel/vapor-ui/pull/66))
 
 
 ## [v1.5.0 (2022-01-12)](https://github.com/laravel/vapor-ui/compare/v1.4.0...v1.5.0)
