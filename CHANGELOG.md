@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.5.1...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.5.2...master)
+
+
+## [v1.5.2 (2022-02-08)](https://github.com/laravel/vapor-ui/compare/v1.5.1...v1.5.2)
+
+### Changed
+* Enable "font-display: swap " to avoid showing invisible text ([#67](https://github.com/laravel/vapor-ui/pull/67))
 
 
 ## [v1.5.1 (2022-01-18)](https://github.com/laravel/vapor-ui/compare/v1.5.0...v1.5.1)
