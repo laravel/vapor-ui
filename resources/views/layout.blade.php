@@ -11,7 +11,7 @@
         <title>Vapor UI - {{ config('vapor-ui.project') }} - {{ config('vapor-ui.environment') }}</title>
 
         <!-- Style sheets -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=Nunito&display=swap" rel="stylesheet" />
         <link href="{{ asset(mix('app.css', 'vendor/vapor-ui')) }}" rel="stylesheet" type="text/css" />
     </head>
     <body>
