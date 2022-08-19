@@ -63,7 +63,7 @@ class Cloud
             return [];
         }
 
-        $vapor = (new Parser)->parse(file_get_contents(config('vapor-ui.manifest_file')));
+        $vapor = (new Parser)->parse(file_get_contents(config('vapor-ui.manifest')));
 
         $environment = config('vapor-ui.environment');
 
