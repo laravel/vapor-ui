@@ -65,17 +65,4 @@ return [
 
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Vapor Manifest file
-    |--------------------------------------------------------------------------
-    |
-    | This is where you will set the path of your custom manifest file.
-    | By default, Vapor-ui reads the vapor.yml file, but if in your application
-    | you need a custom file, you define the path and name of the file here
-    |
-    */
-
-    'manifest_file' => env('VAPOR_MANIFEST_FILE', base_path('vapor.yml')),
-
 ];
