@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -9,10 +10,8 @@ class VaporUiServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->gate();
     }
@@ -21,12 +20,10 @@ class VaporUiServiceProvider extends ServiceProvider
      * Register the Vapor UI gate.
      *
      * This gate determines who can access Vapor UI in non-local environments.
-     *
-     * @return void
      */
-    protected function gate()
+    protected function gate(): void
     {
-        Gate::define('viewVaporUI', function ($user = null) {
+        Gate::define('viewVaporUI', function (User $user = null) {
             return in_array(optional($user)->email, [
                 // 
             ]);
@@ -35,10 +32,8 @@ class VaporUiServiceProvider extends ServiceProvider
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
     }
