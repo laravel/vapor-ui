@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.5.3...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.6.0...master)
+
+## [v1.6.0](https://github.com/laravel/vapor-ui/compare/v1.5.3...v1.6.0) - 2023-01-03
+
+### Changed
+
+- Uses PHP Native Type Declarations 🐘 by @nunomaduro in https://github.com/laravel/vapor-ui/pull/81
 
 ## [v1.5.3](https://github.com/laravel/vapor-ui/compare/v1.5.2...v1.5.3) - 2022-08-19
 
