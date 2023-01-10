@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.6.0...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.7.0...master)
+
+## [v1.7.0](https://github.com/laravel/vapor-ui/compare/v1.6.0...v1.7.0) - 2023-01-10
+
+### Added
+
+- Adds Laravel 10.x support by @nunomaduro in https://github.com/laravel/vapor-ui/pull/82
 
 ## [v1.6.0](https://github.com/laravel/vapor-ui/compare/v1.5.3...v1.6.0) - 2023-01-03
 
