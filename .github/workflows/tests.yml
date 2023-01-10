@@ -10,15 +10,29 @@ on:
     - cron: '0 0 * * *'
 
 jobs:
-  linux_tests:
+  tests:
     runs-on: ubuntu-22.04
 
     strategy:
       fail-fast: true
       matrix:
         php: [7.3, 7.4, '8.0', 8.1, 8.2]
+        laravel: [8, 9, 10]
+        exclude:
+          - php: 7.3
+            laravel: 9
+          - php: 7.3
+            laravel: 10
+          - php: 7.4
+            laravel: 9
+          - php: 7.4
+            laravel: 10
+          - php: 8.0
+            laravel: 10
+          - php: 8.2
+            laravel: 8
 
-    name: PHP ${{ matrix.php }}
+    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
 
     steps:
       - name: Checkout code
@@ -38,7 +52,9 @@ jobs:
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
       - name: Install PHP dependencies
-        run: composer update --prefer-stable --no-interaction --no-progress
+        run: |
+           composer require "laravel/framework=^${{ matrix.laravel }}" --no-update
+           composer update --prefer-dist --no-interaction --no-progress
 
       - name: Execute unit tests
         run: vendor/bin/pest --colors=always --verbose --group="unit"
