@@ -33,7 +33,7 @@ class VaporUiServiceProvider extends ServiceProvider
 
             $this->publishes([
                 __DIR__.'/../public' => public_path('vendor/vapor-ui'),
-            ], 'vapor-ui-assets');
+            ], ['vapor-ui-assets', 'laravel-assets']);
 
             $this->publishes([
                 __DIR__.'/../stubs/VaporUiServiceProvider.stub' => app_path('Providers/VaporUiServiceProvider.php'),
