@@ -15,17 +15,17 @@ export default {
 
             VaporUi.queues.forEach((queue) => {
                 if (typeof queue == 'object') {
-                    let q = Object.keys(queue)[0] || null
+                    let q = Object.keys(queue)[0] || null;
 
                     if (q) {
-                        queues[queue] = q
-                        return
+                        queues[queue] = q;
+                        return;
                     }
                 }
 
                 if (typeof queue == 'string') {
-                    queues[queue] = queue
-                    return
+                    queues[queue] = queue;
+                    return;
                 }
             })
 
