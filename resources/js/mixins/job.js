@@ -27,7 +27,7 @@ export default {
                     queues[queue] = queue;
                     return;
                 }
-            })
+            });
 
             return queues;
         },
