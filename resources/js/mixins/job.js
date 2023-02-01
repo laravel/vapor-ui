@@ -18,7 +18,7 @@ export default {
                     let q = Object.keys(queue)[0] || null;
 
                     if (q) {
-                        queues[queue] = q;
+                        queues[q] = q;
                         return;
                     }
                 }
