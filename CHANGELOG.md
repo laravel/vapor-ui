@@ -1,6 +1,17 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.7.0...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.7.1...master)
+
+## [v1.7.1](https://github.com/laravel/vapor-ui/compare/v1.7.0...v1.7.1) - 2023-02-01
+
+### Changed
+
+- Add laravel-assets for publishing by @driesvints in https://github.com/laravel/vapor-ui/pull/83
+
+### Fixed
+
+- Fix queue name is displayed as array #84 by @mo7zayed in https://github.com/laravel/vapor-ui/pull/85
+- Fix the queues key to be string not object by @mo7zayed in https://github.com/laravel/vapor-ui/pull/86
 
 ## [v1.7.0](https://github.com/laravel/vapor-ui/compare/v1.6.0...v1.7.0) - 2023-01-10
 
