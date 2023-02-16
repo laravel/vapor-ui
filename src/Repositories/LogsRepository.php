@@ -24,6 +24,7 @@ class LogsRepository
      */
     protected $ignore = [
         'Creating storage directory',
+        'INIT_START Runtime Version',
         'START RequestId',
         'REPORT RequestId',
         'END RequestId',
