@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.7.1...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.7.2...master)
+
+## [v1.7.2](https://github.com/laravel/vapor-ui/compare/v1.7.1...v1.7.2) - 2023-02-16
+
+- Removes `INIT_START` message by @nunomaduro in https://github.com/laravel/vapor-ui/pull/87
 
 ## [v1.7.1](https://github.com/laravel/vapor-ui/compare/v1.7.0...v1.7.1) - 2023-02-01
 
