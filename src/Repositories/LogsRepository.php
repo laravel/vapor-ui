@@ -43,6 +43,8 @@ class LogsRepository
         'Injecting secret',
         'Killing container. Container has processed',
         'Downloading the application vendor archive',
+        'Loading decrypted environment variables.',
+        'Decrypting environment variables.',
     ];
 
     /**
