@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.7.3...master)
+## [Unreleased](https://github.com/laravel/vapor-ui/compare/v1.7.4...master)
+
+## [v1.7.4](https://github.com/laravel/vapor-ui/compare/v1.7.3...v1.7.4) - 2023-04-07
+
+- Removes environment file decryption messages by @jasonfah in https://github.com/laravel/vapor-ui/pull/91
 
 ## [v1.7.3](https://github.com/laravel/vapor-ui/compare/v1.7.2...v1.7.3) - 2023-03-23
 
