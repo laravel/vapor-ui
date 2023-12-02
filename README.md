@@ -1,3 +1,5 @@
+> This package is deprecated and will not receive Laravel `^11.0` support, as its functionality is largely covered by Vapor's Dashboard.
+
 # Laravel Vapor UI
 
 <a href="https://github.com/laravel/vapor-ui/actions">
