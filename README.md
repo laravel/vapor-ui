@@ -1,4 +1,4 @@
-> This package is deprecated and will not receive Laravel `^11.0` support, as its functionality is largely covered by Vapor's Dashboard.
+> This package is deprecated and will not receive Laravel `^11.0` support, as its functionality is largely replaced by Vapor's own dashboard.
 
 # Laravel Vapor UI
 
