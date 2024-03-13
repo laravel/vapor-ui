@@ -65,9 +65,4 @@ jobs:
            composer update --prefer-dist --no-interaction --no-progress
 
       - name: Execute unit tests
-        run: vendor/bin/pest --colors=always --verbose --group="unit"
-        if: ${{ matrix.laravel < 11 }}
-
-      - name: Execute unit tests
-        run: vendor/bin/pest --colors=always --display-errors --group="unit"
-        if: ${{ matrix.laravel >= 11 }}
+        run: vendor/bin/pest --colors=always --group="unit"
