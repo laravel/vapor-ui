@@ -31,14 +31,10 @@ jobs:
             laravel: 10
           - php: 8.2
             laravel: 8
-          - php: 8.2
-            laravel: 11
           - php: 8.3
             laravel: 8
           - php: 8.3
             laravel: 9
-          - php: 8.3
-            laravel: 11
 
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
 
