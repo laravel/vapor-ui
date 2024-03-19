@@ -4,7 +4,9 @@ namespace Laravel\VaporUi\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Attribute\AsCommand;
 
+#[AsCommand(name: 'vapor-ui:install')]
 class InstallCommand extends Command
 {
     /**
