@@ -21,6 +21,7 @@
         "php": "^7.3|^8.0",
         "aws/aws-sdk-php": "^3.148.3",
         "laravel/framework": "^8.0|^9.0|^10.0",
+        "symfony/console": "^5.3|^6.0",
         "symfony/yaml": "^5.1.4|^6.0"
     },
     "require-dev": {
