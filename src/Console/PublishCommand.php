@@ -3,7 +3,9 @@
 namespace Laravel\VaporUi\Console;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Attribute\AsCommand;
 
+#[AsCommand(name: 'vapor-ui:publish')]
 class PublishCommand extends Command
 {
     /**
